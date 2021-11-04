@@ -20,7 +20,7 @@ CREATE TABLE rooms (id INT PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
                     room_number INT UNIQUE,
                     capacity INT NOT NULL,
                     beds_types VARCHAR(8), -- S - single, D - double
-                    class INT NOT NULL); -- standard(1), deluxe(2), suite(3),
+                    class INT NOT NULL); -- standard(1), deluxe(2), suite(3)
 
 CREATE TABLE rooms_images (room_id INT REFERENCES rooms(id) ON DELETE CASCADE,
                     img_path VARCHAR(10),
@@ -38,18 +38,27 @@ CREATE TABLE requests (id INT PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
                     date_from DATE NOT NULL,
                     date_to DATE NOT NULL,
                     guests_amount INT NOT NULL,
-                    status INT NOT NULL, -- waiting for: manager answer(1), accept(2), payment(3).
+                    status INT NOT NULL, -- waiting for: manager response(1), customer accept(2), payment(3)
                     price FLOAT);
 
-CREATE TABLE user_requests(client_id INT REFERENCES users(id) ON DELETE CASCADE,
+CREATE TABLE users_requests(user_id INT REFERENCES users(id) ON DELETE CASCADE,
                     request_id INT REFERENCES requests(id) ON DELETE CASCADE,
-                    UNIQUE (client_id, request_id));
+                    UNIQUE (user_id, request_id));
 
 --------
 -- Inserting default values
 --------
 
--- INSERT INTO users
--- (login, password, phone_number, email, role)
--- VALUES
--- ('admin', 'pass', '+380501111111', 'hotel_admin@gmail.com', 3);
+INSERT INTO users  -- temporary values for dev process --
+    (login,     password,  phone_number,    email,                     role)
+VALUES
+    ('admin',   'admin',   '+111111111111', 'hotel_admin@gmail.com',   3),
+    ('manager', 'manager', '+222222222222', 'hotel_manager@gmail.com', 2),
+    ('user',    'user',    '+333333333333', 'hotel_user@gmail.com',    1);
+
+INSERT INTO rooms  -- temporary values for dev process --
+    (room_number, capacity, beds_types, class)
+VALUES
+    (1,           1,        '1S',       1),
+    (2,           2,        '1D',       2),
+    (3,           3,        '1D, 1S',   3);
