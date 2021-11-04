@@ -3,7 +3,7 @@ plugins {
     id 'java'
 }
 
-group 'com.epam.java.final'
+group 'com.epam.courses.java.final_project'
 version '1.0-SNAPSHOT'
 
 repositories {
