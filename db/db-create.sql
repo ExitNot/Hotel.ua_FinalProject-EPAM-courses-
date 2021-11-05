@@ -18,6 +18,7 @@ CREATE TABLE users (id INT PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
 
 CREATE TABLE rooms (id INT PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
                     room_number INT UNIQUE,
+                    floor INT NOT NULL,
                     capacity INT NOT NULL,
                     beds_types VARCHAR(8), -- S - single, D - double
                     class INT NOT NULL); -- standard(1), deluxe(2), suite(3)
@@ -34,6 +35,7 @@ CREATE TABLE reservations (id INT PRIMARY KEY GENERATED ALWAYS AS IDENTITY, -- a
                     guests_amount INT);
 
 CREATE TABLE requests (id INT PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
+                    user_id INT REFERENCES users(id) ON DELETE CASCADE,
                     room_id INT REFERENCES rooms(id) NULL,
                     date_from DATE NOT NULL,
                     date_to DATE NOT NULL,
@@ -57,8 +59,8 @@ VALUES
     ('user',    'user',    '+333333333333', 'hotel_user@gmail.com',    1);
 
 INSERT INTO rooms  -- temporary values for dev process --
-    (room_number, capacity, beds_types, class)
+    (room_number, floor, capacity, beds_types, class)
 VALUES
-    (1,           1,        '1S',       1),
-    (2,           2,        '1D',       2),
-    (3,           3,        '1D, 1S',   3);
+    (1,           1,     1,        '1S',       1),
+    (2,           1,     2,        '1D',       2),
+    (3,           1,     3,        '1D, 1S',   3);

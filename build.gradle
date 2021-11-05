@@ -8,10 +8,10 @@ version '1.0-SNAPSHOT'
 
 repositories {
     mavenCentral()
-    mavenCentral()
 }
 
 dependencies {
+    implementation 'org.apache.logging.log4j:log4j:2.14.1'
     testImplementation 'junit:junit:4.13'
     testImplementation 'org.junit.jupiter:junit-jupiter-api:5.7.0'
     testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.7.0'

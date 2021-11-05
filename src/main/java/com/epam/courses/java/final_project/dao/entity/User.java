@@ -16,7 +16,7 @@ package com.epam.courses.java.final_project.dao.entity;
  * */
 public class User {
     
-    int id;  // value ether equal to corresponding db value, or 0
+    long id;  // value ether equal to corresponding db value, or 0
     String login;
     String password;
     String phoneNumber;
@@ -27,7 +27,7 @@ public class User {
         role = Role.Customer;
     }
 
-    public User(int id, String login, String password, String phoneNumber, String email, Role role) {
+    public User(long id, String login, String password, String phoneNumber, String email, Role role) {
         this.id = id;
         this.login = login;
         this.password = password;
@@ -36,11 +36,11 @@ public class User {
         this.role = role;
     }
 
-    public int getId() {
+    public long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(long id) {
         this.id = id;
     }
 
@@ -84,7 +84,7 @@ public class User {
         this.role = Role.getRole(value);
     }
 
-    enum Role{
+    public enum Role{
         Customer(1), Manager(2), Admin(3);
 
         int dbValue;

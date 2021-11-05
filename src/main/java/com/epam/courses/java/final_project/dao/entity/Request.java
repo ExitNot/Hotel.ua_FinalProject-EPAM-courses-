@@ -1,5 +1,7 @@
 package com.epam.courses.java.final_project.dao.entity;
 
+import java.sql.Date;
+
 /**
  * The {@code Request} class represent corresponding entity from database.
  *
@@ -12,7 +14,7 @@ public class Request extends Reservation{
 
     public Request() {}
 
-    public Request(int id, int roomId, String from, String to, int guests_amount, Status status, double price) {
+    public Request(int id, int roomId, Date from, Date to, int guests_amount, Status status, double price) {
         super(id, roomId, from, to, guests_amount);
         this.status = status;
         this.price = price;
@@ -34,7 +36,7 @@ public class Request extends Reservation{
         this.price = price;
     }
 
-    enum Status{
+    public enum Status{
         ManagerResponse(1), CustomerAccept(2), Payment(3);  // waiting for
 
         int value;

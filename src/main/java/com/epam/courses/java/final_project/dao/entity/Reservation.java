@@ -1,5 +1,7 @@
 package com.epam.courses.java.final_project.dao.entity;
 
+import java.sql.Date;
+
 /**
  * The {@code Request} class represent corresponding entity from database.
  *
@@ -7,15 +9,15 @@ package com.epam.courses.java.final_project.dao.entity;
  * */
 public class Reservation {
 
-    int id;
+    long id;
     int roomId;
-    String from;
-    String to;
+    Date from;
+    Date to;
     int guests_amount;
 
     public Reservation() {}
 
-    public Reservation(int id, int roomId, String from, String to, int guests_amount) {
+    public Reservation(long id, int roomId, Date from, Date to, int guests_amount) {
         this.id = id;
         this.roomId = roomId;
         this.from = from;
@@ -23,11 +25,11 @@ public class Reservation {
         this.guests_amount = guests_amount;
     }
 
-    public int getId() {
+    public long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(long id) {
         this.id = id;
     }
 
@@ -39,19 +41,19 @@ public class Reservation {
         this.roomId = roomId;
     }
 
-    public String getFrom() {
+    public Date getFrom() {
         return from;
     }
 
-    public void setFrom(String from) {
+    public void setFrom(Date from) {
         this.from = from;
     }
 
-    public String getTo() {
+    public Date getTo() {
         return to;
     }
 
-    public void setTo(String to) {
+    public void setTo(Date to) {
         this.to = to;
     }
 

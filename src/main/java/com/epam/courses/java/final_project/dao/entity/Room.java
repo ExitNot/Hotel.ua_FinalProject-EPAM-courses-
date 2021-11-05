@@ -4,12 +4,20 @@ import java.util.List;
 
 /**
  * The {@code Room} class represent corresponding entity from database.
+ * Room entity must have room class, which represent level of comfortable of this room.
+ * <p>
+ *     ~ {@code Standard} represent the most basic type of room offered by the hotel
+ * <p>
+ *     ~ {@code Deluxe} A step above standard, moderate and superior rooms,
+ *     deluxe accommodations combine a desirable view with a number of luxurious amenities
+ * <p>
+ *     ~ {@code Suite} offers a separate sleeping and working area
  *
  * @author Kostiantyn Kolchenko
  * */
 public class Room {
 
-    int id;
+    long id;
     int roomNumber;
     int capacity;
     String bedType;  // S - single, D - double. String in form ("1D, 2S") etc...
@@ -18,7 +26,7 @@ public class Room {
 
     public Room() {}
 
-    public Room(int id, int roomNumber, int capacity, String bedType, RoomClass roomClass) {
+    public Room(long id, int roomNumber, int capacity, String bedType, RoomClass roomClass) {
         this.id = id;
         this.roomNumber = roomNumber;
         this.capacity = capacity;
@@ -26,11 +34,11 @@ public class Room {
         this.roomClass = roomClass;
     }
 
-    public int getId() {
+    public long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(long id) {
         this.id = id;
     }
 
@@ -75,7 +83,7 @@ public class Room {
         imgPaths.add(path);
     }
 
-    enum RoomClass{
+    public enum RoomClass{
         Standard(1), Deluxe(2), Suite(3);
 
         int value;
