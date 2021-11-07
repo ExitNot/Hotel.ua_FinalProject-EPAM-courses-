@@ -14,8 +14,8 @@ public class Request extends Reservation{
 
     public Request() {}
 
-    public Request(int id, int roomId, Date from, Date to, int guests_amount, Status status, double price) {
-        super(id, roomId, from, to, guests_amount);
+    public Request(long id, long userId, long roomId, Date from, Date to, int guests_amount, Status status, double price) {
+        super(id, userId, roomId, from, to, guests_amount);
         this.status = status;
         this.price = price;
     }

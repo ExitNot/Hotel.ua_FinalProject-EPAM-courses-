@@ -10,15 +10,17 @@ import java.sql.Date;
 public class Reservation {
 
     long id;
-    int roomId;
+    long userId;
+    long roomId;
     Date from;
     Date to;
     int guests_amount;
 
     public Reservation() {}
 
-    public Reservation(long id, int roomId, Date from, Date to, int guests_amount) {
+    public Reservation(long id, long userId, long roomId, Date from, Date to, int guests_amount) {
         this.id = id;
+        this.userId = userId;
         this.roomId = roomId;
         this.from = from;
         this.to = to;
@@ -33,11 +35,19 @@ public class Reservation {
         this.id = id;
     }
 
-    public int getRoomId() {
+    public long getUserId() {
+        return userId;
+    }
+
+    public void setUserId(long userId) {
+        this.userId = userId;
+    }
+
+    public long getRoomId() {
         return roomId;
     }
 
-    public void setRoomId(int roomId) {
+    public void setRoomId(long roomId) {
         this.roomId = roomId;
     }
 

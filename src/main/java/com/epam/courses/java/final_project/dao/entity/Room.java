@@ -19,6 +19,7 @@ public class Room {
 
     long id;
     int roomNumber;
+    int floor;
     int capacity;
     String bedType;  // S - single, D - double. String in form ("1D, 2S") etc...
     RoomClass roomClass;
@@ -26,9 +27,10 @@ public class Room {
 
     public Room() {}
 
-    public Room(long id, int roomNumber, int capacity, String bedType, RoomClass roomClass) {
+    public Room(long id, int roomNumber, int floor, int capacity, String bedType, RoomClass roomClass) {
         this.id = id;
         this.roomNumber = roomNumber;
+        this.floor = floor;
         this.capacity = capacity;
         this.bedType = bedType;
         this.roomClass = roomClass;
@@ -48,6 +50,14 @@ public class Room {
 
     public void setRoomNumber(int roomNumber) {
         this.roomNumber = roomNumber;
+    }
+
+    public int getFloor() {
+        return floor;
+    }
+
+    public void setFloor(int floor) {
+        this.floor = floor;
     }
 
     public int getCapacity() {
@@ -90,6 +100,10 @@ public class Room {
 
         RoomClass(int num) {
             value = num;
+        }
+
+        public int getValue() {
+            return value;
         }
 
         public static RoomClass getRoomClass(int num){

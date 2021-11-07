@@ -36,6 +36,15 @@ public class User {
         this.role = role;
     }
 
+    public User(long id, String login, String password, String phoneNumber, String email) {
+        this.id = id;
+        this.login = login;
+        this.password = password;
+        this.phoneNumber = phoneNumber;
+        this.email = email;
+        role = Role.Customer;
+    }
+
     public long getId() {
         return id;
     }

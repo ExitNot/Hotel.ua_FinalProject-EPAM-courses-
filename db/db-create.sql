@@ -51,16 +51,16 @@ CREATE TABLE users_requests(user_id INT REFERENCES users(id) ON DELETE CASCADE,
 -- Inserting default values
 --------
 
-INSERT INTO users  -- temporary values for dev process --
-    (login,     password,  phone_number,    email,                     role)
-VALUES
-    ('admin',   'admin',   '+111111111111', 'hotel_admin@gmail.com',   3),
-    ('manager', 'manager', '+222222222222', 'hotel_manager@gmail.com', 2),
-    ('user',    'user',    '+333333333333', 'hotel_user@gmail.com',    1);
-
-INSERT INTO rooms  -- temporary values for dev process --
-    (room_number, floor, capacity, beds_types, class)
-VALUES
-    (1,           1,     1,        '1S',       1),
-    (2,           1,     2,        '1D',       2),
-    (3,           1,     3,        '1D, 1S',   3);
+-- INSERT INTO users  -- temporary values for dev process --
+--     (login,     password,  phone_number,    email,                     role)
+-- VALUES
+--     ('admin',   'admin',   '+111111111111', 'hotel_admin@gmail.com',   3),
+--     ('manager', 'manager', '+222222222222', 'hotel_manager@gmail.com', 2),
+--     ('user',    'user',    '+333333333333', 'hotel_user@gmail.com',    1);
+--
+-- INSERT INTO rooms  -- temporary values for dev process --
+--     (room_number, floor, capacity, beds_types, class)
+-- VALUES
+--     (1,           1,     1,        '1S',       1),
+--     (2,           1,     2,        '1D',       2),
+--     (3,           1,     3,        '1D, 1S',   3);

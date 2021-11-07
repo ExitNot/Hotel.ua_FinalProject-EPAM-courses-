@@ -1,5 +1,7 @@
 package com.epam.courses.java.final_project.dao;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.List;
 import java.util.Optional;
 
@@ -10,13 +12,15 @@ import java.util.Optional;
  * */
 public interface AbstractDao<T> {
 
-    void save(T obj);
+    void create(T obj);
 
     Optional<T> getById(long id);
 
     List<T> getAll();
 
-    void update(T obj, String[] params);
+    void update(T obj);
 
-    void delete(T obj);
+    void delete(long id);
+
+    T createEntity(ResultSet rs) throws SQLException;
 }
