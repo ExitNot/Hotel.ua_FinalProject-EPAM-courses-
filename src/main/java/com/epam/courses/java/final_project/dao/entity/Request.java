@@ -54,4 +54,17 @@ public class Request extends Reservation{
         }
     }
 
+    @Override
+    public String toString() {
+        return "Request{" +
+                "status=" + status +
+                ", price=" + price +
+                ", id=" + id +
+                ", userId=" + userId +
+                ", roomId=" + roomId +
+                ", from=" + from +
+                ", to=" + to +
+                ", guests_amount=" + guests_amount +
+                '}';
+    }
 }

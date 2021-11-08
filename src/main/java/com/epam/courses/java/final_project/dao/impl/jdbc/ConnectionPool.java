@@ -9,8 +9,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
 import java.util.Queue;
-import java.util.concurrent.ConcurrentLinkedQueue;
-//import org.apache.logging.log4j.LogManager;
+import java.util.concurrent.LinkedBlockingQueue;
+
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 public class ConnectionPool {
 
@@ -21,7 +23,7 @@ public class ConnectionPool {
     private List<Connection> usedConnectionPool;
     private int poolSize;
     private static final ConnectionPool INSTANCE = new ConnectionPool();
-//    private Logger logger = LogManager.getLogManager();  todo Logger
+    private final Logger logger = LogManager.getLogger("ConnectionPool");
 
     private ConnectionPool() {
         Properties prop = new Properties();
@@ -32,15 +34,15 @@ public class ConnectionPool {
             user = prop.getProperty("db.user");
             password = prop.getProperty("db.password");
             poolSize = Integer.parseInt(prop.getProperty("connection.pool.size"));
-            connectionPool = new ConcurrentLinkedQueue<>();  // todo can be better
+            System.out.println("Logger have to be here");
+            logger.info("Connection pool size have been set to " + poolSize);  // RM ------------
+            connectionPool = new LinkedBlockingQueue<>();
             usedConnectionPool = new ArrayList<>();
             for (int i = 0; i < poolSize; i++) {
                 connectionPool.add(DriverManager.getConnection(url, user, password));
             }
-        } catch (IOException e) {
-            System.err.println(e.getMessage()); // todo logg amd throw my exceptions
-        } catch (SQLException e) {
-            System.err.println(e.getMessage());
+        } catch (SQLException | IOException e) {
+            logger.error("Error during initialization of connection pool", e);
         }
     }
 
@@ -55,8 +57,7 @@ public class ConnectionPool {
     }
 
     public void releaseConnection(Connection connection) throws SQLException {
-        // todo re-open connection
-        connectionPool.add(connection);
+        connectionPool.add(DriverManager.getConnection(url, user, password));
         usedConnectionPool.remove(connection);
         connection.close();
     }

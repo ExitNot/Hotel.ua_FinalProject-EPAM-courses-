@@ -2,6 +2,7 @@ package com.epam.courses.java.final_project.dao.impl;
 
 import com.epam.courses.java.final_project.dao.UserDao;
 import com.epam.courses.java.final_project.dao.entity.User;
+import com.epam.courses.java.final_project.dao.impl.jdbc.JDBCException;
 import com.epam.courses.java.final_project.dao.impl.jdbc.JDBCManager;
 import static com.epam.courses.java.final_project.util.Constant.*;
 
@@ -26,8 +27,7 @@ public class UserDaoImpl implements UserDao {
     }
 
     @Override
-    public void create(User obj) {
-        System.out.println("create UDAOImpl");
+    public void create(User obj) throws JDBCException {
         int id = JDBCManager.updateRequest(SQL_USER_INSERT, obj.getLogin(), obj.getPassword(),
                 obj.getPhoneNumber(), obj.getEmail(),
                 String.valueOf(obj.getRole().getValue()));
@@ -60,14 +60,14 @@ public class UserDaoImpl implements UserDao {
     }
 
     @Override
-    public void update(User obj) {
+    public void update(User obj) throws JDBCException {
         JDBCManager.updateRequest(SQL_USER_UPDATE, obj.getLogin(),
                 obj.getPassword(), obj.getPhoneNumber(), obj.getEmail(),
                 String.valueOf(obj.getRole().getValue()), String.valueOf(obj.getId()));
     }
 
     @Override
-    public void delete(long id) {
+    public void delete(long id) throws JDBCException {
         JDBCManager.updateRequest(SQL_DELETE, TABLE_USER, String.valueOf(id));
     }
 }

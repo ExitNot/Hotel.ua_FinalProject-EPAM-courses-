@@ -14,9 +14,9 @@ import java.util.List;
  * */
 public interface ReservationDao extends AbstractDao<Reservation>{
 
-    List<Reservation> getUserReservations(User user);
+    List<Reservation> getUserReservations(long userId);
 
-    List<Reservation> getRoomReservations(Room room);
+    List<Reservation> getRoomReservations(long roomId);
 
     List<Reservation> getOccupiedRoomsReservations(Date from, Date to);
 }

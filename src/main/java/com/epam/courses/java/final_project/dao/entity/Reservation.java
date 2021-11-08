@@ -74,4 +74,16 @@ public class Reservation {
     public void setGuests_amount(int guests_amount) {
         this.guests_amount = guests_amount;
     }
+
+    @Override
+    public String toString() {
+        return "Reservation{" +
+                "id=" + id +
+                ", userId=" + userId +
+                ", roomId=" + roomId +
+                ", from=" + from +
+                ", to=" + to +
+                ", guests_amount=" + guests_amount +
+                '}';
+    }
 }
