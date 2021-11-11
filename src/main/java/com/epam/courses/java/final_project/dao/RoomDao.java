@@ -1,6 +1,7 @@
 package com.epam.courses.java.final_project.dao;
 
-import com.epam.courses.java.final_project.dao.entity.Room;
+import com.epam.courses.java.final_project.model.Room;
+import com.epam.courses.java.final_project.dao.impl.jdbc.JDBCException;
 
 import java.util.List;
 import java.util.Optional;
@@ -12,13 +13,13 @@ import java.util.Optional;
  * */
 public interface RoomDao extends AbstractDao<Room> {
 
-    Optional<Room> getByRoomNum(int roomNum);
+    Optional<Room> getByRoomNum(int roomNum) throws JDBCException;
 
-    List<Room> getRoomsByFloor(int floor);
+    List<Room> getRoomsByFloor(int floor) throws JDBCException;
 
-    List<Room> getRoomsByCapacity(int capacity);
+    List<Room> getRoomsByCapacity(int capacity) throws JDBCException;
 
-    List<Room> getRoomsByBedsTypes(String bedsTypes);
+    List<Room> getRoomsByBedsTypes(String bedsTypes) throws JDBCException;
 
-    List<Room> getRoomsByClass(Room.RoomClass roomClass);  // may be with String param
+    List<Room> getRoomsByClass(Room.RoomClass roomClass) throws JDBCException;  // may be with String param
 }

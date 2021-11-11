@@ -1,9 +1,7 @@
 package com.epam.courses.java.final_project.dao.impl;
 
 import com.epam.courses.java.final_project.dao.ReservationDao;
-import com.epam.courses.java.final_project.dao.entity.Reservation;
-import com.epam.courses.java.final_project.dao.entity.Room;
-import com.epam.courses.java.final_project.dao.entity.User;
+import com.epam.courses.java.final_project.model.Reservation;
 import com.epam.courses.java.final_project.dao.impl.jdbc.JDBCException;
 import com.epam.courses.java.final_project.dao.impl.jdbc.JDBCManager;
 
@@ -17,10 +15,6 @@ import java.util.Optional;
 
 public class ReservationDaoImpl implements ReservationDao {
 
-    private final String SQL_RESERVATION_INSERT = "INSERT INTO reservations (user_id, room_id, date_from, date_to, guests_amount) VALUES (?, ?, ?, ?, ?);";
-    private final String SQL_OCCUPIED_ROOMS = "SELECT * FROM reservations WHERE (date_from >= ? AND date_from <= ?) OR (date_to <= ? AND date_to >= ?) OR (date_from < ? AND date_to > ?);";
-    private final String SQL_RESERVATION_UPDATE = "UPDATE reservations SET user_id = ?, room_id = ?, date_from = ?, date_to = ?, guests_amount = ? WHERE id = ?";
-
     @Override
     public Reservation createEntity(ResultSet rs) throws SQLException {
         return new Reservation(rs.getLong(PARAM_ID),
@@ -33,50 +27,50 @@ public class ReservationDaoImpl implements ReservationDao {
 
     @Override
     public void create(Reservation obj) throws JDBCException {
-        int id = JDBCManager.updateRequest(SQL_RESERVATION_INSERT,
+        int id = JDBCManager.updateRequest(SQL.RESERVATION_INSERT,
                 String.valueOf(obj.getId()), String.valueOf(obj.getUserId()), String.valueOf(obj.getRoomId()),
                 obj.getFrom().toString(), obj.getTo().toString(), String.valueOf(obj.getGuests_amount()));
         obj.setId(id);
     }
 
     @Override
-    public Optional<Reservation> getById(long id) {
-        return Optional.ofNullable(JDBCManager.selectOneRequest(this, SQL_SELECT_BY,
+    public Optional<Reservation> getById(long id) throws JDBCException {
+        return Optional.ofNullable(JDBCManager.selectOneRequest(this, SQL.SELECT_BY,
                 TABLE_RESERVATION, PARAM_ID, String.valueOf(id)));
     }
 
     @Override
-    public List<Reservation> getAll() {
-        return JDBCManager.selectRequest(this, SQL_SELECT_ALL, TABLE_RESERVATION);
+    public List<Reservation> getAll() throws JDBCException {
+        return JDBCManager.selectRequest(this, SQL.SELECT_ALL, TABLE_RESERVATION);
     }
 
     @Override
-    public List<Reservation> getUserReservations(long userId) {
-        return JDBCManager.selectRequest(this, SQL_SELECT_BY,
+    public List<Reservation> getUserReservations(long userId) throws JDBCException {
+        return JDBCManager.selectRequest(this, SQL.SELECT_BY,
                 TABLE_RESERVATION, PARAM_USER_ID, String.valueOf(userId));
     }
 
     @Override
-    public List<Reservation> getRoomReservations(long roomId) {
-        return JDBCManager.selectRequest(this, SQL_SELECT_BY,
+    public List<Reservation> getRoomReservations(long roomId) throws JDBCException {
+        return JDBCManager.selectRequest(this, SQL.SELECT_BY,
                 TABLE_RESERVATION, PARAM_ROOM_ID, String.valueOf(roomId));
     }
 
     @Override
-    public List<Reservation> getOccupiedRoomsReservations(Date from, Date to) {
-        return JDBCManager.selectRequest(this, SQL_OCCUPIED_ROOMS,
+    public List<Reservation> getOccupiedRoomsReservations(Date from, Date to) throws JDBCException {
+        return JDBCManager.selectRequest(this, SQL.OCCUPIED_ROOMS,
                 from.toString(), to.toString(), to.toString(), from.toString(), from.toString(), to.toString());
     }
 
     @Override
     public void update(Reservation obj) throws JDBCException {
-        JDBCManager.updateRequest(SQL_RESERVATION_UPDATE,
+        JDBCManager.updateRequest(SQL.RESERVATION_UPDATE,
                 String.valueOf(obj.getUserId()), String.valueOf(obj.getRoomId()), obj.getFrom().toString(),
                 obj.getTo().toString(), String.valueOf(obj.getGuests_amount()), String.valueOf(obj.getId()));
     }
 
     @Override
     public void delete(long id) throws JDBCException {
-        JDBCManager.updateRequest(SQL_DELETE, TABLE_RESERVATION, String.valueOf(id));
+        JDBCManager.updateRequest(SQL.DELETE, TABLE_RESERVATION, String.valueOf(id));
     }
 }

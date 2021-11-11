@@ -1,4 +1,4 @@
-package com.epam.courses.java.final_project.dao.entity;
+package com.epam.courses.java.final_project.model;
 
 import java.util.List;
 

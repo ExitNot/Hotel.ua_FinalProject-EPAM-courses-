@@ -1,6 +1,7 @@
 package com.epam.courses.java.final_project.dao;
 
-import com.epam.courses.java.final_project.dao.entity.User;
+import com.epam.courses.java.final_project.model.User;
+import com.epam.courses.java.final_project.dao.impl.jdbc.JDBCException;
 
 import java.util.List;
 import java.util.Optional;
@@ -12,9 +13,9 @@ import java.util.Optional;
  * */
 public interface UserDao extends AbstractDao<User>{
 
-    Optional<User> getByLogin(String login);
+    Optional<User> getByLogin(String login) throws JDBCException;
 
-    Optional<User> getByEmail(String email);
+    Optional<User> getByEmail(String email) throws JDBCException;
 
-    List<User> getUsersByRole(User.Role role);
+    List<User> getUsersByRole(User.Role role) throws JDBCException;
 }

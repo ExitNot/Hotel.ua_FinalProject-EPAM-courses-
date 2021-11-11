@@ -1,8 +1,7 @@
 package com.epam.courses.java.final_project.dao;
 
-import com.epam.courses.java.final_project.dao.entity.Reservation;
-import com.epam.courses.java.final_project.dao.entity.Room;
-import com.epam.courses.java.final_project.dao.entity.User;
+import com.epam.courses.java.final_project.model.Reservation;
+import com.epam.courses.java.final_project.dao.impl.jdbc.JDBCException;
 
 import java.sql.Date;
 import java.util.List;
@@ -14,9 +13,9 @@ import java.util.List;
  * */
 public interface ReservationDao extends AbstractDao<Reservation>{
 
-    List<Reservation> getUserReservations(long userId);
+    List<Reservation> getUserReservations(long userId) throws JDBCException;
 
-    List<Reservation> getRoomReservations(long roomId);
+    List<Reservation> getRoomReservations(long roomId) throws JDBCException;
 
-    List<Reservation> getOccupiedRoomsReservations(Date from, Date to);
+    List<Reservation> getOccupiedRoomsReservations(Date from, Date to) throws JDBCException;
 }

@@ -3,9 +3,7 @@ package com.epam.courses.java.final_project.util;
 public class Constant {
 
 //    SQL
-    public static final String SQL_DELETE = "DELETE FROM ? WHERE id = ?;";
-    public static final String SQL_SELECT_BY = "SELECT * FROM ? WHERE ? = ?;";
-    public static final String SQL_SELECT_ALL = "SELECT * FROM ?;";
+    public static SQLConstant SQL;
 
 //    DB columns and tables (parameters)
     public static final String TABLE_USER = "users";
@@ -28,4 +26,11 @@ public class Constant {
     public static final String PARAM_DATE_FROM = "date_from";  // Reservation
     public static final String PARAM_DATE_TO = "date_to";
     public static final String PARAM_GUESTS_AMOUNT = "guests_amount";
+
+//    Loggers
+    public static final String LOG_TRACE = "trace";
+    public static final String LOG_ERROR = "error";
+
+//    Commands
+//    public static final CommandName COMMAND = new CommandName();
 }

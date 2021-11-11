@@ -1,7 +1,7 @@
 package com.epam.courses.java.final_project.dao;
 
-import com.epam.courses.java.final_project.dao.entity.Request;
-import com.epam.courses.java.final_project.dao.entity.User;
+import com.epam.courses.java.final_project.model.Request;
+import com.epam.courses.java.final_project.model.User;
 
 import java.util.List;
 

@@ -7,10 +7,14 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
-  <head>
-    <title>$Title$</title>
-  </head>
-  <body>
-  $END$
-  </body>
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css/core.css" type="text/css">
+<head>
+    <title>Hotel</title>
+</head>
+<body>
+    <h1>Home Page</h1>
+    <a href="login.jsp" class="button">Sign in</a>
+    <a href="login.jsp" class="button">Sign up</a>
+
+</body>
 </html>

@@ -1,6 +1,7 @@
 package com.epam.courses.java.final_project.dao.impl.jdbc;
 
 import com.epam.courses.java.final_project.dao.AbstractDao;
+import static com.epam.courses.java.final_project.util.Constant.*;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -11,34 +12,42 @@ import java.util.List;
 public class JDBCManager {
 
     private static Connection conn;
-    private static final Logger logger = LogManager.getLogger();
+    private static final Logger logger = LogManager.getLogger(LOG_TRACE);
 
-    public static <T> T selectOneRequest(AbstractDao<T> dao, String sql, String... params){
-        try (PreparedStatement ps = createStatement(sql, params)) {
-            ResultSet rs = ps.executeQuery();
+    public static <T> T selectOneRequest(AbstractDao<T> dao, String sql, String... params) throws JDBCException {
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        T out = null;
+        try {
+            ps = createStatement(sql, params);
+            rs = ps.executeQuery();
             if (rs.next())
-                return dao.createEntity(rs);
+                out = dao.createEntity(rs);
             else
-                return null;
+                throw new JDBCException("ResultSet is empty");
         } catch (SQLException e) {
-//            todo throw my exception
-            System.err.println(e.getMessage());
-            return null;
+            throw new JDBCException("Failed sql request", e);
+        } finally {
+            close(ps, rs);
         }
+        return out;
     }
 
-    public static <T> List<T> selectRequest(AbstractDao<T> dao, String sql, String... params){
+    public static <T> List<T> selectRequest(AbstractDao<T> dao, String sql, String... params) throws JDBCException {
+        PreparedStatement ps = null;
+        ResultSet rs = null;
         List<T> list = new ArrayList<>();
-        try (PreparedStatement ps = createStatement(sql, params)) {
-            ResultSet rs = ps.executeQuery();
+        try {
+            ps = createStatement(sql, params);
+            rs = ps.executeQuery();
             while (rs.next())
                 list.add(dao.createEntity(rs));
-            return list;
         } catch (SQLException e) {
-//            todo throw my exception
-            System.err.println(e.getMessage());
-            return null;
+            throw new JDBCException("Failed sql request", e);
+        } finally {
+            close(ps, rs);
         }
+        return list;
     }
 
     public static int updateRequest(String sql, String... params) throws JDBCException {
@@ -54,7 +63,6 @@ public class JDBCManager {
             else
                 throw new JDBCException("ResultSet is empty");
         } catch (SQLException e) {
-            logger.error("Exception during executing request", e);
             throw new JDBCException("Failed sql request", e);
         } finally {
             close(ps, rs);
@@ -63,23 +71,24 @@ public class JDBCManager {
     }
 
     private static PreparedStatement createStatement(String sql, String... params) throws SQLException {
-        ConnectionPool cp = ConnectionPool.getInstance();
+        TCConnectionPool cp = TCConnectionPool.getInstance();
         conn = cp.getConnection();
         PreparedStatement ps = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
         setStatementParams(ps, params);
         return ps;
     }
 
-    private static void close(PreparedStatement ps, ResultSet rs) {
+    private static void close(PreparedStatement ps, ResultSet rs) throws JDBCException {
         try {
             if (ps != null)
                 ps.close();
             if (rs != null)
                 rs.close();
-            ConnectionPool.getInstance().releaseConnection(conn);
+            if (conn != null)
+                conn.close();
             conn = null;
         } catch (SQLException e) {
-            logger.warn("Failed connection closing", e);
+            throw new JDBCException("Failed connection closing", e);
         }
     }
 

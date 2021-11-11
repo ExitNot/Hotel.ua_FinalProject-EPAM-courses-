@@ -1,16 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<Configuration status="WARN">
+<Configuration status="warn">
     <Appenders>
         <Console name="Console" target="SYSTEM_OUT">
             <PatternLayout pattern="%d{HH:mm:ss} %-5level [%C{1}.%M]: %msg%n"/>
         </Console>
+        <RollingFile name="logFile" fileName="src/main/webapp/WEB-INF/logs/errLog.log"
+                     filePattern="src/main/webapp/WEB-INF/logs/errLog-%d{yyyy-MM-dd.HH-mm}.log"
+                     ignoreExceptions="false">
+            <PatternLayout pattern="%d{HH:mm:ss} %-5level [%C{1}.%M]: %msg%n"/>
+            <TimeBasedTriggeringPolicy/>
+        </RollingFile>
     </Appenders>
     <Loggers>
+        <Root level="error">
+            <AppenderRef ref="logFile"/>
+        </Root>
         <Logger name="trace" level="trace">
             <AppenderRef ref="Console"/>
         </Logger>
-        <Root level="fatal">
-<!--            <AppenderRef ref="Console"/>-->
-        </Root>
+        <Logger name="error" level="error">
+            <AppenderRef ref="Console"/>
+        </Logger>
     </Loggers>
 </Configuration>

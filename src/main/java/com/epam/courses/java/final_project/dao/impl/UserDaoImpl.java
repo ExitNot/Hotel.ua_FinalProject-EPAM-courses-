@@ -1,7 +1,7 @@
 package com.epam.courses.java.final_project.dao.impl;
 
 import com.epam.courses.java.final_project.dao.UserDao;
-import com.epam.courses.java.final_project.dao.entity.User;
+import com.epam.courses.java.final_project.model.User;
 import com.epam.courses.java.final_project.dao.impl.jdbc.JDBCException;
 import com.epam.courses.java.final_project.dao.impl.jdbc.JDBCManager;
 import static com.epam.courses.java.final_project.util.Constant.*;
@@ -12,9 +12,6 @@ import java.util.List;
 import java.util.Optional;
 
 public class UserDaoImpl implements UserDao {
-
-    private final String SQL_USER_INSERT = "INSERT INTO users (login, password, phone_number, email, role) VALUES (?, ?, ?, ?, ?);";
-    private final String SQL_USER_UPDATE = "UPDATE users SET login = ?, password = ?, phone_number = ?, email = ?, role = ? WHERE id = ?";
 
     @Override
     public User createEntity(ResultSet rs) throws SQLException {
@@ -28,46 +25,46 @@ public class UserDaoImpl implements UserDao {
 
     @Override
     public void create(User obj) throws JDBCException {
-        int id = JDBCManager.updateRequest(SQL_USER_INSERT, obj.getLogin(), obj.getPassword(),
+        int id = JDBCManager.updateRequest(SQL.USER_INSERT, obj.getLogin(), obj.getPassword(),
                 obj.getPhoneNumber(), obj.getEmail(),
                 String.valueOf(obj.getRole().getValue()));
         obj.setId(id);
     }
 
     @Override
-    public Optional<User> getById(long id) {
-        return Optional.ofNullable(JDBCManager.selectOneRequest(this, SQL_SELECT_BY, TABLE_USER, PARAM_ID, String.valueOf(id)));
+    public Optional<User> getById(long id) throws JDBCException {
+        return Optional.ofNullable(JDBCManager.selectOneRequest(this, SQL.SELECT_BY, TABLE_USER, PARAM_ID, String.valueOf(id)));
     }
 
     @Override
-    public Optional<User> getByLogin(String login) {
-        return Optional.ofNullable(JDBCManager.selectOneRequest(this, SQL_SELECT_BY, TABLE_USER, PARAM_LOGIN, login));
+    public Optional<User> getByLogin(String login) throws JDBCException {
+        return Optional.ofNullable(JDBCManager.selectOneRequest(this, SQL.SELECT_BY, TABLE_USER, PARAM_LOGIN, login));
     }
 
     @Override
-    public Optional<User> getByEmail(String email) {
-        return Optional.ofNullable(JDBCManager.selectOneRequest(this, SQL_SELECT_BY, TABLE_USER, PARAM_EMAIL, email));
+    public Optional<User> getByEmail(String email) throws JDBCException {
+        return Optional.ofNullable(JDBCManager.selectOneRequest(this, SQL.SELECT_BY, TABLE_USER, PARAM_EMAIL, email));
     }
 
     @Override
-    public List<User> getAll() {
-        return JDBCManager.selectRequest(this, SQL_SELECT_ALL, TABLE_USER);
+    public List<User> getAll() throws JDBCException {
+        return JDBCManager.selectRequest(this, SQL.SELECT_ALL, TABLE_USER);
     }
 
     @Override
-    public List<User> getUsersByRole(User.Role role) {
-        return JDBCManager.selectRequest(this, SQL_SELECT_BY, TABLE_USER, PARAM_ROLE, String.valueOf(role.getValue()));
+    public List<User> getUsersByRole(User.Role role) throws JDBCException {
+        return JDBCManager.selectRequest(this, SQL.SELECT_BY, TABLE_USER, PARAM_ROLE, String.valueOf(role.getValue()));
     }
 
     @Override
     public void update(User obj) throws JDBCException {
-        JDBCManager.updateRequest(SQL_USER_UPDATE, obj.getLogin(),
+        JDBCManager.updateRequest(SQL.USER_UPDATE, obj.getLogin(),
                 obj.getPassword(), obj.getPhoneNumber(), obj.getEmail(),
                 String.valueOf(obj.getRole().getValue()), String.valueOf(obj.getId()));
     }
 
     @Override
     public void delete(long id) throws JDBCException {
-        JDBCManager.updateRequest(SQL_DELETE, TABLE_USER, String.valueOf(id));
+        JDBCManager.updateRequest(SQL.DELETE, TABLE_USER, String.valueOf(id));
     }
 }

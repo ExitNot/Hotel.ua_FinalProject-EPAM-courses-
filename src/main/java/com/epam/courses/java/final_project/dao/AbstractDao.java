@@ -16,9 +16,9 @@ public interface AbstractDao<T> {
 
     void create(T obj) throws JDBCException;
 
-    Optional<T> getById(long id);
+    Optional<T> getById(long id) throws JDBCException;
 
-    List<T> getAll();
+    List<T> getAll() throws JDBCException;
 
     void update(T obj) throws JDBCException;
 

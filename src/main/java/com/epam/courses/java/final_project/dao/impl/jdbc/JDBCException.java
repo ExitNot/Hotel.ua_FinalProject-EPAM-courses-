@@ -1,7 +1,7 @@
 package com.epam.courses.java.final_project.dao.impl.jdbc;
 
 /**
- * Exception during creating or executing sql request from JDBC Manager
+ * Exception during creating connection with DB or executing sql request in JDBC package
  *
  * @author Kostiantyn Kolchenko
  * */

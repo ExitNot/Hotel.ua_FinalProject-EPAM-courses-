@@ -11,8 +11,10 @@ repositories {
 }
 
 dependencies {
-    implementation 'org.apache.logging.log4j:log4j-core:2.14.0'  // Logger
-    runtimeOnly 'org.postgresql:postgresql:42.2.18'  // JDBC driver
+    runtimeOnly 'org.postgresql:postgresql:42.3.1'  // JDBC driver
+    implementation 'org.apache.logging.log4j:log4j-core:2.14.1'  // Logger
+    implementation 'javax.servlet:javax.servlet-api:4.0.1'  // Servlet API
+    // == Testing ==
     testImplementation 'junit:junit:4.13'
     testImplementation 'org.junit.jupiter:junit-jupiter-api:5.7.0'
     testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.7.0'
