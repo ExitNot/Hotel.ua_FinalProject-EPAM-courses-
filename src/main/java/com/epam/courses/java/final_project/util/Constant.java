@@ -32,5 +32,5 @@ public class Constant {
     public static final String LOG_ERROR = "error";
 
 //    Commands
-//    public static final CommandName COMMAND = new CommandName();
+    public static CommandConstant COMMAND;
 }

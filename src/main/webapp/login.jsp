@@ -14,8 +14,8 @@
     <h1>Login Page</h1>
     <form action="controller" method="post">
         <input type="hidden" name="command" value="login">
-        <input name="login">
-        <input type="password" name="pwd">
+        <input name="login"><br/>
+        <input type="password" name="pwd"><br/>
         <input type="submit" name="loginBtn" value="Login">
     </form>
 </body>
