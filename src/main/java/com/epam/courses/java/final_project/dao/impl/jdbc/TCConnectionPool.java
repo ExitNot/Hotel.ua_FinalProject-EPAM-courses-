@@ -14,17 +14,18 @@ import static com.epam.courses.java.final_project.util.Constant.LOG_TRACE;
 
 public class TCConnectionPool {
 
-    private final Logger LOGGER = LogManager.getLogger(LOG_TRACE);
+    private static final Logger log = LogManager.getLogger(LOG_TRACE);
     private static final TCConnectionPool INSTANCE = new TCConnectionPool();
     private DataSource ds;
 
     private TCConnectionPool() {
-        Context ctx = null;
+        InitialContext ctx = null;
         try {
             ctx = new InitialContext();
-            ds = (DataSource) ctx.lookup("java:comp/env/jdbc/PostgreSQL");
+            Context envCtx = (Context) ctx.lookup("java:comp/env/");
+            ds = (DataSource) envCtx.lookup("jdbc/postgreSQL");
         } catch (NamingException e) {
-            LOGGER.error("Context error", e);
+            log.error("Context error", e);
         }
     }
 
@@ -41,9 +42,9 @@ public class TCConnectionPool {
                 throw new JDBCException("Datasource have not been found");
             }
         } catch (SQLException e) {
-            LOGGER.error("Connection pool can not create connection", e);
+            log.error("Connection pool can not create connection", e);
         } catch (JDBCException e) {
-            LOGGER.error("Datasource have not been found");
+            log.error("Datasource have not been found");
         }
         return conn;
     }

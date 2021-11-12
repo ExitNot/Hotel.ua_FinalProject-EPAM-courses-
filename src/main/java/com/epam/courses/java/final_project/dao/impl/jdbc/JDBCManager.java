@@ -12,7 +12,7 @@ import java.util.List;
 public class JDBCManager {
 
     private static Connection conn;
-    private static final Logger logger = LogManager.getLogger(LOG_TRACE);
+    private static final Logger log = LogManager.getLogger(LOG_TRACE);
 
     public static <T> T selectOneRequest(AbstractDao<T> dao, String sql, String... params) throws JDBCException {
         PreparedStatement ps = null;
@@ -20,13 +20,12 @@ public class JDBCManager {
         T out = null;
         try {
             ps = createStatement(sql, params);
+            log.trace(ps);
             rs = ps.executeQuery();
             if (rs.next())
                 out = dao.createEntity(rs);
-            else
-                throw new JDBCException("ResultSet is empty");
         } catch (SQLException e) {
-            throw new JDBCException("Failed sql request", e);
+            throw new JDBCException("Failed selectOne sql request:\n" + e);
         } finally {
             close(ps, rs);
         }
@@ -43,7 +42,7 @@ public class JDBCManager {
             while (rs.next())
                 list.add(dao.createEntity(rs));
         } catch (SQLException e) {
-            throw new JDBCException("Failed sql request", e);
+            throw new JDBCException("Failed select sql request:\n" + e);
         } finally {
             close(ps, rs);
         }
@@ -63,7 +62,7 @@ public class JDBCManager {
             else
                 throw new JDBCException("ResultSet is empty");
         } catch (SQLException e) {
-            throw new JDBCException("Failed sql request", e);
+            throw new JDBCException("Failed update sql request:\n" + e);
         } finally {
             close(ps, rs);
         }
@@ -78,6 +77,21 @@ public class JDBCManager {
         return ps;
     }
 
+    private static void setStatementParams(PreparedStatement ps, String... params) throws SQLException {
+        for (int i = 0; i < params.length; i++){
+            if (params[i].matches("\\d{4}-\\d{2}-\\d{2}"))
+                ps.setDate(i + 1, Date.valueOf(params[i]));
+            else if (params[i].matches("\\d+"))
+                ps.setInt(i + 1, Integer.parseInt(params[i]));
+            else
+                ps.setString(i + 1, params[i]);
+        }
+    }
+
+    public static String setTableName(String sql, String tableName) {
+        return sql.replace("^", tableName);
+    }
+
     private static void close(PreparedStatement ps, ResultSet rs) throws JDBCException {
         try {
             if (ps != null)
@@ -88,18 +102,7 @@ public class JDBCManager {
                 conn.close();
             conn = null;
         } catch (SQLException e) {
-            throw new JDBCException("Failed connection closing", e);
-        }
-    }
-
-    private static void setStatementParams(PreparedStatement ps, String... params) throws SQLException {
-        for (int i = 0; i < params.length; i++){
-            if (params[i].matches("\\d{4}-\\d{2}-\\d{2}"))
-                ps.setDate(i + 1, Date.valueOf(params[i]));
-            else if (params[i].matches("\\d+"))
-                ps.setInt(i + 1, Integer.parseInt(params[i]));
-            else
-                ps.setString(i + 1, params[i]);
+            throw new JDBCException("Failed connection closing:\n" + e);
         }
     }
 

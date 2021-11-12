@@ -14,6 +14,16 @@ import java.util.Optional;
 
 public class RoomDaoImpl implements RoomDao {
 
+    private static final String SELECT_BY;
+    private static final String SELECT_ALL;
+    private static final String DELETE;
+
+    static {
+        SELECT_BY = JDBCManager.setTableName(SQL.SELECT_BY, TABLE_ROOM);
+        SELECT_ALL = JDBCManager.setTableName(SQL.SELECT_ALL, TABLE_ROOM);
+        DELETE = JDBCManager.setTableName(SQL.DELETE, TABLE_ROOM);
+    }
+
     @Override
     public Room createEntity(ResultSet rs) throws SQLException {
         return new Room(rs.getLong(PARAM_ID),

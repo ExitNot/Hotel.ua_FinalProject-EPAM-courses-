@@ -13,6 +13,16 @@ import java.util.Optional;
 
 public class UserDaoImpl implements UserDao {
 
+    private static final String SELECT_BY;
+    private static final String SELECT_ALL;
+    private static final String DELETE;
+
+    static {
+        SELECT_BY = JDBCManager.setTableName(SQL.SELECT_BY, TABLE_USER);
+        SELECT_ALL = JDBCManager.setTableName(SQL.SELECT_ALL, TABLE_USER);
+        DELETE = JDBCManager.setTableName(SQL.DELETE, TABLE_USER);
+    }
+
     @Override
     public User createEntity(ResultSet rs) throws SQLException {
         return new User(rs.getLong(PARAM_ID),
@@ -33,27 +43,27 @@ public class UserDaoImpl implements UserDao {
 
     @Override
     public Optional<User> getById(long id) throws JDBCException {
-        return Optional.ofNullable(JDBCManager.selectOneRequest(this, SQL.SELECT_BY, TABLE_USER, PARAM_ID, String.valueOf(id)));
+        return Optional.ofNullable(JDBCManager.selectOneRequest(this, SELECT_BY, PARAM_ID, String.valueOf(id)));
     }
 
     @Override
     public Optional<User> getByLogin(String login) throws JDBCException {
-        return Optional.ofNullable(JDBCManager.selectOneRequest(this, SQL.SELECT_BY, TABLE_USER, PARAM_LOGIN, login));
+        return Optional.ofNullable(JDBCManager.selectOneRequest(this, SELECT_BY, PARAM_LOGIN, login));
     }
 
     @Override
     public Optional<User> getByEmail(String email) throws JDBCException {
-        return Optional.ofNullable(JDBCManager.selectOneRequest(this, SQL.SELECT_BY, TABLE_USER, PARAM_EMAIL, email));
+        return Optional.ofNullable(JDBCManager.selectOneRequest(this, SELECT_BY, PARAM_EMAIL, email));
     }
 
     @Override
     public List<User> getAll() throws JDBCException {
-        return JDBCManager.selectRequest(this, SQL.SELECT_ALL, TABLE_USER);
+        return JDBCManager.selectRequest(this, SELECT_ALL);
     }
 
     @Override
     public List<User> getUsersByRole(User.Role role) throws JDBCException {
-        return JDBCManager.selectRequest(this, SQL.SELECT_BY, TABLE_USER, PARAM_ROLE, String.valueOf(role.getValue()));
+        return JDBCManager.selectRequest(this, SELECT_BY, PARAM_ROLE, String.valueOf(role.getValue()));
     }
 
     @Override
@@ -65,6 +75,6 @@ public class UserDaoImpl implements UserDao {
 
     @Override
     public void delete(long id) throws JDBCException {
-        JDBCManager.updateRequest(SQL.DELETE, TABLE_USER, String.valueOf(id));
+        JDBCManager.updateRequest(DELETE, String.valueOf(id));
     }
 }

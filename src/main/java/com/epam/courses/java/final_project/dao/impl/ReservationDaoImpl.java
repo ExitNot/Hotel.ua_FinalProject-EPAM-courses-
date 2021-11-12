@@ -15,6 +15,16 @@ import java.util.Optional;
 
 public class ReservationDaoImpl implements ReservationDao {
 
+    private static final String SELECT_BY;
+    private static final String SELECT_ALL;
+    private static final String DELETE;
+
+    static {
+        SELECT_BY = JDBCManager.setTableName(SQL.SELECT_BY, TABLE_RESERVATION);
+        SELECT_ALL = JDBCManager.setTableName(SQL.SELECT_ALL, TABLE_RESERVATION);
+        DELETE = JDBCManager.setTableName(SQL.DELETE, TABLE_RESERVATION);
+    }
+
     @Override
     public Reservation createEntity(ResultSet rs) throws SQLException {
         return new Reservation(rs.getLong(PARAM_ID),
