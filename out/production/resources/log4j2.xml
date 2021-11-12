@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="warn">
+    <Appenders>
+        <Console name="Console" target="SYSTEM_OUT">
+            <PatternLayout pattern="%d{HH:mm:ss} %-5level [%C{1}.%M]: %msg%n"/>
+        </Console>
+        <RollingFile name="logFile" fileName="src/main/webapp/WEB-INF/logs/errLog.log"
+                     filePattern="src/main/webapp/WEB-INF/logs/errLog-%d{yyyy-MM-dd.HH-mm}.log"
+                     ignoreExceptions="false">
+            <PatternLayout pattern="%d{HH:mm:ss} %-5level [%C{1}.%M]: %msg%n"/>
+            <TimeBasedTriggeringPolicy/>
+        </RollingFile>
+<!--        <File name="logFile" fileName="src/main/mainLog.log" append="true">-->
+<!--            <PatternLayout>-->
+<!--                <Pattern>%d{HH:mm:ss.SSS} [%t] %-5level - %msg%n</Pattern>-->
+<!--            </PatternLayout>-->
+<!--        </File>-->
+    </Appenders>
+    <Loggers>
+        <Root level="debug">
+            <AppenderRef ref="logFile"/>
+        </Root>
+        <Logger name="trace" level="trace">
+            <AppenderRef ref="Console"/>
+        </Logger>
+        <Logger name="debug" level="debug">
+            <AppenderRef ref="logFile"/>
+        </Logger>
+    </Loggers>
+</Configuration>
