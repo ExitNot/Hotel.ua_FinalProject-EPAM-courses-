@@ -23,5 +23,5 @@ public class CommandConstant {
     public static final String INDEX_JSP = "index.jsp";
 
 //    Pages for Controller
-public static final String LOGIN_P = "login.p";
+//public static final String LOGIN_P = "login.p";
 }

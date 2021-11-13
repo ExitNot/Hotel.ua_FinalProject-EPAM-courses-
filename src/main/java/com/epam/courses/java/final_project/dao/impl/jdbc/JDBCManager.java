@@ -62,7 +62,7 @@ public class JDBCManager {
             else
                 throw new JDBCException("ResultSet is empty");
         } catch (SQLException e) {
-            throw new JDBCException("Failed update sql request:\n" + e);
+            throw new JDBCException("Failed update sql request", e);
         } finally {
             close(ps, rs);
         }

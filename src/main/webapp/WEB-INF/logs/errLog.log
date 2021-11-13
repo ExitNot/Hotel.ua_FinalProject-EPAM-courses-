@@ -1,0 +1,14 @@
+11:12:14 ERROR [TCConnectionPool.<init>]: Context error
+javax.naming.NoInitialContextException: Need to specify class name in environment or system property, or in an application resource file: java.naming.factory.initial
+	at javax.naming.spi.NamingManager.getInitialContext(NamingManager.java:702) ~[?:?]
+	at javax.naming.InitialContext.getDefaultInitCtx(InitialContext.java:305) ~[?:?]
+	at javax.naming.InitialContext.getURLOrDefaultInitCtx(InitialContext.java:342) ~[?:?]
+	at javax.naming.InitialContext.lookup(InitialContext.java:409) ~[?:?]
+	at com.epam.courses.java.final_project.dao.impl.jdbc.TCConnectionPool.<init>(TCConnectionPool.java:25) [main/:?]
+	at com.epam.courses.java.final_project.dao.impl.jdbc.TCConnectionPool.<clinit>(TCConnectionPool.java:18) [main/:?]
+	at com.epam.courses.java.final_project.dao.impl.jdbc.JDBCManager.createStatement(JDBCManager.java:73) [main/:?]
+	at com.epam.courses.java.final_project.dao.impl.jdbc.JDBCManager.updateRequest(JDBCManager.java:57) [main/:?]
+	at com.epam.courses.java.final_project.dao.impl.UserDaoImpl.create(UserDaoImpl.java:38) [main/:?]
+	at com.epam.courses.java.final_project.dao.impl.UserDaoImpl.create(UserDaoImpl.java:14) [main/:?]
+	at com.epam.courses.java.final_project.Main.main(Main.java:25) [main/:?]
+11:12:14 ERROR [TCConnectionPool.getConnection]: Datasource have not been found

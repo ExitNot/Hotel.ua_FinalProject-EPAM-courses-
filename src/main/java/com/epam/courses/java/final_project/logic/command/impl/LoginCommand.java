@@ -5,6 +5,7 @@ import com.epam.courses.java.final_project.logic.command.Command;
 import com.epam.courses.java.final_project.logic.command.Response;
 import com.epam.courses.java.final_project.model.User;
 import com.epam.courses.java.final_project.service.UserService;
+import com.epam.courses.java.final_project.util.PasswordCryptoPbkdf2;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -27,9 +28,12 @@ public class LoginCommand implements Command {
         log.trace("login of: " + login);
 
         Optional<User> user = UserService.findByLogin(login);
-//        todo check pwd validity
-        if (user.isEmpty()){
+
+        if (user.isEmpty()){  // todo collapse after debugging
             req.getSession().setAttribute(ATTRIBUTE_LOGIN_ERROR, "User does not exist");
+            return new Response(Response.Direction.Redirect, LOGIN_JSP);
+        } else if (!PasswordCryptoPbkdf2.validatePwd(password, user.get().getPassword())){
+            req.getSession().setAttribute(ATTRIBUTE_LOGIN_ERROR, "Incorrect password");
             return new Response(Response.Direction.Redirect, LOGIN_JSP);
         }
 

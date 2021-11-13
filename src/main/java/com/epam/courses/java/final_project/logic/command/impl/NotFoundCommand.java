@@ -12,7 +12,8 @@ public class NotFoundCommand implements Command {
 
     @Override
     public Response execute(HttpServletRequest req, HttpServletResponse resp) {
-        return null;
+        req.getSession().setAttribute("exception", "Command not found");
+        return new Response(Response.Direction.Redirect, "error.jsp");
     }
 
     @Override

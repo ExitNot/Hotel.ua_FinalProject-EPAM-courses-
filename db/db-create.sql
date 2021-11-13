@@ -12,7 +12,8 @@ CREATE SCHEMA public;
 
 CREATE TABLE users (id INT PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
                     login VARCHAR(15) UNIQUE,
-                    password VARCHAR(40), -- TODO store hashed pwd
+--                     password VARCHAR(150), -- hashed pwd in SHA-256
+                    password VARCHAR, -- hashed pwd in SHA-256
                     phone_number VARCHAR(15) UNIQUE,
                     email VARCHAR(30) UNIQUE,
                     role INT NOT NULL); -- customer(1), manager(2) or admin(3) TODO maybe do in separate tab
