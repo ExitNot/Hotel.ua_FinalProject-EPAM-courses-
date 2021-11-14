@@ -1,8 +1,6 @@
 package com.epam.courses.java.final_project.logic.command;
 
-import com.epam.courses.java.final_project.logic.command.impl.IndexCommand;
-import com.epam.courses.java.final_project.logic.command.impl.LoginCommand;
-import com.epam.courses.java.final_project.logic.command.impl.NotFoundCommand;
+import com.epam.courses.java.final_project.logic.command.impl.*;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -32,6 +30,7 @@ public class CommandContainer {
 
 //        GET commands
         getCommands.put(INDEX, new IndexCommand());
+        getCommands.put(AVAILABLE_ROOMS, new AvailableRoomsCommand());
 //        POST commands
         postCommands.put(LOGIN, new LoginCommand());
     }

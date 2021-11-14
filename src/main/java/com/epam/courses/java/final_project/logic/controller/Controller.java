@@ -28,7 +28,7 @@ public class Controller extends HttpServlet {
         Command command;
         command = CommandContainer.getInstance().getCommandGet(
                 Objects.requireNonNullElseGet(
-                        reqName, () -> req.getServletPath().substring(1).replace(".p", "")
+                        reqName, () -> req.getServletPath().substring(1).replace("*.act", "")
                 )
         );
         log.trace("get command = " + command.getCommand());
@@ -49,7 +49,7 @@ public class Controller extends HttpServlet {
         Command command;
         command = CommandContainer.getInstance().getCommandPost(
                 Objects.requireNonNullElseGet(
-                        reqName, () -> req.getServletPath().substring(1).replace(".p", "")
+                        reqName, () -> req.getServletPath().substring(1).replace(".act", "")
                 )
         );
         log.trace("post command: " + reqName);

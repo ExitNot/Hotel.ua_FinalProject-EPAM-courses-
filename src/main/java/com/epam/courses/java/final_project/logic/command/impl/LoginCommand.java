@@ -9,7 +9,6 @@ import com.epam.courses.java.final_project.util.PasswordCryptoPbkdf2;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-//import static com.epam.courses.java.final_project.util.Constant.*;
 import static com.epam.courses.java.final_project.util.CommandConstant.*;
 import static com.epam.courses.java.final_project.util.Constant.LOG_TRACE;
 
@@ -33,8 +32,9 @@ public class LoginCommand implements Command {
             req.getSession().setAttribute(ATTRIBUTE_LOGIN_ERROR, "User does not exist");
             return new Response(Response.Direction.Redirect, LOGIN_JSP);
         } else if (!PasswordCryptoPbkdf2.validatePwd(password, user.get().getPassword())){
+            req.getSession().setAttribute(ATTRIBUTE_LOGIN, login);
             req.getSession().setAttribute(ATTRIBUTE_LOGIN_ERROR, "Incorrect password");
-            return new Response(Response.Direction.Redirect, LOGIN_JSP);
+            return new Response(Response.Direction.Forward, LOGIN_JSP);
         }
 
         req.getSession().setAttribute(ATTRIBUTE_LOGIN, user.get().getLogin());
