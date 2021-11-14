@@ -22,11 +22,11 @@ public class PasswordCryptoPbkdf2 {
         try {
             byte[] salt = createSalt();
 
-            PBEKeySpec spec = new PBEKeySpec(pwd.toCharArray(), salt, ITERATIONS, 64 * 8);
+            PBEKeySpec spec = new PBEKeySpec(pwd.toCharArray(), salt, ITERATIONS, 32 * 8);
             SecretKeyFactory skf = SecretKeyFactory.getInstance("PBKDF2WithHmacSHA256");
 
             byte[] hash = skf.generateSecret(spec).getEncoded();
-            hashedPwd = ITERATIONS + ":" + toHex(salt) + ":" + toHex(hash);
+            hashedPwd = toHex(salt) + ":" + toHex(hash);
         } catch (NoSuchAlgorithmException e) {
             log.error("SHA-256 algorithm not found", e);
         } catch (InvalidKeySpecException e) {
@@ -39,8 +39,8 @@ public class PasswordCryptoPbkdf2 {
         int diff = -1;
         try {
             String[] parts = storedPwd.split(":");
-            byte[] salt = fromHex(parts[1]);
-            byte[] hash = fromHex(parts[2]);
+            byte[] salt = fromHex(parts[0]);
+            byte[] hash = fromHex(parts[1]);
 
             PBEKeySpec spec = new PBEKeySpec(inputPwd.toCharArray(),
                     salt, ITERATIONS, hash.length * 8);
@@ -64,7 +64,7 @@ public class PasswordCryptoPbkdf2 {
 
     private static byte[] createSalt() throws NoSuchAlgorithmException {
         SecureRandom sr = SecureRandom.getInstance("SHA1PRNG");
-        byte[] salt = new byte[16];
+        byte[] salt = new byte[8];
         sr.nextBytes(salt);
         return salt;
     }
