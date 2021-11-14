@@ -21,6 +21,6 @@
 
     <servlet-mapping>
         <servlet-name>Controller</servlet-name>
-        <url-pattern>*.p</url-pattern>
+        <url-pattern>*.act</url-pattern>
     </servlet-mapping>
 </web-app>

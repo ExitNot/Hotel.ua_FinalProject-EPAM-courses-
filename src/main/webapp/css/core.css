@@ -1,11 +1,58 @@
 .button {
     display: block;
     width: 115px;
-    height: 25px;
     background: #000000;
     padding: 10px;
     text-align: center;
     border-radius: 5px;
     color: white;
     line-height: 25px;
+}
+
+/* Reservation tabs */
+
+#collapsible_content {
+    display: block;
+}
+
+#reservation {
+    /*margin-top:50px;*/
+    width: 500px;
+    /*margin-left:250px;*/
+}
+
+#reservation li {
+    display: inline;
+    list-style-type: none;
+    /*background-color:#688A08;*/
+    padding: 10px;
+    border-radius: 5px 5px 0px 0px;
+    /*color:#292A0A;*/
+    font-weight: bold;
+    cursor: pointer;
+}
+
+#reservation li.notselected {
+    /*background-color:#688A08;*/
+    /*color:#292A0A;*/
+}
+
+#reservation li.selected {
+    background-color: #69676785;
+    /*color:#292A0A;*/
+}
+
+#reservation .hidden_content {
+    display: none;
+    visibility: hidden;
+}
+
+#reservation #page_content {
+    background-color: #69676785;
+    padding: 10px;
+    margin-top: 9px;
+    border-radius: 0px 5px 5px 5px;
+    /*color:#2E2E2E;*/
+    /*line-height: 1.6em;*/
+    /*word-spacing:4px;*/
 }
