@@ -89,7 +89,7 @@ public class JDBCManager {
     }
 
     public static String setTableName(String sql, String tableName) {
-        return sql.replace("^", tableName);
+        return sql.replace("table", tableName);
     }
 
     private static void close(PreparedStatement ps, ResultSet rs) throws JDBCException {

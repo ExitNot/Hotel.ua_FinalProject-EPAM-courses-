@@ -44,43 +44,39 @@ public class RoomDaoImpl implements RoomDao {
 
     @Override
     public Optional<Room> getById(long id) throws JDBCException {
-        return Optional.ofNullable(JDBCManager.selectOneRequest(this, SQL.SELECT_BY,
-                TABLE_ROOM, PARAM_ID, String.valueOf(id)));
+        return Optional.ofNullable(JDBCManager.selectOneRequest(this,
+                SELECT_BY.replace("param", PARAM_ID), String.valueOf(id)));
     }
 
     @Override
     public Optional<Room> getByRoomNum(int roomNum) throws JDBCException {
-        return Optional.ofNullable(JDBCManager.selectOneRequest(this, SQL.SELECT_BY,
-                TABLE_ROOM, PARAM_ROOM_NUM, String.valueOf(roomNum)));
+        return Optional.ofNullable(JDBCManager.selectOneRequest(this,
+                SELECT_BY.replace("param", PARAM_ROOM_NUM), String.valueOf(roomNum)));
     }
 
     @Override
     public List<Room> getAll() throws JDBCException {
-        return JDBCManager.selectRequest(this, SQL.SELECT_ALL, TABLE_ROOM);
+        return JDBCManager.selectRequest(this, SELECT_ALL);
     }
 
     @Override
     public List<Room> getRoomsByFloor(int floor) throws JDBCException {
-        return JDBCManager.selectRequest(this, SQL.SELECT_BY,
-                TABLE_ROOM, PARAM_FLOOR, String.valueOf(floor));
+        return JDBCManager.selectRequest(this, SELECT_BY.replace("param", PARAM_FLOOR), String.valueOf(floor));
     }
 
     @Override
     public List<Room> getRoomsByCapacity(int capacity) throws JDBCException {
-        return JDBCManager.selectRequest(this, SQL.SELECT_BY,
-                TABLE_ROOM, PARAM_CAPACITY, String.valueOf(capacity));
+        return JDBCManager.selectRequest(this, SELECT_BY.replace("param", PARAM_CAPACITY), String.valueOf(capacity));
     }
 
     @Override
     public List<Room> getRoomsByBedsTypes(String bedsTypes) throws JDBCException {
-        return JDBCManager.selectRequest(this, SQL.SELECT_BY,
-                TABLE_ROOM, PARAM_BED_TYPE, bedsTypes);
+        return JDBCManager.selectRequest(this, SELECT_BY.replace("param", PARAM_BED_TYPE), bedsTypes);
     }
 
     @Override
     public List<Room> getRoomsByClass(Room.RoomClass roomClass) throws JDBCException {
-        return JDBCManager.selectRequest(this, SQL.SELECT_BY,
-                TABLE_ROOM, PARAM_CLASS, String.valueOf(roomClass.getValue()));
+        return JDBCManager.selectRequest(this, SELECT_BY.replace("param", PARAM_CLASS), String.valueOf(roomClass.getValue()));
     }
 
     @Override
@@ -92,6 +88,6 @@ public class RoomDaoImpl implements RoomDao {
 
     @Override
     public void delete(long id) throws JDBCException {
-        JDBCManager.updateRequest(SQL.DELETE, TABLE_ROOM, String.valueOf(id));
+        JDBCManager.updateRequest(DELETE, String.valueOf(id));
     }
 }

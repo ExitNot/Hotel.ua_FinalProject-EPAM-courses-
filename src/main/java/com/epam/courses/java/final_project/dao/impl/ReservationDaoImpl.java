@@ -45,25 +45,22 @@ public class ReservationDaoImpl implements ReservationDao {
 
     @Override
     public Optional<Reservation> getById(long id) throws JDBCException {
-        return Optional.ofNullable(JDBCManager.selectOneRequest(this, SQL.SELECT_BY,
-                TABLE_RESERVATION, PARAM_ID, String.valueOf(id)));
+        return Optional.ofNullable(JDBCManager.selectOneRequest(this, SELECT_BY.replace("param", PARAM_ID), String.valueOf(id)));
     }
 
     @Override
     public List<Reservation> getAll() throws JDBCException {
-        return JDBCManager.selectRequest(this, SQL.SELECT_ALL, TABLE_RESERVATION);
+        return JDBCManager.selectRequest(this, SELECT_ALL);
     }
 
     @Override
     public List<Reservation> getUserReservations(long userId) throws JDBCException {
-        return JDBCManager.selectRequest(this, SQL.SELECT_BY,
-                TABLE_RESERVATION, PARAM_USER_ID, String.valueOf(userId));
+        return JDBCManager.selectRequest(this, SELECT_BY.replace("param", PARAM_USER_ID), String.valueOf(userId));
     }
 
     @Override
     public List<Reservation> getRoomReservations(long roomId) throws JDBCException {
-        return JDBCManager.selectRequest(this, SQL.SELECT_BY,
-                TABLE_RESERVATION, PARAM_ROOM_ID, String.valueOf(roomId));
+        return JDBCManager.selectRequest(this, SELECT_BY.replace("param", PARAM_ROOM_ID), String.valueOf(roomId));
     }
 
     @Override
@@ -81,6 +78,6 @@ public class ReservationDaoImpl implements ReservationDao {
 
     @Override
     public void delete(long id) throws JDBCException {
-        JDBCManager.updateRequest(SQL.DELETE, TABLE_RESERVATION, String.valueOf(id));
+        JDBCManager.updateRequest(DELETE, String.valueOf(id));
     }
 }

@@ -28,6 +28,8 @@ public class UserDaoImpl implements UserDao {
         return new User(rs.getLong(PARAM_ID),
                 rs.getString(PARAM_LOGIN),
                 rs.getString(PARAM_PWD),
+                rs.getString(PARAM_NAME),
+                rs.getString(PARAM_SURNAME),
                 rs.getString(PARAM_PHONE_NUMBER),
                 rs.getString(PARAM_EMAIL),
                 User.Role.getRole(rs.getInt(PARAM_ROLE)));
@@ -43,17 +45,17 @@ public class UserDaoImpl implements UserDao {
 
     @Override
     public Optional<User> getById(long id) throws JDBCException {
-        return Optional.ofNullable(JDBCManager.selectOneRequest(this, SELECT_BY, PARAM_ID, String.valueOf(id)));
+        return Optional.ofNullable(JDBCManager.selectOneRequest(this, SELECT_BY.replace("param",  PARAM_ID), String.valueOf(id)));
     }
 
     @Override
     public Optional<User> getByLogin(String login) throws JDBCException {
-        return Optional.ofNullable(JDBCManager.selectOneRequest(this, SELECT_BY, PARAM_LOGIN, login));
+        return Optional.ofNullable(JDBCManager.selectOneRequest(this, SELECT_BY.replace("param",  PARAM_LOGIN), login));
     }
 
     @Override
     public Optional<User> getByEmail(String email) throws JDBCException {
-        return Optional.ofNullable(JDBCManager.selectOneRequest(this, SELECT_BY, PARAM_EMAIL, email));
+        return Optional.ofNullable(JDBCManager.selectOneRequest(this, SELECT_BY.replace("param",  PARAM_EMAIL), email));
     }
 
     @Override
@@ -62,7 +64,7 @@ public class UserDaoImpl implements UserDao {
     }
 
     @Override
-    public List<User> getUsersByRole(User.Role role) throws JDBCException {
+public List<User> getUsersByRole(User.Role role) throws JDBCException {
         return JDBCManager.selectRequest(this, SELECT_BY, PARAM_ROLE, String.valueOf(role.getValue()));
     }
 
