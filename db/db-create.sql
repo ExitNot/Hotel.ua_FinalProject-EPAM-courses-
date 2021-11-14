@@ -13,7 +13,9 @@ CREATE SCHEMA public;
 CREATE TABLE users (id INT PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
                     login VARCHAR(15) UNIQUE,
 --                     password VARCHAR(150), -- hashed pwd in SHA-256
-                    password VARCHAR, -- hashed pwd in SHA-256
+                    password VARCHAR(100), -- hashed pwd in SHA-256
+                    name VARCHAR,
+                    surname VARCHAR,
                     phone_number VARCHAR(15) UNIQUE,
                     email VARCHAR(30) UNIQUE,
                     role INT NOT NULL); -- customer(1), manager(2) or admin(3) TODO maybe do in separate tab
@@ -41,7 +43,8 @@ CREATE TABLE requests (id INT PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
                     room_id INT REFERENCES rooms(id) NULL,
                     date_from DATE NOT NULL,
                     date_to DATE NOT NULL,
-                    guests_amount INT NOT NULL,
+                    adult_amount INT NOT NULL,
+                    children_amount INT,
                     status INT NOT NULL, -- waiting for: manager response(1), customer accept(2), payment(3)
                     price FLOAT);
 
@@ -53,12 +56,13 @@ CREATE TABLE users_requests(user_id INT REFERENCES users(id) ON DELETE CASCADE,
 -- Inserting default values
 --------
 
--- INSERT INTO users  -- temporary values for dev process --
---     (login,     password,  phone_number,    email,                     role)
--- VALUES
+INSERT INTO users  -- temporary values for dev process --
+    (login, password, name, surname, phone_number, email, role)
+VALUES
 --     ('admin',   'admin',   '+111111111111', 'hotel_admin@gmail.com',   3),
 --     ('manager', 'manager', '+222222222222', 'hotel_manager@gmail.com', 2),
---     ('user',    'user',    '+333333333333', 'hotel_user@gmail.com',    1);
+    ('user', 'ca1f23e567162130:c4987aef350c32d8720c8d97fe215cd9a2e228d9c016a61647c9dbd1abb24b03',
+     'User', 'Userov', '+333333333333', 'hotel_user@gmail.com', 1);
 --
 -- INSERT INTO rooms  -- temporary values for dev process --
 --     (room_number, floor, capacity, beds_types, class)

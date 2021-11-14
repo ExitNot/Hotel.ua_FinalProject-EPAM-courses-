@@ -2,9 +2,9 @@ package com.epam.courses.java.final_project.util;
 
 public class SQLConstant {
 
-    public final static String DELETE = "DELETE FROM ^ WHERE id = ?;";
-    public final static String SELECT_BY = "SELECT * FROM ^ WHERE ? = ?;";
-    public final static String SELECT_ALL = "SELECT * FROM ^;";
+    public final static String DELETE = "DELETE FROM table WHERE id = ?;";
+    public final static String SELECT_BY = "SELECT * FROM table WHERE param = ?;";
+    public final static String SELECT_ALL = "SELECT * FROM table;";
 
 //    Reservation
     public final static String RESERVATION_INSERT = "INSERT INTO reservations (user_id, room_id, date_from, date_to, guests_amount) VALUES (?, ?, ?, ?, ?);";

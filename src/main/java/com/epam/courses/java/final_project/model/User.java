@@ -19,6 +19,8 @@ public class User {
     long id;  // value ether equal to corresponding db value, or 0
     String login;
     String password;
+    String name;
+    String surname;
     String phoneNumber;
     String email;
     Role role;
@@ -27,19 +29,24 @@ public class User {
         role = Role.Customer;
     }
 
-    public User(long id, String login, String password, String phoneNumber, String email, Role role) {
+    public User(long id, String login, String password, String name, String surname,
+                String phoneNumber, String email, Role role) {
         this.id = id;
         this.login = login;
         this.password = password;
+        this.name = name;
+        this.surname = surname;
         this.phoneNumber = phoneNumber;
         this.email = email;
         this.role = role;
     }
 
-    public User(long id, String login, String password, String phoneNumber, String email) {
+    public User(long id, String login, String password, String name, String surname, String phoneNumber, String email) {
         this.id = id;
         this.login = login;
         this.password = password;
+        this.name = name;
+        this.surname = surname;
         this.phoneNumber = phoneNumber;
         this.email = email;
         role = Role.Customer;
