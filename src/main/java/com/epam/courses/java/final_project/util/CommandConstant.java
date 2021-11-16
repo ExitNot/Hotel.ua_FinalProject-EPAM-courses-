@@ -9,6 +9,7 @@ public class CommandConstant {
     public static final String AVAILABLE_ROOMS = "availableRooms";
     public static final String SIGN_IN = "signIn";
     public static final String PROFILE = "profile";
+    public static final String LOGOUT = "logout";
     //    POST commands
     public static final String SIGN_UP = "signUp";
     public static final String DELETE_USER = "deleteUser";
@@ -34,7 +35,8 @@ public class CommandConstant {
     public static final String ATTRIBUTE_LOGIN = "login";
     public static final String ATTRIBUTE_ROLE = "role";
     public static final String ATTRIBUTE_ROOMS_LIST = "roomsList";
-    public static final String ATTRIBUTE_USER_REQUEST_LIST = "userRequestList";
+    public static final String ATTRIBUTE_USER_REQUEST_LIST = "userRequestsList";
+    public static final String ATTRIBUTE_USER_RESERVATIONS_LIST = "userReservationsList";
     public static final String ATTRIBUTE_FROM = "dateFrom";
     public static final String ATTRIBUTE_TO = "dateTo";
     public static final String ATTRIBUTE_LOGIN_ERROR = "loginError";  // exception
@@ -50,5 +52,4 @@ public class CommandConstant {
 
 //    Pages for Controller
     public static final String PROFILE_ACT = "profile.act";
-//public static final String LOGIN_P = "login.p";
 }

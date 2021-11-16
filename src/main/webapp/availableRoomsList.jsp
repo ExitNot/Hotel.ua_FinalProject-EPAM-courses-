@@ -54,9 +54,9 @@
                         <td>${room.floor}</td>
                         <td>${room.capacity}</td>
                         <td>${room.bedType}</td>
-                        <td>${room.roomClass}</td>
+                        <td>${room.roomClassName}</td>
                         <td>
-                            <form action="bookSpecificRoom.act" method="post">
+                            <form action="bookSpecificRoom.act" method="post" style="margin-bottom: 0">
                                 <input type="hidden" name="roomId" value="${room.id}">
                                 <input type="submit" value="Make reservation">
                             </form>

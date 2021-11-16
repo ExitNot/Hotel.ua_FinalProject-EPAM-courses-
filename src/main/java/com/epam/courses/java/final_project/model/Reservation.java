@@ -14,7 +14,8 @@ public class Reservation {
     long roomId;
     Date from;
     Date to;
-    int guests_amount;
+    int guestsAmount;
+    int roomNumber;
 
     public Reservation(long userId, long roomId, Date from, Date to) {
         this.userId = userId;
@@ -29,7 +30,7 @@ public class Reservation {
         this.roomId = roomId;
         this.from = from;
         this.to = to;
-        this.guests_amount = guests_amount;
+        this.guestsAmount = guests_amount;
     }
 
     public long getId() {
@@ -72,12 +73,20 @@ public class Reservation {
         this.to = to;
     }
 
-    public int getGuests_amount() {
-        return guests_amount;
+    public int getGuestsAmount() {
+        return guestsAmount;
     }
 
-    public void setGuests_amount(int guests_amount) {
-        this.guests_amount = guests_amount;
+    public void setGuestsAmount(int guestsAmount) {
+        this.guestsAmount = guestsAmount;
+    }
+
+    public int getRoomNumber() {
+        return roomNumber;
+    }
+
+    public void setRoomNumber(int roomNumber) {
+        this.roomNumber = roomNumber;
     }
 
     @Override
@@ -88,7 +97,7 @@ public class Reservation {
                 ", roomId=" + roomId +
                 ", from=" + from +
                 ", to=" + to +
-                ", guests_amount=" + guests_amount +
+                ", guests_amount=" + guestsAmount +
                 '}';
     }
 }

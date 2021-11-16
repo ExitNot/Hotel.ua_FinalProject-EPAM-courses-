@@ -12,7 +12,6 @@
         </c:when>
         <c:otherwise>
             <a href="profile.act" class="button">Profile</a>
-<%--            <a href="reservations.act" class="button">My reservations</a>--%>
             <a href="request.jsp" class="button">Make a reservation</a>
             <a href="availableRooms.act" class="button">Make a reservation for a specific room</a>
         </c:otherwise>

@@ -17,5 +17,5 @@ public interface ReservationDao extends AbstractDao<Reservation>{
 
     List<Reservation> getRoomReservations(long roomId) throws JDBCException;
 
-    List<Reservation> getOccupiedRoomsReservations(Date from, Date to) throws JDBCException;
+    List<Reservation> getByDate(Date from, Date to) throws JDBCException;
 }

@@ -39,14 +39,33 @@ public class ReservationDaoImpl implements ReservationDao {
     public long create(Reservation obj) throws JDBCException {
         long id = JDBCManager.updateRequest(SQL.RESERVATION_INSERT,
                 String.valueOf(obj.getUserId()), String.valueOf(obj.getRoomId()),
-                obj.getFrom().toString(), obj.getTo().toString(), String.valueOf(obj.getGuests_amount()));
+                obj.getFrom().toString(), obj.getTo().toString(), String.valueOf(obj.getGuestsAmount()));
         obj.setId(id);
         return id;
     }
 
     @Override
     public Optional<Reservation> getById(long id) throws JDBCException {
-        return Optional.ofNullable(JDBCManager.selectOneRequest(this, SELECT_BY.replace("param", PARAM_ID), String.valueOf(id)));
+        return Optional.ofNullable(JDBCManager.selectOneRequest(this,
+                SELECT_BY.replace("param", PARAM_ID), String.valueOf(id)));
+    }
+
+    @Override
+    public List<Reservation> getUserReservations(long userId) throws JDBCException {
+        return JDBCManager.selectRequest(this,
+                SELECT_BY.replace("param", PARAM_USER_ID), String.valueOf(userId));
+    }
+
+    @Override
+    public List<Reservation> getRoomReservations(long roomId) throws JDBCException {
+        return JDBCManager.selectRequest(this,
+                SELECT_BY.replace("param", PARAM_ROOM_ID), String.valueOf(roomId));
+    }
+
+    @Override
+    public List<Reservation> getByDate(Date from, Date to) throws JDBCException {
+        return JDBCManager.selectRequest(this,
+                SQL.OCCUPIED_ROOMS, to.toString(), from.toString());
     }
 
     @Override
@@ -55,26 +74,11 @@ public class ReservationDaoImpl implements ReservationDao {
     }
 
     @Override
-    public List<Reservation> getUserReservations(long userId) throws JDBCException {
-        return JDBCManager.selectRequest(this, SELECT_BY.replace("param", PARAM_USER_ID), String.valueOf(userId));
-    }
-
-    @Override
-    public List<Reservation> getRoomReservations(long roomId) throws JDBCException {
-        return JDBCManager.selectRequest(this, SELECT_BY.replace("param", PARAM_ROOM_ID), String.valueOf(roomId));
-    }
-
-    @Override
-    public List<Reservation> getOccupiedRoomsReservations(Date from, Date to) throws JDBCException {
-        return JDBCManager.selectRequest(this, SQL.OCCUPIED_ROOMS,
-                to.toString(), from.toString());
-    }
-
-    @Override
     public void update(Reservation obj) throws JDBCException {
         JDBCManager.updateRequest(SQL.RESERVATION_UPDATE,
-                String.valueOf(obj.getUserId()), String.valueOf(obj.getRoomId()), obj.getFrom().toString(),
-                obj.getTo().toString(), String.valueOf(obj.getGuests_amount()), String.valueOf(obj.getId()));
+                String.valueOf(obj.getUserId()), String.valueOf(obj.getRoomId()),
+                obj.getFrom().toString(), obj.getTo().toString(),
+                String.valueOf(obj.getGuestsAmount()), String.valueOf(obj.getId()));
     }
 
     @Override

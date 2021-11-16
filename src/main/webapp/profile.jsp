@@ -6,28 +6,49 @@
 <c:if test="${empty login}">
     <c:redirect url="signIn.jsp"></c:redirect>
 </c:if>
+<c:set var="logoutFlag" scope="page"/>
 
 <t:wrapper>
     <a>User: ${login}</a><br/>
     <a>Role: ${role}</a>
-
+    <form action="logout.act" method="get">
+        <input type="submit" name="logout" value="Log out">
+    </form>
     <form action="deleteUser.act" method="post">
         <input type="submit" name="deleteUser" value="Delete account"
                style="background: darkred; color: aliceblue">
     </form>
 
     <h3>Reservations:</h3>
-    <c:forEach var="request" items="${userRequestList}">
-        <table>
+    <table>
+        <tr>
+            <th>Room number</th>
+            <th>From</th>
+            <th>To</th>
+        </tr>
+        <c:forEach var="reservation" items="${userReservationsList}">
             <tr>
-                <th>User id</th>
-                <th>Room id</th>
+                <td>${reservation.roomNumber}</td>
+                <td>${reservation.from}</td>
+                <td>${reservation.to}</td>
             </tr>
+        </c:forEach>
+    </table>
+    <h3>Requests:</h3>
+    <table>
+        <tr>
+            <th>Room number</th>
+            <th>From</th>
+            <th>To</th>
+            <th>Status</th>
+        </tr>
+        <c:forEach var="request" items="${userRequestsList}">
             <tr>
-                <td>${request.userId}</td>
-                <td>${request.roomId}</td>
+                <td>${request.roomNumber}</td>
+                <td>${request.from}</td>
+                <td>${request.to}</td>
+                <td>Waiting for ${request.statusName}</td>
             </tr>
-        </table>
-    </c:forEach>
-
+        </c:forEach>
+    </table>
 </t:wrapper>

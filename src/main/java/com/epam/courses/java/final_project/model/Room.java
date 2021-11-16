@@ -81,11 +81,11 @@ public class Room {
         this.bedType = bedType;
     }
 
-    public RoomClass getRoomClassValue() {
+    public RoomClass getRoomClass() {
         return roomClass;
     }
 
-    public String getRoomClass() {
+    public String getRoomClassName() {
         return roomClass.name();
     }
 

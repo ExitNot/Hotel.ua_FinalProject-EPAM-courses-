@@ -1,29 +1,26 @@
 package com.epam.courses.java.final_project.model;
 
 import java.sql.Date;
+import java.util.Locale;
 
 /**
  * The {@code Request} class represent corresponding entity from database.
  *
  * @author Kostiantyn Kolchenko
- * */
-public class Request extends Reservation{
+ */
+public class Request extends Reservation {
 
     Status status;
     double price;
+    int adultsAmount;
+    int childrenAmount;
 
-    public Request(long id, long userId, long roomId, Date from, Date to, int guests_amount, Status status, double price) {
-        super(id, userId, roomId, from, to, guests_amount);
+    public Request(long id, long userId, long roomId, Date from, Date to, int adultsAmount, int childrenAmount, Status status, double price) {
+        super(id, userId, roomId, from, to, adultsAmount + childrenAmount);
+        this.adultsAmount = adultsAmount;
+        this.childrenAmount = childrenAmount;
         this.status = status;
         this.price = price;
-    }
-
-    public Status getStatus() {
-        return status;
-    }
-
-    public void setStatus(int value) {
-        this.status = Status.getStatus(value);
     }
 
     public double getPrice() {
@@ -34,7 +31,42 @@ public class Request extends Reservation{
         this.price = price;
     }
 
-    public enum Status{
+    public int getAdultsAmount() {
+        return adultsAmount;
+    }
+
+    public void setAdultsAmount(int adultsAmount) {
+        this.adultsAmount = adultsAmount;
+    }
+
+    public int getChildrenAmount() {
+        return childrenAmount;
+    }
+
+    public void setChildrenAmount(int childrenAmount) {
+        this.childrenAmount = childrenAmount;
+    }
+
+    public Status getStatus() {
+        return status;
+    }
+
+    public String getStatusName() {
+        switch (status.value){
+            case 1:
+                return "manager response";
+            case 2:
+                return "customer accept";
+            default:
+                return status.name().toLowerCase(Locale.ROOT);
+        }
+    }
+
+    public void setStatus(int value) {
+        this.status = Status.getStatus(value);
+    }
+
+    public enum Status {
         ManagerResponse(1), CustomerAccept(2), Payment(3);  // waiting for
 
         int value;
@@ -43,7 +75,11 @@ public class Request extends Reservation{
             value = num;
         }
 
-        public static Status getStatus(int num){
+        public int getValue() {
+            return value;
+        }
+
+        public static Status getStatus(int num) {
             if (num == 3)
                 return Payment;
             else if (num == 2)
@@ -62,7 +98,8 @@ public class Request extends Reservation{
                 ", roomId=" + roomId +
                 ", from=" + from +
                 ", to=" + to +
-                ", guests_amount=" + guests_amount +
+                ", adultsAmount=" + adultsAmount +
+                ", childrenAmount=" + childrenAmount +
                 '}';
     }
 }

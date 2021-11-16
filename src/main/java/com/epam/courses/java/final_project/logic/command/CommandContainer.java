@@ -30,6 +30,7 @@ public class CommandContainer {
 
 //        GET commands
         getCommands.put(INDEX, new IndexCommand());
+        getCommands.put(LOGOUT, new LogoutCommand());
         getCommands.put(AVAILABLE_ROOMS, new AvailableRoomsCommand());
         getCommands.put(SIGN_IN, new SignInCommand());
         getCommands.put(PROFILE, new ProfileCommand());

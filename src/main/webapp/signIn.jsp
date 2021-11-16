@@ -24,5 +24,6 @@
     </form>
     <c:if test="${not empty loginError}">
         <h2 style="color:red">${loginError}</h2>
+        <c:remove var="loginError"/>
     </c:if>
 </t:wrapper>

@@ -10,6 +10,7 @@ import static com.epam.courses.java.final_project.util.CommandConstant.INDEX;
 import static com.epam.courses.java.final_project.util.CommandConstant.INDEX_JSP;
 
 public class IndexCommand implements Command {
+
     @Override
     public Response execute(HttpServletRequest req, HttpServletResponse resp) {
         return new Response(Response.Direction.Redirect, INDEX_JSP);

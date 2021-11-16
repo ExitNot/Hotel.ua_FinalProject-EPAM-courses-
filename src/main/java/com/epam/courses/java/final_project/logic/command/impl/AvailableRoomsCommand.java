@@ -31,9 +31,11 @@ public class AvailableRoomsCommand implements Command {
         String from = req.getParameter(PARAM_FROM);
         String to = req.getParameter(PARAM_TO);
 
+        if (req.getSession().getAttribute(ATTRIBUTE_ID) == null)
+            return new Response(Response.Direction.Redirect, SIGN_IN_JSP);
+
         availableRooms = RoomService.getAll();
         if (from == null){
-//            req.getSession().setAttribute(ATTRIBUTE_ROOMS_LIST, availableRooms);
             return new Response(Response.Direction.Redirect, AVAILABLE_ROOMS_JSP);
         }
 
