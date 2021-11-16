@@ -16,4 +16,8 @@ public class RequestService {
     public static List<Request> getByUser(Long id) throws JDBCException {
         return DAOFactory.getInstance().getRequestDao().getUserRequests(id);
     }
+
+    public static void create(Request request) throws JDBCException {
+        DAOFactory.getInstance().getRequestDao().create(request);
+    }
 }

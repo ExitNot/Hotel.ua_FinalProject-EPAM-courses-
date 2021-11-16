@@ -87,6 +87,8 @@ public class JDBCManager {
                 ps.setDate(i + 1, Date.valueOf(params[i]));
             else if (params[i].matches("\\d+"))
                 ps.setInt(i + 1, Integer.parseInt(params[i]));
+            else if (params[i].matches("\\d+.\\d+"))
+                ps.setDouble(i + 1, Double.parseDouble(params[i]));
             else
                 ps.setString(i + 1, params[i]);
         }

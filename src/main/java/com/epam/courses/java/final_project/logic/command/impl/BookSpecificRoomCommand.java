@@ -6,6 +6,7 @@ import com.epam.courses.java.final_project.logic.command.Response;
 import com.epam.courses.java.final_project.model.Request;
 import com.epam.courses.java.final_project.service.RequestService;
 import com.epam.courses.java.final_project.service.ReservationService;
+import com.epam.courses.java.final_project.util.Util;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -18,10 +19,16 @@ public class BookSpecificRoomCommand implements Command {
 
     @Override
     public Response execute(HttpServletRequest req, HttpServletResponse resp) throws JDBCException {
-//        todo change to RequestService with status payment
-        ReservationService.createByRoom(Long.valueOf(req.getSession().getAttribute(ATTRIBUTE_ID).toString()),
-                Long.valueOf(req.getParameter(PARAM_ROOM_ID)), Date.valueOf(req.getSession().getAttribute(ATTRIBUTE_FROM).toString()),
-                Date.valueOf(req.getSession().getAttribute(ATTRIBUTE_TO).toString()));
+        Request request = new Request(Long.valueOf(req.getSession().getAttribute(ATTRIBUTE_ID).toString()),
+                Long.valueOf(req.getParameter(PARAM_ROOM_ID)),
+                Date.valueOf(req.getSession().getAttribute(ATTRIBUTE_FROM).toString()),
+                Date.valueOf(req.getSession().getAttribute(ATTRIBUTE_TO).toString()),
+                0, 0, Request.Status.Payment, Util.calcPrice());
+
+        RequestService.create(request);
+//        ReservationService.createByRoom(Long.valueOf(req.getSession().getAttribute(ATTRIBUTE_ID).toString()),
+//                Long.valueOf(req.getParameter(PARAM_ROOM_ID)), Date.valueOf(req.getSession().getAttribute(ATTRIBUTE_FROM).toString()),
+//                Date.valueOf(req.getSession().getAttribute(ATTRIBUTE_TO).toString()));
         return new Response(Response.Direction.Redirect, PROFILE_ACT);
     }
 

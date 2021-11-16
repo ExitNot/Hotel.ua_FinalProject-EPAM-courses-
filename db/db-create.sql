@@ -46,7 +46,7 @@ CREATE TABLE requests (id INT PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
                     adults_amount INT,
                     children_amount INT,
                     status INT NOT NULL, -- waiting for: manager response(1), customer accept(2), payment(3)
-                    price FLOAT);
+                    price DOUBLE PRECISION);
 
 CREATE TABLE users_requests(user_id INT REFERENCES users(id) ON DELETE CASCADE,
                     request_id INT REFERENCES requests(id) ON DELETE CASCADE,

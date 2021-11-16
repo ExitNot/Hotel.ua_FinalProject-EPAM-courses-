@@ -12,9 +12,9 @@ public class SQLConstant {
     public static final String RESERVATION_UPDATE = "UPDATE reservations SET user_id = ?, room_id = ?, date_from = ?, date_to = ?, guests_amount = ? WHERE id = ?;";
 
 //    Request
-    public static final String REQUEST_INSERT = "INSERT INTO request (user_id, room_id, date_from, date_to, adults_amount, children_amount, status, price) VALUES (?, ?, ?, ?, ?, ?, ?, ?);";
-    public static final String REQUESTED_ROOMS = "SELECT * FROM request WHERE (date_from < ? AND date_to > ?);";
-    public static final String REQUEST_UPDATE = "UPDATE request SET user_id = ?, room_id = ?, date_from = ?, date_to = ?, adults_amount = ?, children_amount = ?, status = ?, price = ? WHERE id = ?";
+    public static final String REQUEST_INSERT = "INSERT INTO requests (user_id, room_id, date_from, date_to, adults_amount, children_amount, status, price) VALUES (?, ?, ?, ?, ?, ?, ?, ?);";
+    public static final String REQUESTED_ROOMS = "SELECT * FROM requests WHERE (date_from < ? AND date_to > ?);";
+    public static final String REQUEST_UPDATE = "UPDATE requests SET user_id = ?, room_id = ?, date_from = ?, date_to = ?, adults_amount = ?, children_amount = ?, status = ?, price = ? WHERE id = ?";
 
 //    User
     public static final String USER_INSERT = "INSERT INTO users (login, password, name, surname, phone_number, email, role) VALUES (?, ?, ?, ?, ?, ?, ?);";

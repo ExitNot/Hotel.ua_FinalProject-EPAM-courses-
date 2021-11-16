@@ -7,4 +7,8 @@ public class Util {
                 oldDate.substring(0, 2) + "-" +
                 oldDate.substring(3, 5);
     }
+
+    public static double calcPrice() {
+        return 0.0;
+    }
 }
