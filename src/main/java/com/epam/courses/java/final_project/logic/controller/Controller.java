@@ -28,10 +28,10 @@ public class Controller extends HttpServlet {
         Command command;
         command = CommandContainer.getInstance().getCommandGet(
                 Objects.requireNonNullElseGet(
-                        reqName, () -> req.getServletPath().substring(1).replace("*.act", "")
+                        reqName, () -> req.getServletPath().substring(1).replace(".act", "")
                 )
         );
-        log.trace("get command = " + command.getCommand());
+        log.trace("get command: " + command.getCommand());
 
         // todo track errors here
         try {
@@ -46,13 +46,21 @@ public class Controller extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String reqName = req.getParameter("command");
+        String path = req.getServletPath();
         Command command;
+
+        if (path.matches("^*\\?*")){
+            req.getSession().setAttribute("linkVar", path.substring(path.indexOf("?")));
+            path = path.substring(0, path.indexOf("?"));
+        }
+
+        String finalPath = path;
         command = CommandContainer.getInstance().getCommandPost(
                 Objects.requireNonNullElseGet(
-                        reqName, () -> req.getServletPath().substring(1).replace(".act", "")
+                        reqName, () -> finalPath.substring(1).replace(".act", "")
                 )
         );
-        log.trace("post command: " + reqName);
+        log.trace("post command: " + command.getCommand());
 
         // todo track errors here
         try {

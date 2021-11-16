@@ -35,11 +35,12 @@ public class RoomDaoImpl implements RoomDao {
     }
 
     @Override
-    public void create(Room obj) throws JDBCException {
-        int id = JDBCManager.updateRequest(SQL.ROOM_INSERT, String.valueOf(obj.getRoomNumber()),
+    public long create(Room obj) throws JDBCException {
+        long id = JDBCManager.updateRequest(SQL.ROOM_INSERT, String.valueOf(obj.getRoomNumber()),
                 String.valueOf(obj.getCapacity()), obj.getBedType(),
-                String.valueOf(obj.getRoomClass().getValue()));
+                String.valueOf(obj.getRoomClassValue().getValue()));
         obj.setId(id);
+        return id;
     }
 
     @Override
@@ -83,7 +84,7 @@ public class RoomDaoImpl implements RoomDao {
     public void update(Room obj) throws JDBCException {
         JDBCManager.updateRequest(SQL.ROOM_UPDATE,
                 String.valueOf(obj.getRoomNumber()), String.valueOf(obj.getFloor()), String.valueOf(obj.getCapacity()),
-                obj.getBedType(), String.valueOf(obj.getRoomClass().getValue()), String.valueOf(obj.getId()));
+                obj.getBedType(), String.valueOf(obj.getRoomClassValue().getValue()), String.valueOf(obj.getId()));
     }
 
     @Override

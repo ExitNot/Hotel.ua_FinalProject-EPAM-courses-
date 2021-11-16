@@ -16,7 +16,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.Optional;
 
-public class LoginCommand implements Command {
+public class SignInCommand implements Command {
 
     private static final Logger log = LogManager.getLogger(LOG_TRACE);
 
@@ -30,13 +30,14 @@ public class LoginCommand implements Command {
 
         if (user.isEmpty()){  // todo collapse after debugging
             req.getSession().setAttribute(ATTRIBUTE_LOGIN_ERROR, "User does not exist");
-            return new Response(Response.Direction.Redirect, LOGIN_JSP);
+            return new Response(Response.Direction.Redirect, SIGN_IN_JSP);
         } else if (!PasswordCryptoPbkdf2.validatePwd(password, user.get().getPassword())){
             req.getSession().setAttribute(ATTRIBUTE_LOGIN, login);
             req.getSession().setAttribute(ATTRIBUTE_LOGIN_ERROR, "Incorrect password");
-            return new Response(Response.Direction.Forward, LOGIN_JSP);
+            return new Response(Response.Direction.Forward, SIGN_IN_JSP);
         }
 
+        req.getSession().setAttribute(ATTRIBUTE_ID, user.get().getId());
         req.getSession().setAttribute(ATTRIBUTE_LOGIN, user.get().getLogin());
         req.getSession().setAttribute(ATTRIBUTE_ROLE, user.get().getRole().name());
         return new Response(Response.Direction.Redirect, INDEX_JSP);
@@ -44,6 +45,6 @@ public class LoginCommand implements Command {
 
     @Override
     public String getCommand() {
-        return LOGIN;
+        return SIGN_IN;
     }
 }

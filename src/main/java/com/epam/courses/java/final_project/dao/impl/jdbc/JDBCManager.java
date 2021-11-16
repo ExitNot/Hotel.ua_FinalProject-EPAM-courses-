@@ -38,9 +38,11 @@ public class JDBCManager {
         List<T> list = new ArrayList<>();
         try {
             ps = createStatement(sql, params);
+            log.trace(ps);
             rs = ps.executeQuery();
-            while (rs.next())
+            while (rs.next()) {
                 list.add(dao.createEntity(rs));
+            }
         } catch (SQLException e) {
             throw new JDBCException("Failed select sql request:\n" + e);
         } finally {
@@ -55,6 +57,7 @@ public class JDBCManager {
         int newId = 0;
         try {
             ps = createStatement(sql, params);
+            log.trace(ps);
             ps.executeUpdate();
             rs = ps.getGeneratedKeys();
             if (rs.next())
@@ -71,6 +74,7 @@ public class JDBCManager {
 
     private static PreparedStatement createStatement(String sql, String... params) throws SQLException {
         TCConnectionPool cp = TCConnectionPool.getInstance();
+//        ConnectionPool cp = ConnectionPool.getInstance();
         conn = cp.getConnection();
         PreparedStatement ps = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
         setStatementParams(ps, params);

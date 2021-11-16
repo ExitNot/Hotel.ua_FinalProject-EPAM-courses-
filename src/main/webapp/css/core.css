@@ -1,3 +1,13 @@
+
+input{
+    width:150px;
+    margin-bottom:3px;
+}
+
+table, th, td {
+    border: 1px solid black;
+}
+
 .button {
     display: block;
     width: 115px;
@@ -7,6 +17,18 @@
     border-radius: 5px;
     color: white;
     line-height: 25px;
+    margin-bottom:3px;
+}
+
+/* Sign Up */
+.pwd_format {
+    position: absolute;
+    font-size: 11px;
+    width: 150px;
+    padding: 5px;
+    margin-left: 200px;
+    border-radius: 5px;
+    display: none;
 }
 
 /* Reservation tabs */

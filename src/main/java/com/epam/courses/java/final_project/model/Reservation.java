@@ -16,7 +16,12 @@ public class Reservation {
     Date to;
     int guests_amount;
 
-    public Reservation() {}
+    public Reservation(long userId, long roomId, Date from, Date to) {
+        this.userId = userId;
+        this.roomId = roomId;
+        this.from = from;
+        this.to = to;
+    }
 
     public Reservation(long id, long userId, long roomId, Date from, Date to, int guests_amount) {
         this.id = id;

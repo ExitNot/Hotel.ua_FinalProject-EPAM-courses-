@@ -31,8 +31,12 @@ public class CommandContainer {
 //        GET commands
         getCommands.put(INDEX, new IndexCommand());
         getCommands.put(AVAILABLE_ROOMS, new AvailableRoomsCommand());
+        getCommands.put(SIGN_IN, new SignInCommand());
+        getCommands.put(PROFILE, new ProfileCommand());
 //        POST commands
-        postCommands.put(LOGIN, new LoginCommand());
+        postCommands.put(SIGN_UP, new SignUpCommand());
+        postCommands.put(DELETE_USER, new DeleteUserCommand());
+        postCommands.put(BOOK_SPECIFIC_ROOM, new BookSpecificRoomCommand());
     }
 
     public static CommandContainer getInstance(){
@@ -50,10 +54,8 @@ public class CommandContainer {
     public Command getCommandPost(String command){
         Command out = postCommands.get(command);
         if (out == null){
-            log.trace(NOT_FOUND);
             return NOT_FOUND;
         }
-        log.trace(out.getCommand());
         return out;
     }
 }

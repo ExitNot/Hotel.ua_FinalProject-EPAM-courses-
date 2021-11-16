@@ -1,6 +1,11 @@
 package com.epam.courses.java.final_project.model;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import java.util.List;
+
+import static com.epam.courses.java.final_project.util.Constant.LOG_TRACE;
 
 /**
  * The {@code Room} class represent corresponding entity from database.
@@ -17,15 +22,15 @@ import java.util.List;
  * */
 public class Room {
 
-    long id;
-    int roomNumber;
-    int floor;
-    int capacity;
-    String bedType;  // S - single, D - double. String in form ("1D, 2S") etc...
-    RoomClass roomClass;
-    List<String> imgPaths;
+    private static final Logger log = LogManager.getLogger(LOG_TRACE);
 
-    public Room() {}
+    private long id;
+    private int roomNumber;
+    private int floor;
+    private int capacity;
+    private String bedType;  // S - single, D - double. String in form ("1D, 2S") etc...
+    private RoomClass roomClass;
+    private List<String> imgPaths;
 
     public Room(long id, int roomNumber, int floor, int capacity, String bedType, RoomClass roomClass) {
         this.id = id;
@@ -76,8 +81,12 @@ public class Room {
         this.bedType = bedType;
     }
 
-    public RoomClass getRoomClass() {
+    public RoomClass getRoomClassValue() {
         return roomClass;
+    }
+
+    public String getRoomClass() {
+        return roomClass.name();
     }
 
     public void setRoomClass(int value) {

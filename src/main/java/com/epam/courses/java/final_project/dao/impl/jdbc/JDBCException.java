@@ -15,7 +15,7 @@ public class JDBCException extends Exception{
     }
 
     public JDBCException(String message, Throwable cause) {
-        super(message, cause);
+        super(message + ":" + System.lineSeparator() + cause);
     }
 
     public JDBCException(Throwable cause) {

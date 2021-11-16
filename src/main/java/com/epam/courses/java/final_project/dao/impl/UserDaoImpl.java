@@ -36,11 +36,13 @@ public class UserDaoImpl implements UserDao {
     }
 
     @Override
-    public void create(User obj) throws JDBCException {
-        int id = JDBCManager.updateRequest(SQL.USER_INSERT, obj.getLogin(), obj.getPassword(),
+    public long create(User obj) throws JDBCException {
+        long id = JDBCManager.updateRequest(SQL.USER_INSERT, obj.getLogin(), obj.getPassword(),
+                obj.getName(), obj.getSurname(),
                 obj.getPhoneNumber(), obj.getEmail(),
                 String.valueOf(obj.getRole().getValue()));
         obj.setId(id);
+        return id;
     }
 
     @Override

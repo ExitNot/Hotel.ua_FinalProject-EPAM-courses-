@@ -11,7 +11,7 @@
         <link href = "http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.7/themes/black-tie/jquery-ui.css"
               rel = "stylesheet">
     </head>
-    <body>
+    <body class="body">
         <jsp:doBody/>
     </body>
 </html>

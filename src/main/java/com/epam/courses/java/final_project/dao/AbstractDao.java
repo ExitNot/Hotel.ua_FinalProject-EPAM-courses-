@@ -14,7 +14,7 @@ import java.util.Optional;
  * */
 public interface AbstractDao<T> {
 
-    void create(T obj) throws JDBCException;
+    long create(T obj) throws JDBCException;
 
     Optional<T> getById(long id) throws JDBCException;
 

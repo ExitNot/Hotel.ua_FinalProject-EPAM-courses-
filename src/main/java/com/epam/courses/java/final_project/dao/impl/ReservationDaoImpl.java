@@ -36,11 +36,12 @@ public class ReservationDaoImpl implements ReservationDao {
     }
 
     @Override
-    public void create(Reservation obj) throws JDBCException {
-        int id = JDBCManager.updateRequest(SQL.RESERVATION_INSERT,
-                String.valueOf(obj.getId()), String.valueOf(obj.getUserId()), String.valueOf(obj.getRoomId()),
+    public long create(Reservation obj) throws JDBCException {
+        long id = JDBCManager.updateRequest(SQL.RESERVATION_INSERT,
+                String.valueOf(obj.getUserId()), String.valueOf(obj.getRoomId()),
                 obj.getFrom().toString(), obj.getTo().toString(), String.valueOf(obj.getGuests_amount()));
         obj.setId(id);
+        return id;
     }
 
     @Override
@@ -66,7 +67,7 @@ public class ReservationDaoImpl implements ReservationDao {
     @Override
     public List<Reservation> getOccupiedRoomsReservations(Date from, Date to) throws JDBCException {
         return JDBCManager.selectRequest(this, SQL.OCCUPIED_ROOMS,
-                from.toString(), to.toString(), to.toString(), from.toString(), from.toString(), to.toString());
+                to.toString(), from.toString());
     }
 
     @Override
