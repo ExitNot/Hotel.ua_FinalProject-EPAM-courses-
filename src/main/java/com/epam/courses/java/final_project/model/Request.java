@@ -14,6 +14,7 @@ public class Request extends Reservation {
     double price;
     int adultsAmount;
     int childrenAmount;
+    Date customerAcceptance;
 
     public Request(long userId, long roomId, Date from, Date to, int adultsAmount, int childrenAmount, Status status, double price) {
         super(userId, roomId, from, to, adultsAmount + childrenAmount);
@@ -23,8 +24,9 @@ public class Request extends Reservation {
         this.price = price;
     }
 
-    public Request(long id, long userId, long roomId, Date from, Date to, int adultsAmount, int childrenAmount, Status status, double price) {
+    public Request(long id, long userId, long roomId, Date from, Date to, Date customerAcceptance, int adultsAmount, int childrenAmount, Status status, double price) {
         super(id, userId, roomId, from, to, adultsAmount + childrenAmount);
+        this.customerAcceptance = customerAcceptance;
         this.adultsAmount = adultsAmount;
         this.childrenAmount = childrenAmount;
         this.status = status;
@@ -74,8 +76,16 @@ public class Request extends Reservation {
         this.status = Status.getStatus(value);
     }
 
+    public Date getCustomerAcceptance() {
+        return customerAcceptance;
+    }
+
+    public void setCustomerAcceptance(Date customerAcceptance) {
+        this.customerAcceptance = customerAcceptance;
+    }
+
     public enum Status {
-        ManagerResponse(1), CustomerAccept(2), Payment(3);  // waiting for
+        ManagerResponse(1), CustomerAccept(2), Payment(3), Canceled(4);  // waiting for
 
         int value;
 
@@ -88,7 +98,9 @@ public class Request extends Reservation {
         }
 
         public static Status getStatus(int num) {
-            if (num == 3)
+            if (num == 4){
+                return Canceled;
+            } else if (num == 3)
                 return Payment;
             else if (num == 2)
                 return CustomerAccept;

@@ -32,6 +32,7 @@ public class RequestDaoImpl implements RequestDao {
                 rs.getLong(PARAM_ROOM_ID),
                 rs.getDate(PARAM_DATE_FROM),
                 rs.getDate(PARAM_DATE_TO),
+                rs.getDate(PARAM_DATE_OF_CUSTOMER_ACCEPTANCE),
                 rs.getInt(PARAM_ADULTS_AMOUNT),
                 rs.getInt(PARAM_CHILDREN_AMOUNT),
                 Request.Status.getStatus(rs.getInt(PARAM_STATUS)),

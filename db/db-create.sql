@@ -18,7 +18,7 @@ CREATE TABLE users (id INT PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
                     surname VARCHAR NOT NULL,
                     phone_number VARCHAR(15) UNIQUE NOT NULL,
                     email VARCHAR(30) UNIQUE NOT NULL,
-                    role INT NOT NULL); -- customer(1), manager(2) or admin(3)
+                    role INT NOT NULL); -- customer(1) or manager(2)
 
 CREATE TABLE rooms (id INT PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
                     room_number INT UNIQUE NOT NULL ,
@@ -43,9 +43,10 @@ CREATE TABLE requests (id INT PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
                     room_id INT REFERENCES rooms(id),
                     date_from DATE NOT NULL,
                     date_to DATE NOT NULL,
+                    date_of_customer_acceptance DATE,
                     adults_amount INT,
                     children_amount INT,
-                    status INT NOT NULL, -- waiting for: manager response(1), customer accept(2), payment(3)
+                    status INT NOT NULL, -- waiting for: manager response(1), customer accept(2), payment(3), canceled(4)
                     price DOUBLE PRECISION);
 
 CREATE TABLE users_requests(user_id INT REFERENCES users(id) ON DELETE CASCADE,
@@ -81,6 +82,8 @@ VALUES
     (3,       2,       '2021-11-16', '2021-11-20', 2);
 
 INSERT INTO requests  -- temporary values for dev process --
-    (user_id, room_id, date_from,    date_to,      adults_amount, children_amount, status, price)
+    (user_id, room_id, date_from,    date_to,       date_of_customer_acceptance,      adults_amount, children_amount, status, price)
 VALUES
-    (3,       3,       '2021-11-20', '2021-11-21', 1,            1,               1,       900);
+    (3,       3,       '2021-11-20', '2021-11-21',  '2021-11-17',                     1,             1,               1,       900),
+    (3,       4,       '2021-11-21', '2021-11-22',  '2021-11-15',                     1,             1,               3,       900),
+    (3,       5,       '2021-11-21', '2021-11-22',  '2021-11-14',                     1,             1,               3,       900);

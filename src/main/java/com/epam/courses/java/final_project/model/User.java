@@ -121,7 +121,7 @@ public class User {
     }
 
     public enum Role{
-        Customer(1), Manager(2), Admin(3);
+        Customer(1), Manager(2);
 
         int dbValue;
 
@@ -134,9 +134,7 @@ public class User {
         }
 
         public static Role getRole(int num){
-            if (num == 3)
-                return Admin;
-            else if (num == 2)
+            if (num == 2)
                 return Manager;
             return Customer;
         }

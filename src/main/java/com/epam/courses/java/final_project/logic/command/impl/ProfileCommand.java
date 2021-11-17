@@ -26,7 +26,7 @@ public class ProfileCommand implements Command {
             return new Response(Response.Direction.Redirect, SIGN_IN_JSP);
 
         List<Reservation> reservations = ReservationService.getByUser((Long) req.getSession().getAttribute(ATTRIBUTE_ID));
-        List<Request> requests = RequestService.getByUser((Long) req.getSession().getAttribute(ATTRIBUTE_ID));
+        List<Request> requests = RequestService.getByUserId((Long) req.getSession().getAttribute(ATTRIBUTE_ID));
 
         for (Reservation r : reservations){
             Optional<Room> room = RoomService.getById(r.getRoomId());

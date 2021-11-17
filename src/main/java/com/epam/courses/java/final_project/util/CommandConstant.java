@@ -10,24 +10,26 @@ public class CommandConstant {
     public static final String SIGN_IN = "signIn";
     public static final String PROFILE = "profile";
     public static final String LOGOUT = "logout";
-    //    POST commands
+
+//    POST commands
     public static final String SIGN_UP = "signUp";
     public static final String DELETE_USER = "deleteUser";
     public static final String BOOK_SPECIFIC_ROOM = "bookSpecificRoom";
+    public static final String CANCEL_REQUEST = "cancelRequest";
 
 //    Parameters
     public static final String PARAM_USER_ID = "userId";
     public static final String PARAM_ROOM_ID = "roomId";
+    public static final String PARAM_REQUEST_ID = "requestId";
     public static final String PARAM_LOGIN = "login";  // User
     public static final String PARAM_PWD = "pwd";
     public static final String PARAM_PHONE_NUM = "phoneNumber";
     public static final String PARAM_NAME = "name";
     public static final String PARAM_SURNAME = "surname";
-    public static final String PARAM_PHONE_NUMBER = "phone_number";
     public static final String PARAM_EMAIL = "email";
     public static final String PARAM_ROLE = "role";
 
-    public static final String PARAM_FROM = "dateFrom";
+    public static final String PARAM_FROM = "dateFrom";  // Reservation
     public static final String PARAM_TO = "dateTo";
 
 //    Attributes
@@ -49,6 +51,7 @@ public class CommandConstant {
     public static final String PROFILE_JSP = "profile.jsp";
     public static final String INDEX_JSP = "index.jsp";
     public static final String AVAILABLE_ROOMS_JSP = "availableRoomsList.jsp";
+    public static final String ERROR_JSP = "error.jsp";
 
 //    Pages for Controller
     public static final String PROFILE_ACT = "profile.act";
