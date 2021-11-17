@@ -16,7 +16,6 @@
             let pwd_format =  document.getElementsByClassName("pwd_format")[0];
 
             pwd.addEventListener('keyup', () => {
-                console.log("tut")
                 if (!passwordPattern.test(pwd.value)) {
                     pwd.style.borderColor = 'red'
                 } else {

@@ -9,7 +9,7 @@
 
 <t:wrapper>
     <h1>Sign In Page</h1>
-    <form action="login.act" method="get">
+    <form action="signIn.act" method="get">
         <input type="hidden" name="command" value="signIn"/>
         <c:choose>
             <c:when test="${not empty login}">

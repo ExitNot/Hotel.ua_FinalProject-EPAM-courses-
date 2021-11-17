@@ -3,10 +3,9 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
-<c:if test="${empty login}">
-    <c:redirect url="signIn.jsp"></c:redirect>
-</c:if>
-<c:set var="logoutFlag" scope="page"/>
+<%--<c:if test="${empty login}">--%>
+<%--    <c:redirect url="signIn.jsp"></c:redirect>--%>
+<%--</c:if>--%>
 
 <t:wrapper>
     <a>User: ${login}</a><br/>
@@ -47,7 +46,20 @@
                 <td>${request.roomNumber}</td>
                 <td>${request.from}</td>
                 <td>${request.to}</td>
-                <td>Waiting for ${request.statusName}</td>
+                <c:choose>
+                    <c:when test="${request.statusName == 'canceled'}">
+                        <td style="text-transform: capitalize;">${request.statusName}</td>
+                    </c:when>
+                    <c:otherwise>
+                        <td>Waiting for ${request.statusName}</td>
+                        <td>
+                            <form action="cancelRequest.act" method="post" style="margin-bottom: 0">
+                                <input type="hidden" name="requestId" value="${request.id}">
+                                <input type="submit" value="Cancel">
+                            </form>
+                        </td>
+                    </c:otherwise>
+                </c:choose>
             </tr>
         </c:forEach>
     </table>

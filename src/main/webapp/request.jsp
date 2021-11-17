@@ -3,9 +3,9 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
-<c:if test="${empty login}">
-    <c:redirect url="signIn.jsp"></c:redirect>
-</c:if>
+<%--<c:if test="${empty login}">--%>
+<%--    <c:redirect url="signIn.jsp"></c:redirect>--%>
+<%--</c:if>--%>
 
 <t:wrapper>
     <h1>Create Reservation</h1>
@@ -14,7 +14,6 @@
         var rooms = 0;
 
         window.onload = function () {
-            // document.getElementById("request").click();
             document.getElementById("add_room_btn").click();
         }
 
@@ -34,14 +33,12 @@
                 rooms++;
                 wrapper.insertAdjacentHTML('afterbegin', room);
             }
-            // document.getElementById("page_content").innerHTML = document.getElementById("request_content").innerHTML;
         }
 
         function removeRoom(id) {
             rooms--;
             const elem = document.getElementById(id);
             elem.parentNode.removeChild(elem);
-            // document.getElementById("page_content").innerHTML = document.getElementById("request_content").innerHTML;
         }
     </script>
     <script>

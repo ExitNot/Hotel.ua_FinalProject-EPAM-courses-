@@ -23,4 +23,14 @@
         <servlet-name>Controller</servlet-name>
         <url-pattern>*.act</url-pattern>
     </servlet-mapping>
+
+    <filter>
+        <filter-name>AccessFilter</filter-name>
+        <filter-class>com.epam.courses.java.final_project.logic.filter.AccessFilter</filter-class>
+    </filter>
+
+    <filter-mapping>
+        <filter-name>AccessFilter</filter-name>
+        <servlet-name>Controller</servlet-name>
+    </filter-mapping>
 </web-app>

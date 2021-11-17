@@ -3,9 +3,9 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
-<c:if test="${empty login}">
-    <c:redirect url="signIn.jsp"></c:redirect>
-</c:if>
+<%--<c:if test="${empty login}">--%>
+<%--    <c:redirect url="signIn.jsp"></c:redirect>--%>
+<%--</c:if>--%>
 
 <t:wrapper>
 
@@ -61,7 +61,6 @@
                                 <input type="submit" value="Make reservation">
                             </form>
                         </td>
-<%--                        <td><a href="bookSpecificRoom?${room.id}.act">Make reservation</a></td>--%>
                     </tr>
                 </c:forEach>
             </table>
