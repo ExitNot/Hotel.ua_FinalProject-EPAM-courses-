@@ -29,6 +29,7 @@ public class AccessFilter implements Filter {
         accessLevel.put(PROFILE, Role.Customer);
         accessLevel.put(DELETE_USER, Role.Customer);
         accessLevel.put(BOOK_SPECIFIC_ROOM, Role.Customer);
+        accessLevel.put(CREATE_REQUEST, Role.Customer);
         accessLevel.put(CANCEL_REQUEST, Role.Customer);
     }
 
@@ -42,13 +43,15 @@ public class AccessFilter implements Filter {
         log.trace("command: " + reqName + "(" + commandRole + ")");
 
         Object obj = req.getSession().getAttribute(ATTRIBUTE_ROLE);
-        if (obj == null){
-            if (commandRole == null){
-                chain.doFilter(request, response);
-            } else {
-                resp.sendRedirect(SIGN_IN_JSP);
-            }
+
+        if (commandRole == null){
+            chain.doFilter(request, response);
         } else {
+            if (obj == null){
+                resp.sendRedirect(SIGN_IN_JSP);
+                return;
+            }
+
             Role userRole = Role.valueOf((String) obj);
             if (commandRole.getValue() == userRole.getValue() || commandRole.getValue() < userRole.getValue()){
                 chain.doFilter(request, response);

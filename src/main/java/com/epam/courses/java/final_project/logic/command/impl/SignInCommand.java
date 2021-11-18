@@ -11,6 +11,7 @@ import org.apache.logging.log4j.Logger;
 
 import static com.epam.courses.java.final_project.util.CommandConstant.*;
 import static com.epam.courses.java.final_project.util.Constant.LOG_TRACE;
+import static com.epam.courses.java.final_project.util.Constant.PARAM_ID;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -24,17 +25,19 @@ public class SignInCommand implements Command {
     public Response execute(HttpServletRequest req, HttpServletResponse resp) throws JDBCException {
         String login = req.getParameter(PARAM_LOGIN);
         String password = req.getParameter(PARAM_PWD);
-        log.trace("login of: " + login);
+
+        if (req.getParameter(PARAM_ID) != null){
+            return new Response(Response.Direction.Redirect, INDEX_JSP);
+        }
 
         Optional<User> user = UserService.findByLogin(login);
-
-        if (user.isEmpty()){  // todo collapse after debugging
+        if (user.isEmpty()){
             req.getSession().setAttribute(ATTRIBUTE_LOGIN_ERROR, "User does not exist");
             return new Response(Response.Direction.Redirect, SIGN_IN_JSP);
         } else if (!PasswordCryptoPbkdf2.validatePwd(password, user.get().getPassword())){
             req.getSession().setAttribute(ATTRIBUTE_LOGIN, login);
             req.getSession().setAttribute(ATTRIBUTE_LOGIN_ERROR, "Incorrect password");
-            return new Response(Response.Direction.Forward, SIGN_IN_JSP);
+            return new Response(Response.Direction.Redirect, SIGN_IN_JSP);
         }
 
         req.getSession().setAttribute(ATTRIBUTE_ID, user.get().getId());
