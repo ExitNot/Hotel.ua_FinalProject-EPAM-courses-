@@ -3,10 +3,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
-<c:if test="${not empty login}">
-    <c:redirect url="index.jsp"></c:redirect>
-</c:if>
-
 <t:wrapper>
     <h1>Sign In Page</h1>
     <form action="signIn.act" method="get">

@@ -15,6 +15,7 @@ public class CommandConstant {
     public static final String SIGN_UP = "signUp";
     public static final String DELETE_USER = "deleteUser";
     public static final String BOOK_SPECIFIC_ROOM = "bookSpecificRoom";
+    public static final String CREATE_REQUEST = "request";
     public static final String CANCEL_REQUEST = "cancelRequest";
 
 //    Parameters
@@ -28,6 +29,8 @@ public class CommandConstant {
     public static final String PARAM_SURNAME = "surname";
     public static final String PARAM_EMAIL = "email";
     public static final String PARAM_ROLE = "role";
+    public static final String PARAM_ADULTS_AMOUNT = "amount_of_adults_room";
+    public static final String PARAM_CHILDREN_AMOUNT = "amount_of_children_room";
 
     public static final String PARAM_FROM = "dateFrom";  // Reservation
     public static final String PARAM_TO = "dateTo";

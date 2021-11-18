@@ -3,9 +3,9 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
-<%--<c:if test="${empty login}">--%>
-<%--    <c:redirect url="signIn.jsp"></c:redirect>--%>
-<%--</c:if>--%>
+<c:if test="${empty id}">
+    <c:redirect url="signIn.jsp"></c:redirect>
+</c:if>
 
 <t:wrapper>
     <a>User: ${login}</a><br/>

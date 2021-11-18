@@ -38,6 +38,7 @@ public class CommandContainer {
         postCommands.put(SIGN_UP, new SignUpCommand());
         postCommands.put(DELETE_USER, new DeleteUserCommand());
         postCommands.put(BOOK_SPECIFIC_ROOM, new BookSpecificRoomCommand());
+        postCommands.put(CREATE_REQUEST, new RequestCommand());
         postCommands.put(CANCEL_REQUEST, new CancelRequestCommand());
     }
 

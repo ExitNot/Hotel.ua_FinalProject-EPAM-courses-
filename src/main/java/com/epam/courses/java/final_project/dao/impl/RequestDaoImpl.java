@@ -42,11 +42,20 @@ public class RequestDaoImpl implements RequestDao {
 
     @Override
     public long create(Request obj) throws JDBCException {
-        long id = JDBCManager.updateRequest(SQL.REQUEST_INSERT,
-                String.valueOf(obj.getUserId()), String.valueOf(obj.getRoomId()),
-                obj.getFrom().toString(), obj.getTo().toString(),
-                String.valueOf(obj.getAdultsAmount()), String.valueOf(obj.getChildrenAmount()),
-                String.valueOf(obj.getStatus().getValue()), String.valueOf(obj.getPrice()));
+        long id;
+        if (obj.getRoomId() == 0) {
+            id = JDBCManager.updateRequest(SQL.REQUEST_INSERT,
+                    String.valueOf(obj.getUserId()), null,
+                    obj.getFrom().toString(), obj.getTo().toString(),
+                    String.valueOf(obj.getAdultsAmount()), String.valueOf(obj.getChildrenAmount()),
+                    String.valueOf(obj.getStatus().getValue()), String.valueOf(obj.getPrice()));
+        } else {
+            id = JDBCManager.updateRequest(SQL.REQUEST_INSERT,
+                    String.valueOf(obj.getUserId()), String.valueOf(obj.getRoomId()),
+                    obj.getFrom().toString(), obj.getTo().toString(),
+                    String.valueOf(obj.getAdultsAmount()), String.valueOf(obj.getChildrenAmount()),
+                    String.valueOf(obj.getStatus().getValue()), String.valueOf(obj.getPrice()));
+        }
         obj.setId(id);
         return id;
     }

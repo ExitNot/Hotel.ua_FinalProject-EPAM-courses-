@@ -3,9 +3,9 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
-<%--<c:if test="${empty login}">--%>
-<%--    <c:redirect url="signIn.jsp"></c:redirect>--%>
-<%--</c:if>--%>
+<c:if test="${empty id}">
+    <c:redirect url="signIn.jsp"></c:redirect>
+</c:if>
 
 <t:wrapper>
 
@@ -27,8 +27,6 @@
         $( "#date_from" ).onchange = function () {
             $( "#date_to" ).datepicker("minDate", new Date($( "#date_from" ).val));
             $( "#date_to" ).datepicker("show");
-            // document.getElementById('date_to').setAttribute('min',  this.value);
-            console.log(document.getElementById('date_to').getAttribute('min'))
         };
     </script>
 

@@ -83,7 +83,9 @@ public class JDBCManager {
 
     private static void setStatementParams(PreparedStatement ps, String... params) throws SQLException {
         for (int i = 0; i < params.length; i++){
-            if (params[i].matches("\\d{4}-\\d{2}-\\d{2}"))
+            if (params[i] == null){
+                ps.setNull(i + 1, 0);
+            } else if (params[i].matches("\\d{4}-\\d{2}-\\d{2}"))
                 ps.setDate(i + 1, Date.valueOf(params[i]));
             else if (params[i].matches("\\d+"))
                 ps.setInt(i + 1, Integer.parseInt(params[i]));

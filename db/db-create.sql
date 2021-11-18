@@ -40,7 +40,7 @@ CREATE TABLE reservations (id INT PRIMARY KEY GENERATED ALWAYS AS IDENTITY, -- a
 
 CREATE TABLE requests (id INT PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
                     user_id INT REFERENCES users(id) ON DELETE CASCADE,
-                    room_id INT REFERENCES rooms(id),
+                    room_id INT REFERENCES rooms(id) NULL,
                     date_from DATE NOT NULL,
                     date_to DATE NOT NULL,
                     date_of_customer_acceptance DATE,

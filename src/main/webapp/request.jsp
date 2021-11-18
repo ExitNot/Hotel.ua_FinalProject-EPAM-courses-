@@ -3,9 +3,9 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
-<%--<c:if test="${empty login}">--%>
-<%--    <c:redirect url="signIn.jsp"></c:redirect>--%>
-<%--</c:if>--%>
+<c:if test="${empty id}">
+    <c:redirect url="signIn.jsp"></c:redirect>
+</c:if>
 
 <t:wrapper>
     <h1>Create Reservation</h1>
@@ -15,6 +15,8 @@
 
         window.onload = function () {
             document.getElementById("add_room_btn").click();
+            var text = document.getElementById("nav_request").innerText;
+            text = text + "<span class=\"sr-only\">(current)</span>";
         }
 
         function changeTab(id) {
@@ -39,6 +41,10 @@
             rooms--;
             const elem = document.getElementById(id);
             elem.parentNode.removeChild(elem);
+        }
+
+        function setRoomsAmount() {
+            document.getElementById("rooms_amount").value = rooms;
         }
     </script>
     <script>
@@ -73,16 +79,17 @@
                 <div id="rooms_wrapper">
                     <button type="button" onclick="cloneRoom()" id="add_room_btn">Add another room</button>
                 </div>
-                <input type="submit" name="request_btn" value="Make reservation" class="button"/>
+                <input type="hidden" id="rooms_amount" name="rooms_amount"/>
+                <input type="submit" name="request_btn" value="Make reservation" class="button" onclick="setRoomsAmount()"/>
             </form>
         </div>
 
         <div class="hidden_content" id="room_template">
             <div id="room">
                 <label>
-                    <input type="number" name="amount_of_adults" placeholder="adult"
+                    <input type="number" name="amount_of_adults_room" placeholder="adult"
                            max="5" value="1" onChange="guests_value()">
-                    <input type="number" name="amount_of_children" placeholder="child"
+                    <input type="number" name="amount_of_children_room" placeholder="child"
                            max="5" value="0" onChange="guests_value()">
                     <select name="room_class">
                         <option value="1">standard</option>

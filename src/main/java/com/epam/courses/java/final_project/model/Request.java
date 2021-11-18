@@ -16,6 +16,14 @@ public class Request extends Reservation {
     int childrenAmount;
     Date customerAcceptance;
 
+    public Request(long userId, Date from, Date to, int adultsAmount, int childrenAmount, Status status, double price) {
+        super(userId, 0, from, to, adultsAmount + childrenAmount);
+        this.adultsAmount = adultsAmount;
+        this.childrenAmount = childrenAmount;
+        this.status = status;
+        this.price = price;
+    }
+
     public Request(long userId, long roomId, Date from, Date to, int adultsAmount, int childrenAmount, Status status, double price) {
         super(userId, roomId, from, to, adultsAmount + childrenAmount);
         this.adultsAmount = adultsAmount;
