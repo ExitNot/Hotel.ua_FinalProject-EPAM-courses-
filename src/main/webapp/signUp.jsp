@@ -12,6 +12,9 @@
         const passwordPattern = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/
 
         window.onload = function () {
+            var current = document.getElementsByClassName("active")[0];
+            current.className = current.className.replace(" active", "");
+
             let pwd =  document.getElementById("pwd");
             let pwd_format =  document.getElementsByClassName("pwd_format")[0];
 

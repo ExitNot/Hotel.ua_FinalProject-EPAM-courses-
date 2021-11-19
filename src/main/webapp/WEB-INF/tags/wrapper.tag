@@ -13,28 +13,28 @@
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
               integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
               crossorigin="anonymous">
-        <!-- Bootstrap CSS -->
-<%--        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">--%>
-        <link href="${contextPath}/bootstarp/bootstrap.min.css" rel="stylesheet">
-
+        <%-- Bootstrap --%>
+        <link href="${pageContext.request.contextPath}/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+        <script type="text/javascript" src="${pageContext.request.contextPath}/bootstrap/js/bootstrap.min.js"></script>
     </head>
-    <nav class="navbar navbar-light" style="background-color: goldenrod;">
-<%--        <button class="navbar-toggler" type="button" data-toggle="collapse.show"--%>
-<%--                data-target="#navbarTogglerDemo01" aria-controls="navbarTogglerDemo01"--%>
-<%--                aria-expanded="false" aria-label="Toggle navigation">--%>
-<%--            <span class="navbar-toggler-icon"></span>--%>
-<%--        </button>--%>
+
+    <%-- Fontawesome --%>
+    <script src="https://kit.fontawesome.com/b9b6a4bb7d.js" crossorigin="anonymous"></script>
+
+    <nav class="navbar navbar-expand-lg navbar-light" style="background-color: goldenrod;">
         <div class="collapse.show navbar-collapse" id="navbar">
-            <a class="navbar-brand" href="index.act">Hotel</a>
+            <a class="navbar-brand" href="index.act" style="font-size: 30px">Hotel</a>
             <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
                 <li class="nav-item active">
-                    <a class="nav-link" id="nav_index" href="index.act">Home</a>
+                    <a class="nav-link" href="index.act">Home</a>
                 </li>
+                <c:if test="${not empty id}">
+                    <li class="nav-item">
+                        <a class="nav-link" href="./request.jsp">Make a reservation</a>
+                    </li>
+                </c:if>
                 <li class="nav-item">
-                    <a class="nav-link" id="nav_request" href="./request.jsp">Make a reservation</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" id="nav_available_rooms" href="availableRooms.act">Available rooms</a>
+                    <a class="nav-link" href="./availableRooms.act">Available rooms</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="#">Contacts</a>
@@ -42,16 +42,82 @@
                 <li class="nav-item">
                     <a class="nav-link" href="#">Info</a>
                 </li>
-<%--                <li class="nav-item">--%>
-<%--                    <a class="nav-link disabled" href="#">Disabled</a>--%>
-<%--                </li>--%>
             </ul>
-            <form class="form-inline my-2 my-lg-0">
-                <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-                <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-            </form>
+            <c:choose>
+                <c:when test="${empty id}">
+                    <a href="./signIn.jsp" id="sign_in_btn" class="button" data-toggle="modal" data-target="#signInModal">Sign in</a>
+                    <a href="./signUp.jsp" class="button">Sign up</a>
+                </c:when>
+                <c:otherwise>
+                    <ul class="navbar-nav">
+                        <li class="nav-item dropdown">
+                            <div class="btn dropdown show">  <%-- profile icon --%>
+                                <a href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    <span style="color: black">
+                                        <i class="fas fa-user-circle fa-2x"></i>
+                                    </span>
+                                </a>
+
+                                <div class="dropdown-menu dropdown-menu-right" data-offset="2" aria-labelledby="dropdownMenuLink">
+                                    <a class="dropdown-item" href="profile.act">Profile</a>
+                                    <a class="dropdown-item" href="./signUp.jsp">My reservations</a>
+                                    <a class="dropdown-item" href="./signUp.jsp">My requests</a>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                </c:otherwise>
+            </c:choose>
+
         </div>
     </nav>
+
+    <!-- Sign in modal -->
+    <div class="modal fade" id="signInModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="false">
+        <div class="modal-dialog modal-dialog-centered modal-sm" role="form">
+            <div class="modal-content">
+<%--                <div class="modal-header">--%>
+<%--                    <h5 class="modal-title" id="exampleModalCenterTitle">Sign In</h5>--%>
+<%--                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">--%>
+<%--                        <span aria-hidden="true">&times;</span>--%>
+<%--                    </button>--%>
+<%--                </div>--%>
+                <div class="modal-body">
+                    <form class="px-3 pt-3 mb-0" action="signIn.act" method="get" id="signInForm">
+                        <c:if test="${not empty loginError}">
+                            <b class="float-right" style="color:red; font-size: 12px;">${loginError}</b>
+                            <c:remove var="loginError"/>
+                        </c:if>
+                        <input type="hidden" name="command" value="signIn"/>
+                        <div class="form-group mb-0">
+                            <c:choose>
+                                <c:when test="${not empty login}">
+                                    <input id="login" class="form-control" name="login" value="${login}"/><br/>
+                                </c:when >
+                                <c:otherwise>
+                                    <input id="login" class="form-control" name="login" placeholder="Login"/><br/>
+                                </c:otherwise>
+                            </c:choose>
+                        </div>
+                        <div class="form-group">
+                            <input type="password" class="form-control" id="pwd" name="pwd" placeholder="Password">
+                        </div>
+                        <div class="form-check pl-1">
+                            <label class="form-check-label ml-4">
+                                <input type="checkbox" class="form-check-input col-md-1 w-25" id="dropdownCheck">
+                                <a class="col-md-2">Remember me</a>
+                            </label>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <a class="dropdown-item col-l-5" href="#">Forgot password?</a>
+                    <button type="submit" form="signInForm" class="btn btn-primary col-5">Sign in</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <body class="body">
         <jsp:doBody/>
     </body>

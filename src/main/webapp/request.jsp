@@ -4,7 +4,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
 <c:if test="${empty id}">
-    <c:redirect url="signIn.jsp"></c:redirect>
+    <c:redirect url="request.act"></c:redirect>
 </c:if>
 
 <t:wrapper>
@@ -15,8 +15,7 @@
 
         window.onload = function () {
             document.getElementById("add_room_btn").click();
-            var text = document.getElementById("nav_request").innerText;
-            text = text + "<span class=\"sr-only\">(current)</span>";
+            changeActiveNav(document.getElementsByClassName("nav-item")[1])
         }
 
         function changeTab(id) {
@@ -63,9 +62,6 @@
         });
     </script>
     <div id="reservation">
-<%--        <li class="selected" id="request" onclick="changeTab(this.id);">Make request</li>--%>
-<%--        <li class="not_selected" id="specific_room" onclick="changeTab(this.id);">Specify room</li>--%>
-
         <div class="page_content" id="request_content">
             <h2>Create request</h2>
             <form action="request.act" method="post" class="form">

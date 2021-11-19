@@ -10,14 +10,19 @@ table, th, td {
 
 .button {
     display: block;
-    width: 115px;
+    width: 80px;
     background: #000000;
     padding: 10px;
     text-align: center;
     border-radius: 5px;
     color: white;
-    line-height: 25px;
+    line-height: 18px;
     margin-bottom:3px;
+    margin-right:3px;
+}
+
+.nav-item {
+    font-size: 20px !important;
 }
 
 /* Sign Up */
