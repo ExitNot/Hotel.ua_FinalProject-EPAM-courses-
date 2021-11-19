@@ -2,7 +2,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%--<%@ attribute name="onload" required="false" %>--%>
 <html>
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/core.css" type="text/css">
     <head>
         <title>Hotel</title>
         <%-- jQuery --%>
@@ -10,18 +9,19 @@
         <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.js"></script>
         <link href = "http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.7/themes/black-tie/jquery-ui.css"
               rel = "stylesheet">
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
-              integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
-              crossorigin="anonymous">
+<%--        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"--%>
+<%--              integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"--%>
+<%--              crossorigin="anonymous">--%>
         <%-- Bootstrap --%>
         <link href="${pageContext.request.contextPath}/bootstrap/css/bootstrap.min.css" rel="stylesheet">
         <script type="text/javascript" src="${pageContext.request.contextPath}/bootstrap/js/bootstrap.min.js"></script>
+        <link rel="stylesheet" href="${pageContext.request.contextPath}/css/core.css" type="text/css">
     </head>
 
     <%-- Fontawesome --%>
     <script src="https://kit.fontawesome.com/b9b6a4bb7d.js" crossorigin="anonymous"></script>
 
-    <nav class="navbar navbar-expand-lg navbar-light" style="background-color: goldenrod;">
+    <nav class="navbar navbar-expand-lg navbar-light" style="background-color: #e1c377; border-bottom: solid #322325">
         <div class="collapse.show navbar-collapse" id="navbar">
             <a class="navbar-brand" href="index.act" style="font-size: 30px">Hotel</a>
             <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
@@ -45,7 +45,7 @@
             </ul>
             <c:choose>
                 <c:when test="${empty id}">
-                    <a href="./signIn.jsp" id="sign_in_btn" class="button" data-toggle="modal" data-target="#signInModal">Sign in</a>
+                    <a href="#" id="sign_in_btn" class="button" data-toggle="modal" data-target="#signInModal">Sign in</a>
                     <a href="./signUp.jsp" class="button">Sign up</a>
                 </c:when>
                 <c:otherwise>
@@ -76,12 +76,6 @@
     <div class="modal fade" id="signInModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="false">
         <div class="modal-dialog modal-dialog-centered modal-sm" role="form">
             <div class="modal-content">
-<%--                <div class="modal-header">--%>
-<%--                    <h5 class="modal-title" id="exampleModalCenterTitle">Sign In</h5>--%>
-<%--                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">--%>
-<%--                        <span aria-hidden="true">&times;</span>--%>
-<%--                    </button>--%>
-<%--                </div>--%>
                 <div class="modal-body">
                     <form class="px-3 pt-3 mb-0" action="signIn.act" method="get" id="signInForm">
                         <c:if test="${not empty loginError}">

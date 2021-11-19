@@ -20,16 +20,20 @@ CREATE TABLE users (id INT PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
                     email VARCHAR(30) UNIQUE NOT NULL,
                     role INT NOT NULL); -- customer(1) or manager(2)
 
+CREATE TABLE room_types (id INT PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
+                         capacity INT NOT NULL,
+                         beds_types VARCHAR(8), -- S - single, D - double, T - twin, K - king size, Q - Queen size
+                         class INT NOT NULL, -- standard(1), deluxe(2), suite(3)
+                         description TEXT);
+
 CREATE TABLE rooms (id INT PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
                     room_number INT UNIQUE NOT NULL ,
                     floor INT NOT NULL,
-                    capacity INT NOT NULL,
-                    beds_types VARCHAR(8), -- S - single, D - double
-                    class INT NOT NULL); -- standard(1), deluxe(2), suite(3)
+                    room_type_id INT REFERENCES room_types(id) ON DELETE CASCADE);
 
-CREATE TABLE rooms_images (room_id INT REFERENCES rooms(id) ON DELETE CASCADE,
-                    img_path VARCHAR(10) NOT NULL,
-                    UNIQUE (room_id, img_path));
+CREATE TABLE room_images (room_type_id INT REFERENCES room_types(id) ON DELETE CASCADE,
+                    img_path VARCHAR(30) NOT NULL,
+                    UNIQUE (room_type_id, img_path));
 
 CREATE TABLE reservations (id INT PRIMARY KEY GENERATED ALWAYS AS IDENTITY, -- already payed up
                     user_id INT REFERENCES users(id) ON DELETE CASCADE,
@@ -67,14 +71,20 @@ VALUES
     ('user', 'ca1f23e567162130:c4987aef350c32d8720c8d97fe215cd9a2e228d9c016a61647c9dbd1abb24b03',
      'User', 'Userov', '+333333333333', 'hotel_user@gmail.com', 1);
 
-INSERT INTO rooms  -- temporary values for dev process --
-    (room_number, floor, capacity, beds_types, class)
+INSERT INTO room_types  -- temporary values for dev process --
+    (capacity,    beds_types, class, description)
 VALUES
-    (1,           1,     1,        '1S',       1),
-    (2,           1,     2,        '1D',       2),
-    (3,           1,     3,        '1D, 1S',   3),
-    (4,           2,     4,        '2D',       3),
-    (5,           2,     2,        '2S',       1);
+    (2,           '1D',       1,     'sample description'),
+    (2,           '1T',       1,     'sample description');
+
+INSERT INTO rooms  -- temporary values for dev process --
+    (room_number, floor, room_type_id)
+VALUES
+    (1,           1,     1),
+    (2,           1,     2),
+    (3,           1,     1),
+    (4,           2,     1),
+    (5,           2,     1);
 
 INSERT INTO reservations  -- temporary values for dev process --
     (user_id, room_id, date_from,    date_to,      guests_amount)
@@ -87,3 +97,21 @@ VALUES
     (3,       3,       '2021-11-20', '2021-11-21',  '2021-11-17',                     1,             1,               1,       900),
     (3,       4,       '2021-11-21', '2021-11-22',  '2021-11-15',                     1,             1,               3,       900),
     (3,       5,       '2021-11-21', '2021-11-22',  '2021-11-14',                     1,             1,               3,       900);
+
+INSERT INTO room_images
+    (room_type_id, img_path)
+VALUES
+    (1,       'img/double_standard.jpg'),
+    (1,       'img/standard_01.jpg'),
+    (1,       'img/standard_02.jpg'),
+    (1,       'img/standard_03.jpg'),
+    (1,       'img/standard_04.jpg'),
+    (1,       'img/standard_05.jpg'),
+    (1,       'img/standard_06.jpg'),
+    (2,       'img/twin_standard.jpg'),
+    (2,       'img/standard_01.jpg'),
+    (2,       'img/standard_02.jpg'),
+    (2,       'img/standard_03.jpg'),
+    (2,       'img/standard_04.jpg'),
+    (2,       'img/standard_05.jpg'),
+    (2,       'img/standard_06.jpg');

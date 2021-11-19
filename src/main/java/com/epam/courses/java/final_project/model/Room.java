@@ -27,18 +27,13 @@ public class Room {
     private long id;
     private int roomNumber;
     private int floor;
-    private int capacity;
-    private String bedType;  // S - single, D - double. String in form ("1D, 2S") etc...
-    private RoomClass roomClass;
-    private List<String> imgPaths;
+    private long roomType;
 
-    public Room(long id, int roomNumber, int floor, int capacity, String bedType, RoomClass roomClass) {
+    public Room(long id, int roomNumber, int floor, long roomType) {
         this.id = id;
         this.roomNumber = roomNumber;
         this.floor = floor;
-        this.capacity = capacity;
-        this.bedType = bedType;
-        this.roomClass = roomClass;
+        this.roomType = roomType;
     }
 
     public long getId() {
@@ -65,41 +60,12 @@ public class Room {
         this.floor = floor;
     }
 
-    public int getCapacity() {
-        return capacity;
+    public long getRoomType() {
+        return roomType;
     }
 
-    public void setCapacity(int capacity) {
-        this.capacity = capacity;
-    }
-
-    public String getBedType() {
-        return bedType;
-    }
-
-    public void setBedType(String bedType) {
-        this.bedType = bedType;
-    }
-
-    public RoomClass getRoomClass() {
-        return roomClass;
-    }
-
-    public String getRoomClassName() {
-        return roomClass.name();
-    }
-
-    public void setRoomClass(int value) {
-        this.roomClass = RoomClass.getRoomClass(value);
-    }
-
-
-    public List<String> getImgPaths() {
-        return imgPaths;
-    }
-
-    public void addImgPath(String path) {
-        imgPaths.add(path);
+    public void setRoomType(long roomType) {
+        this.roomType = roomType;
     }
 
     public enum RoomClass{
@@ -130,10 +96,6 @@ public class Room {
                 "id=" + id +
                 ", roomNumber=" + roomNumber +
                 ", floor=" + floor +
-                ", capacity=" + capacity +
-                ", bedType='" + bedType + '\'' +
-                ", roomClass=" + roomClass +
-                ", imgPaths=" + imgPaths +
                 '}';
     }
 }

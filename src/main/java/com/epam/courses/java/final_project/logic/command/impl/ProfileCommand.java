@@ -22,8 +22,10 @@ public class ProfileCommand implements Command {
 
     @Override
     public Response execute(HttpServletRequest req, HttpServletResponse resp) throws JDBCException {
-        if (req.getSession().getAttribute(ATTRIBUTE_ID) == null)
-            return new Response(Response.Direction.Redirect, SIGN_IN_JSP);
+        if (req.getSession().getAttribute(ATTRIBUTE_ID) == null) {
+            req.getSession().setAttribute(ATTRIBUTE_LOGIN_ERROR, "You have to login first");
+            return new Response(Response.Direction.Redirect, INDEX_JSP);
+        }
 
         List<Reservation> reservations = ReservationService.getByUser((Long) req.getSession().getAttribute(ATTRIBUTE_ID));
         List<Request> requests = RequestService.getByUserId((Long) req.getSession().getAttribute(ATTRIBUTE_ID));

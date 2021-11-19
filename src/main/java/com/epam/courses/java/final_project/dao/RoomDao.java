@@ -17,9 +17,4 @@ public interface RoomDao extends AbstractDao<Room> {
 
     List<Room> getRoomsByFloor(int floor) throws JDBCException;
 
-    List<Room> getRoomsByCapacity(int capacity) throws JDBCException;
-
-    List<Room> getRoomsByBedsTypes(String bedsTypes) throws JDBCException;
-
-    List<Room> getRoomsByClass(Room.RoomClass roomClass) throws JDBCException;  // may be with String param
 }

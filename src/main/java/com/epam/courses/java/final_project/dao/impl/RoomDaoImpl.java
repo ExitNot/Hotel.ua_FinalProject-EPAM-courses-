@@ -29,16 +29,14 @@ public class RoomDaoImpl implements RoomDao {
         return new Room(rs.getLong(PARAM_ID),
                 rs.getInt(PARAM_ROOM_NUM),
                 rs.getInt(PARAM_FLOOR),
-                rs.getInt(PARAM_CAPACITY),
-                rs.getString(PARAM_BED_TYPE),
-                Room.RoomClass.getRoomClass(rs.getInt(PARAM_CLASS)));
+                rs.getLong(PARAM_ROOM_TYPE_ID));
     }
 
     @Override
     public long create(Room obj) throws JDBCException {
-        long id = JDBCManager.updateRequest(SQL.ROOM_INSERT, String.valueOf(obj.getRoomNumber()),
-                String.valueOf(obj.getCapacity()), obj.getBedType(),
-                String.valueOf(obj.getRoomClass().getValue()));
+        long id = JDBCManager.updateRequest(SQL.ROOM_INSERT,
+                String.valueOf(obj.getRoomNumber()),
+                String.valueOf(obj.getRoomType()));
         obj.setId(id);
         return id;
     }
@@ -66,25 +64,10 @@ public class RoomDaoImpl implements RoomDao {
     }
 
     @Override
-    public List<Room> getRoomsByCapacity(int capacity) throws JDBCException {
-        return JDBCManager.selectRequest(this, SELECT_BY.replace("param", PARAM_CAPACITY), String.valueOf(capacity));
-    }
-
-    @Override
-    public List<Room> getRoomsByBedsTypes(String bedsTypes) throws JDBCException {
-        return JDBCManager.selectRequest(this, SELECT_BY.replace("param", PARAM_BED_TYPE), bedsTypes);
-    }
-
-    @Override
-    public List<Room> getRoomsByClass(Room.RoomClass roomClass) throws JDBCException {
-        return JDBCManager.selectRequest(this, SELECT_BY.replace("param", PARAM_CLASS), String.valueOf(roomClass.getValue()));
-    }
-
-    @Override
     public void update(Room obj) throws JDBCException {
         JDBCManager.updateRequest(SQL.ROOM_UPDATE,
-                String.valueOf(obj.getRoomNumber()), String.valueOf(obj.getFloor()), String.valueOf(obj.getCapacity()),
-                obj.getBedType(), String.valueOf(obj.getRoomClass().getValue()), String.valueOf(obj.getId()));
+                String.valueOf(obj.getRoomNumber()),
+                String.valueOf(obj.getFloor()), String.valueOf(obj.getId()));
     }
 
     @Override

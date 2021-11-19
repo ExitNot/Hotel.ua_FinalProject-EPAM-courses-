@@ -23,6 +23,7 @@ public class SignInCommand implements Command {
 
     @Override
     public Response execute(HttpServletRequest req, HttpServletResponse resp) throws JDBCException {
+        String errorMsg = "Incorrect email or password";
         String login = req.getParameter(PARAM_LOGIN);
         String password = req.getParameter(PARAM_PWD);
 
@@ -32,12 +33,12 @@ public class SignInCommand implements Command {
 
         Optional<User> user = UserService.findByLogin(login);
         if (user.isEmpty()){
-            req.getSession().setAttribute(ATTRIBUTE_LOGIN_ERROR, "User does not exist");
-            return new Response(Response.Direction.Redirect, SIGN_IN_JSP);
+            req.getSession().setAttribute(ATTRIBUTE_LOGIN_ERROR, errorMsg);
+            return new Response(Response.Direction.Redirect, INDEX_JSP);
         } else if (!PasswordCryptoPbkdf2.validatePwd(password, user.get().getPassword())){
             req.getSession().setAttribute(ATTRIBUTE_LOGIN, login);
-            req.getSession().setAttribute(ATTRIBUTE_LOGIN_ERROR, "Incorrect password");
-            return new Response(Response.Direction.Redirect, SIGN_IN_JSP);
+            req.getSession().setAttribute(ATTRIBUTE_LOGIN_ERROR, errorMsg);
+            return new Response(Response.Direction.Redirect, INDEX_JSP);
         }
 
         req.getSession().setAttribute(ATTRIBUTE_ID, user.get().getId());

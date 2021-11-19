@@ -10,7 +10,6 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Objects;
 
 import static com.epam.courses.java.final_project.util.CommandConstant.*;
 import static com.epam.courses.java.final_project.util.Constant.LOG_TRACE;
@@ -48,7 +47,8 @@ public class AccessFilter implements Filter {
             chain.doFilter(request, response);
         } else {
             if (obj == null){
-                resp.sendRedirect(SIGN_IN_JSP);
+                req.getSession().setAttribute(ATTRIBUTE_LOGIN_ERROR, "You have to login first");
+                resp.sendRedirect(INDEX_JSP);
                 return;
             }
 

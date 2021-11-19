@@ -11,7 +11,7 @@
     </resource-ref>
 
     <welcome-file-list>
-        <welcome-file>index.jsp</welcome-file>
+        <welcome-file>index.act</welcome-file>
     </welcome-file-list>
 
     <servlet>

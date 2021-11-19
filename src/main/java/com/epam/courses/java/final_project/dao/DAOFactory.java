@@ -1,9 +1,6 @@
 package com.epam.courses.java.final_project.dao;
 
-import com.epam.courses.java.final_project.dao.impl.RequestDaoImpl;
-import com.epam.courses.java.final_project.dao.impl.ReservationDaoImpl;
-import com.epam.courses.java.final_project.dao.impl.RoomDaoImpl;
-import com.epam.courses.java.final_project.dao.impl.UserDaoImpl;
+import com.epam.courses.java.final_project.dao.impl.*;
 
 public class DAOFactory {
 
@@ -11,6 +8,8 @@ public class DAOFactory {
     private RoomDao roomDao;
     private ReservationDao reservationDao;
     private RequestDao requestDao;
+    private RoomTypeDao roomTypeDao;
+    private ImageDao imageDao;
     private static final DAOFactory INSTANCE = new DAOFactory();
 
     public DAOFactory() {
@@ -18,6 +17,8 @@ public class DAOFactory {
         roomDao = new RoomDaoImpl();
         reservationDao = new ReservationDaoImpl();
         requestDao = new RequestDaoImpl();
+        roomTypeDao = new RoomTypeDaoImpl();
+        imageDao = new ImageDaoImpl();
     }
 
     public static DAOFactory getInstance(){
@@ -38,5 +39,13 @@ public class DAOFactory {
 
     public RequestDao getRequestDao() {
         return requestDao;
+    }
+
+    public RoomTypeDao getRoomTypeDao() {
+        return roomTypeDao;
+    }
+
+    public ImageDao getImageDao() {
+        return imageDao;
     }
 }

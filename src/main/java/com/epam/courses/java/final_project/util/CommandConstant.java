@@ -40,20 +40,21 @@ public class CommandConstant {
     public static final String ATTRIBUTE_LOGIN = "login";
     public static final String ATTRIBUTE_ROLE = "role";
     public static final String ATTRIBUTE_ROOMS_LIST = "roomsList";
+    public static final String ATTRIBUTE_ROOM_TYPES_LIST = "roomTypesList";
     public static final String ATTRIBUTE_USER_REQUEST_LIST = "userRequestsList";
     public static final String ATTRIBUTE_USER_RESERVATIONS_LIST = "userReservationsList";
     public static final String ATTRIBUTE_FROM = "dateFrom";
     public static final String ATTRIBUTE_TO = "dateTo";
+    public static final String ATTRIBUTE_SIGN_IN_ALERT = "signInAlert";  // exception
     public static final String ATTRIBUTE_LOGIN_ERROR = "loginError";  // exception
     public static final String ATTRIBUTE_SIGN_UP_ERROR = "signUpError";  // exception
     public static final String ATTRIBUTE_ROOMS_LIST_ERROR = "roomsListError";  // exception
 
 //    Pages JSP
-    public static final String SIGN_IN_JSP = "signIn.jsp";
     public static final String SIGN_UP_JSP = "signUp.jsp";
     public static final String PROFILE_JSP = "profile.jsp";
     public static final String INDEX_JSP = "index.jsp";
-    public static final String AVAILABLE_ROOMS_JSP = "availableRoomsList.jsp";
+    public static final String AVAILABLE_ROOMS_JSP = "availableRooms.jsp";
     public static final String ERROR_JSP = "error.jsp";
 
 //    Pages for Controller

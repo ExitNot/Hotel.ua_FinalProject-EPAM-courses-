@@ -1,19 +1,38 @@
 package com.epam.courses.java.final_project.logic.command.impl;
 
+import com.epam.courses.java.final_project.dao.impl.jdbc.JDBCException;
 import com.epam.courses.java.final_project.logic.command.Command;
 import com.epam.courses.java.final_project.logic.command.Response;
+import com.epam.courses.java.final_project.model.Image;
+import com.epam.courses.java.final_project.model.RoomType;
+import com.epam.courses.java.final_project.service.RoomService;
+import com.epam.courses.java.final_project.service.RoomTypeService;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import static com.epam.courses.java.final_project.util.CommandConstant.INDEX;
-import static com.epam.courses.java.final_project.util.CommandConstant.INDEX_JSP;
+import java.util.List;
+
+import static com.epam.courses.java.final_project.util.CommandConstant.*;
+import static com.epam.courses.java.final_project.util.CommandConstant.AVAILABLE_ROOMS_JSP;
+import static com.epam.courses.java.final_project.util.Constant.LOG_TRACE;
 
 public class IndexCommand implements Command {
 
+    private static final Logger log = LogManager.getLogger(LOG_TRACE);
+
     @Override
-    public Response execute(HttpServletRequest req, HttpServletResponse resp) {
-        return new Response(Response.Direction.Redirect, INDEX_JSP);
+    public Response execute(HttpServletRequest req, HttpServletResponse resp) throws JDBCException {
+        List<RoomType> roomTypes = RoomTypeService.getAll();
+        for (RoomType i : roomTypes){
+            i.setImgPaths(RoomTypeService.getImg(i.getId()));
+        }
+
+//        log.trace(roomTypes);
+        req.getSession().setAttribute(ATTRIBUTE_ROOM_TYPES_LIST, roomTypes);
+        return new Response(Response.Direction.Forward, INDEX_JSP);
     }
 
     @Override
