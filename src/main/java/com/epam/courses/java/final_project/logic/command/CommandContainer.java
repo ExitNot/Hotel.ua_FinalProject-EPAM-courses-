@@ -34,6 +34,7 @@ public class CommandContainer {
         getCommands.put(AVAILABLE_ROOMS, new AvailableRoomsCommand());
         getCommands.put(SIGN_IN, new SignInCommand());
         getCommands.put(PROFILE, new ProfileCommand());
+        getCommands.put(ROOM_TYPE, new RoomTypeCommand());
 //        POST commands
         postCommands.put(SIGN_UP, new SignUpCommand());
         postCommands.put(DELETE_USER, new DeleteUserCommand());

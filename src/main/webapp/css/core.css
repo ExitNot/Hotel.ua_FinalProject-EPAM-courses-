@@ -13,13 +13,13 @@ table, th, td {
 }
 
 body {
-    background-color: #97986eab; !important;
+    background-color: #b4caeb; !important;
 }
 
 .button {
     display: block;
     width: 80px;
-    background: #5d325f;
+    background: black;
     padding: 10px;
     text-align: center;
     border-radius: 5px;

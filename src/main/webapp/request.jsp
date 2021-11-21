@@ -71,10 +71,20 @@
                     <input type="text" name="dateTo" id="date_to"/>
                 </label>
                 <br/>
-                <a>Amount of rooms and guests</a>
-                <div id="rooms_wrapper">
-                    <button type="button" onclick="cloneRoom()" id="add_room_btn">Add another room</button>
-                </div>
+                <c:choose>
+                    <c:when test="${not empty roomType}">
+                        Room:
+                        ${roomType.roomClass} room with ${roomType.parsedBedsType}
+                        <c:remove var="roomType"></c:remove>
+<%--                        todo Clear typeId in the end--%>
+                    </c:when>
+                    <c:otherwise>
+                        <a>Amount of rooms and guests</a>
+                        <div id="rooms_wrapper">
+                            <button type="button" onclick="cloneRoom()" id="add_room_btn">Add another room</button>
+                        </div>
+                    </c:otherwise>
+                </c:choose>
                 <input type="hidden" id="rooms_amount" name="rooms_amount"/>
                 <input type="submit" name="request_btn" value="Make reservation" class="button" onclick="setRoomsAmount()"/>
             </form>
