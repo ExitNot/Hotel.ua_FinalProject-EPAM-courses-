@@ -24,25 +24,26 @@ public class SignInCommand implements Command {
     @Override
     public Response execute(HttpServletRequest req, HttpServletResponse resp) throws JDBCException {
         String errorMsg = "Incorrect email or password";
-        String login = req.getParameter(PARAM_LOGIN);
+        String email = req.getParameter(PARAM_EMAIL);
         String password = req.getParameter(PARAM_PWD);
 
         if (req.getParameter(PARAM_ID) != null){
             return new Response(Response.Direction.Redirect, INDEX_JSP);
         }
 
-        Optional<User> user = UserService.findByLogin(login);
+        Optional<User> user = UserService.findByEmail(email);
         if (user.isEmpty()){
+            req.getSession().setAttribute(ATTRIBUTE_EMAIL, email);
             req.getSession().setAttribute(ATTRIBUTE_LOGIN_ERROR, errorMsg);
             return new Response(Response.Direction.Redirect, INDEX_JSP);
         } else if (!PasswordCryptoPbkdf2.validatePwd(password, user.get().getPassword())){
-            req.getSession().setAttribute(ATTRIBUTE_LOGIN, login);
+            req.getSession().setAttribute(ATTRIBUTE_EMAIL, email);
             req.getSession().setAttribute(ATTRIBUTE_LOGIN_ERROR, errorMsg);
             return new Response(Response.Direction.Redirect, INDEX_JSP);
         }
 
         req.getSession().setAttribute(ATTRIBUTE_ID, user.get().getId());
-        req.getSession().setAttribute(ATTRIBUTE_LOGIN, user.get().getLogin());
+        req.getSession().setAttribute(ATTRIBUTE_USER, user.get().getEmail());
         req.getSession().setAttribute(ATTRIBUTE_ROLE, user.get().getRole().name());
         return new Response(Response.Direction.Redirect, INDEX_JSP);
     }

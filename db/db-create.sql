@@ -11,8 +11,6 @@ CREATE SCHEMA public;
 --------
 
 CREATE TABLE users (id INT PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
-                    login VARCHAR(15) UNIQUE NOT NULL,
---                     password VARCHAR(150), -- hashed pwd in SHA-256
                     password VARCHAR(100) NOT NULL, -- hashed pwd in SHA-256
                     name VARCHAR NOT NULL,
                     surname VARCHAR NOT NULL,
@@ -23,7 +21,7 @@ CREATE TABLE users (id INT PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
 CREATE TABLE room_types (id INT PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
                          capacity INT NOT NULL,
                          beds_types VARCHAR(8), -- S - single, D - double, T - twin, K - king size, Q - Queen size
-                         class INT NOT NULL, -- standard(1), deluxe(2), suite(3)
+                         class INT NOT NULL, -- standard(1), upgraded(2), deluxe(3), suite(4)
                          description TEXT);
 
 CREATE TABLE rooms (id INT PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
@@ -62,20 +60,28 @@ CREATE TABLE users_requests(user_id INT REFERENCES users(id) ON DELETE CASCADE,
 --------
 
 INSERT INTO users  -- temporary values for dev process --
-    (login, password, name, surname, phone_number, email, role)
+    (password, name, surname, phone_number, email, role)
 VALUES
-    ('admin', 'a141aeaa52255df9:8e05661b11d6bdad94b2f50a1fdef8fe4ba19b8f405c6f2fa751e132c15d7bcd',
+    ('a141aeaa52255df9:8e05661b11d6bdad94b2f50a1fdef8fe4ba19b8f405c6f2fa751e132c15d7bcd',
      'Admin', 'Adminov', '+111111111111', 'hotel_admin@gmail.com', 3),
-    ('manager', '824bcb1c0446d078:6ec937e670eea75bc7dd2d8d30b41807690d4955b6c902f1dc7e46e24d25670e',
+    ('824bcb1c0446d078:6ec937e670eea75bc7dd2d8d30b41807690d4955b6c902f1dc7e46e24d25670e',
      'Manager', 'Managerov', '+222222222222', 'hotel_manager@gmail.com', 2),
-    ('user', 'ca1f23e567162130:c4987aef350c32d8720c8d97fe215cd9a2e228d9c016a61647c9dbd1abb24b03',
+    ('ca1f23e567162130:c4987aef350c32d8720c8d97fe215cd9a2e228d9c016a61647c9dbd1abb24b03',
      'User', 'Userov', '+333333333333', 'hotel_user@gmail.com', 1);
 
 INSERT INTO room_types  -- temporary values for dev process --
     (capacity,    beds_types, class, description)
 VALUES
-    (2,           '1D',       1,     'sample description'),
-    (2,           '1T',       1,     'sample description');
+    (2,           '1D',       1,     'These spacious rooms, decorated in earthy tones, provide unique sea views from both the balcony and terrace offering you a pleasant and relaxing stay! AMENITIES Daily cleaning | Turndown-service on request | Wake-up call | Porter Service  | Bathrooms with shower / bathtub | Daily towel change on request | Individually controlled air conditioning | Mini fridge | Pool towels service* | Sleeping pillows choice* | Bath products | Iron & Ironing board on request | In room tea/coffee making facilities on request | In room Espresso coffee machine on request* | Room Service (07:00-19:00 hrs)* | Cable - Satellite TV with international channels | Telephone* | Hair dryer | Baby cot | Safe* | Fire detection system'),
+    (2,           '1T',       1,     'sample description'),
+    (3,           '1T, 1S',   2,     'sample description'),
+    (2,           '1T',       2,     'sample description'),
+    (2,           '1T',       2,     'sample description'),
+    (3,           '1D, 1S',   4,     'sample description'),
+    (4,           '1T, 2S',   4,     'sample description'),
+    (2,           '1D',       3,     'sample description'),
+    (2,           '1D',       3,     'sample description'),
+    (4,           '1D, 1T',   4,     'sample description');
 
 INSERT INTO rooms  -- temporary values for dev process --
     (room_number, floor, room_type_id)
@@ -105,13 +111,51 @@ VALUES
     (1,       'img/standard_01.jpg'),
     (1,       'img/standard_02.jpg'),
     (1,       'img/standard_03.jpg'),
-    (1,       'img/standard_04.jpg'),
-    (1,       'img/standard_05.jpg'),
-    (1,       'img/standard_06.jpg'),
+
     (2,       'img/twin_standard.jpg'),
     (2,       'img/standard_01.jpg'),
     (2,       'img/standard_02.jpg'),
     (2,       'img/standard_03.jpg'),
-    (2,       'img/standard_04.jpg'),
-    (2,       'img/standard_05.jpg'),
-    (2,       'img/standard_06.jpg');
+
+    (3,       'img/twin_single_upgraded.jpg'),
+    (3,       'img/upgraded_01.jpg'),
+    (3,       'img/standard_02.jpg'),
+    (3,       'img/standard_03.jpg'),
+
+    (4,       'img/twin_upgraded_01.jpg'),
+    (4,       'img/upgraded_01.jpg'),
+    (4,       'img/standard_02.jpg'),
+    (4,       'img/standard_03.jpg'),
+
+    (5,       'img/twin_upgraded_02.jpg'),
+    (5,       'img/upgraded_01.jpg'),
+    (5,       'img/standard_02.jpg'),
+    (5,       'img/standard_03.jpg'),
+
+    (6,       'img/double_suite.jpg'),
+    (6,       'img/standard_01.jpg'),
+    (6,       'img/standard_02.jpg'),
+    (6,       'img/standard_03.jpg'),
+
+    (7,       'img/twin_suite.jpg'),
+    (7,       'img/standard_01.jpg'),
+    (7,       'img/standard_02.jpg'),
+    (7,       'img/standard_03.jpg'),
+
+    (8,       'img/double_deluxe_01.jpg'),
+    (8,       'img/deluxe_01.jpg'),
+    (8,       'img/deluxe_02.jpg'),
+    (8,       'img/deluxe_03.jpg'),
+    (8,       'img/deluxe_04.jpg'),
+
+    (9,       'img/double_deluxe_02.jpg'),
+    (9,       'img/deluxe_01.jpg'),
+    (9,       'img/deluxe_02.jpg'),
+    (9,       'img/deluxe_03.jpg'),
+    (9,       'img/deluxe_04.jpg'),
+
+    (10,       'img/double_twin_suite_01.jpg'),
+    (10,       'img/double_twin_suite_02.jpg'),
+    (10,       'img/upgraded_01.jpg'),
+    (10,       'img/standard_02.jpg'),
+    (10,       'img/standard_03.jpg');

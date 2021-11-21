@@ -26,20 +26,20 @@ public class UserDaoImpl implements UserDao {
     @Override
     public User createEntity(ResultSet rs) throws SQLException {
         return new User(rs.getLong(PARAM_ID),
-                rs.getString(PARAM_LOGIN),
+                rs.getString(PARAM_EMAIL),
                 rs.getString(PARAM_PWD),
                 rs.getString(PARAM_NAME),
                 rs.getString(PARAM_SURNAME),
                 rs.getString(PARAM_PHONE_NUMBER),
-                rs.getString(PARAM_EMAIL),
                 User.Role.getRole(rs.getInt(PARAM_ROLE)));
     }
 
     @Override
     public long create(User obj) throws JDBCException {
-        long id = JDBCManager.updateRequest(SQL.USER_INSERT, obj.getLogin(), obj.getPassword(),
+        long id = JDBCManager.updateRequest(SQL.USER_INSERT,
+                obj.getEmail(), obj.getPassword(),
                 obj.getName(), obj.getSurname(),
-                obj.getPhoneNumber(), obj.getEmail(),
+                obj.getPhoneNumber(),
                 String.valueOf(obj.getRole().getValue()));
         obj.setId(id);
         return id;
@@ -48,11 +48,6 @@ public class UserDaoImpl implements UserDao {
     @Override
     public Optional<User> getById(long id) throws JDBCException {
         return Optional.ofNullable(JDBCManager.selectOneRequest(this, SELECT_BY.replace("param",  PARAM_ID), String.valueOf(id)));
-    }
-
-    @Override
-    public Optional<User> getByLogin(String login) throws JDBCException {
-        return Optional.ofNullable(JDBCManager.selectOneRequest(this, SELECT_BY.replace("param",  PARAM_LOGIN), login));
     }
 
     @Override
@@ -72,8 +67,8 @@ public List<User> getUsersByRole(User.Role role) throws JDBCException {
 
     @Override
     public void update(User obj) throws JDBCException {
-        JDBCManager.updateRequest(SQL.USER_UPDATE, obj.getLogin(),
-                obj.getPassword(), obj.getPhoneNumber(), obj.getEmail(),
+        JDBCManager.updateRequest(SQL.USER_UPDATE,
+                obj.getEmail(), obj.getPassword(), obj.getPhoneNumber(),
                 String.valueOf(obj.getRole().getValue()), String.valueOf(obj.getId()));
     }
 

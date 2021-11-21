@@ -9,9 +9,6 @@
         <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.js"></script>
         <link href = "http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.7/themes/black-tie/jquery-ui.css"
               rel = "stylesheet">
-<%--        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"--%>
-<%--              integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"--%>
-<%--              crossorigin="anonymous">--%>
         <%-- Bootstrap --%>
         <link href="${pageContext.request.contextPath}/bootstrap/css/bootstrap.min.css" rel="stylesheet">
         <script type="text/javascript" src="${pageContext.request.contextPath}/bootstrap/js/bootstrap.min.js"></script>
@@ -21,7 +18,7 @@
     <%-- Fontawesome --%>
     <script src="https://kit.fontawesome.com/b9b6a4bb7d.js" crossorigin="anonymous"></script>
 
-    <nav class="navbar navbar-expand-lg navbar-light" style="background-color: #e1c377; border-bottom: solid #322325">
+    <nav class="navbar navbar-expand-lg navbar-light" style="background-color: mediumslateblue; border-bottom: solid black">
         <div class="collapse.show navbar-collapse" id="navbar">
             <a class="navbar-brand" href="index.act" style="font-size: 30px">Hotel</a>
             <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
@@ -85,11 +82,11 @@
                         <input type="hidden" name="command" value="signIn"/>
                         <div class="form-group mb-0">
                             <c:choose>
-                                <c:when test="${not empty login}">
-                                    <input id="login" class="form-control" name="login" value="${login}"/><br/>
+                                <c:when test="${not empty email}">
+                                    <input class="form-control" name="email" value="${email}"/><br/>
                                 </c:when >
                                 <c:otherwise>
-                                    <input id="login" class="form-control" name="login" placeholder="Login"/><br/>
+                                    <input class="form-control" name="email" placeholder="Email"/><br/>
                                 </c:otherwise>
                             </c:choose>
                         </div>
@@ -105,7 +102,7 @@
                     </form>
                 </div>
                 <div class="modal-footer">
-                    <a class="dropdown-item col-l-5" href="#">Forgot password?</a>
+                    <a class="col-l-5" href="#">Forgot password?</a>
                     <button type="submit" form="signInForm" class="btn btn-primary col-5">Sign in</button>
                 </div>
             </div>

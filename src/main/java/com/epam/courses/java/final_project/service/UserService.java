@@ -8,8 +8,8 @@ import java.util.Optional;
 
 public class UserService {
 
-    public static Optional<User> findByLogin(String login) throws JDBCException {
-        return DAOFactory.getInstance().getUserDao().getByLogin(login);
+    public static Optional<User> findByEmail(String email) throws JDBCException {
+        return DAOFactory.getInstance().getUserDao().getByEmail(email);
     }
 
     public static long create(User user) throws JDBCException {

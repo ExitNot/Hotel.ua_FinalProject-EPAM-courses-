@@ -17,8 +17,8 @@ public class SQLConstant {
     public static final String REQUEST_UPDATE = "UPDATE requests SET user_id = ?, room_id = ?, date_from = ?, date_to = ?, adults_amount = ?, children_amount = ?, status = ?, price = ? WHERE id = ?";
 
 //    Users
-    public static final String USER_INSERT = "INSERT INTO users (login, password, name, surname, phone_number, email, role) VALUES (?, ?, ?, ?, ?, ?, ?);";
-    public static final String USER_UPDATE = "UPDATE users SET login = ?, password = ?, name = ?, surname = ?, phone_number = ?, email = ?, role = ? WHERE id = ?;";
+    public static final String USER_INSERT = "INSERT INTO users (email, password, name, surname, phone_number, role) VALUES (?, ?, ?, ?, ?, ?);";
+    public static final String USER_UPDATE = "UPDATE users SET email = ?, password = ?, name = ?, surname = ?, phone_number = ?, role = ? WHERE id = ?;";
 
 //    Rooms
     public static final String ROOM_INSERT = "INSERT INTO rooms (room_number, floor, room_type_id) VALUES (?, ?, ?);";

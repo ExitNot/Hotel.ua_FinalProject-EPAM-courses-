@@ -12,6 +12,8 @@ import org.apache.logging.log4j.Logger;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import java.util.Optional;
+
 import static com.epam.courses.java.final_project.util.CommandConstant.*;
 import static com.epam.courses.java.final_project.util.Constant.LOG_TRACE;
 
@@ -21,22 +23,32 @@ public class SignUpCommand implements Command {
 
     @Override
     public Response execute(HttpServletRequest req, HttpServletResponse resp) throws JDBCException {
+//        todo check everything not null
+
+        if (UserService.findByEmail(req.getParameter(PARAM_EMAIL)).isPresent()){
+            req.getSession().setAttribute(ATTRIBUTE_SIGN_UP_ERROR, "User already exist");
+            return new Response(Response.Direction.Forward, SIGN_UP_JSP);
+        }
+
         String pwd = req.getParameter(PARAM_PWD);
         if (!pwd.equals(req.getParameter(PARAM_PWD + "Confirmation"))){
-            req.getSession().setAttribute(ATTRIBUTE_SIGN_UP_ERROR, "Passwords was different");
+            req.getSession().setAttribute(ATTRIBUTE_SIGN_UP_ERROR, "Passwords were different");
             return new Response(Response.Direction.Forward, SIGN_UP_JSP);
         }
         pwd = PasswordCryptoPbkdf2.hashPwd(pwd);
 
-        User user = new User(0, req.getParameter(PARAM_LOGIN), pwd,
-                req.getParameter(PARAM_NAME), req.getParameter(PARAM_SURNAME),
-                req.getParameter(PARAM_PHONE_NUM), req.getParameter(PARAM_EMAIL));
+        User user = new User(
+                req.getParameter(PARAM_EMAIL),  pwd,
+                req.getParameter(PARAM_NAME),
+                req.getParameter(PARAM_SURNAME),
+                req.getParameter(PARAM_PHONE_NUM));
 
         log.trace(user.toString());
         long id = UserService.create(user);
 //        todo send email of confirmation
 
-        req.getSession().setAttribute(ATTRIBUTE_LOGIN, user.getLogin());
+        req.getSession().setAttribute(ATTRIBUTE_ID, id);
+        req.getSession().setAttribute(ATTRIBUTE_EMAIL, user.getEmail());
         req.getSession().setAttribute(ATTRIBUTE_ROLE, user.getRole().name());
         return new Response(Response.Direction.Redirect, INDEX_JSP);
     }

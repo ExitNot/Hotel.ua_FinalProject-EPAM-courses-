@@ -17,38 +17,33 @@ package com.epam.courses.java.final_project.model;
 public class User {
     
     long id;  // value ether equal to corresponding db value, or 0
-    String login;
+    String email;
     String password;
     String name;
     String surname;
     String phoneNumber;
-    String email;
     Role role;
 
     public User() {
         role = Role.Customer;
     }
 
-    public User(long id, String login, String password, String name, String surname,
-                String phoneNumber, String email, Role role) {
+    public User(long id, String email, String password, String name, String surname, String phoneNumber, Role role) {
         this.id = id;
-        this.login = login;
+        this.email = email;
         this.password = password;
         this.name = name;
         this.surname = surname;
         this.phoneNumber = phoneNumber;
-        this.email = email;
         this.role = role;
     }
 
-    public User(long id, String login, String password, String name, String surname, String phoneNumber, String email) {
-        this.id = id;
-        this.login = login;
+    public User(String email, String password, String name, String surname, String phoneNumber) {
+        this.email = email;
         this.password = password;
         this.name = name;
         this.surname = surname;
         this.phoneNumber = phoneNumber;
-        this.email = email;
         role = Role.Customer;
     }
 
@@ -58,14 +53,6 @@ public class User {
 
     public void setId(long id) {
         this.id = id;
-    }
-
-    public String getLogin() {
-        return login;
-    }
-
-    public void setLogin(String login) {
-        this.login = login;
     }
 
     public String getPassword() {
@@ -144,10 +131,9 @@ public class User {
     public String toString() {
         return "User{" +
                 "id=" + id +
-                ", login='" + login + '\'' +
+                ", email='" + email + '\'' +
                 ", password='" + password + '\'' +
                 ", phoneNumber='" + phoneNumber + '\'' +
-                ", email='" + email + '\'' +
                 ", role=" + role +
                 '}';
     }

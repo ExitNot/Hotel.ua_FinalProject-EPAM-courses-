@@ -13,8 +13,6 @@ import java.util.Optional;
  * */
 public interface UserDao extends AbstractDao<User>{
 
-    Optional<User> getByLogin(String login) throws JDBCException;
-
     Optional<User> getByEmail(String email) throws JDBCException;
 
     List<User> getUsersByRole(User.Role role) throws JDBCException;

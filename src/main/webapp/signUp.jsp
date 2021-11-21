@@ -3,56 +3,75 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
-<c:if test="${not empty login}">
+<c:if test="${not empty email}">
     <c:redirect url="index.jsp"></c:redirect>
 </c:if>
 
+<script>
+    window.onload = function () {
+        <c:if test="${not empty signUpError}">
+            console.log("tra")
+            document.getElementById("error_modal_btn").click();
+        </c:if>
+    }
+</script>
+
 <t:wrapper>
-    <script>
-        const passwordPattern = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/
-
-        window.onload = function () {
-            var current = document.getElementsByClassName("active")[0];
-            current.className = current.className.replace(" active", "");
-
-            let pwd =  document.getElementById("pwd");
-            let pwd_format =  document.getElementsByClassName("pwd_format")[0];
-
-            pwd.addEventListener('keyup', () => {
-                if (!passwordPattern.test(pwd.value)) {
-                    pwd.style.borderColor = 'red'
-                } else {
-                    pwd.style.borderColor = 'black'
-                }
-            })
-
-            pwd.addEventListener('focusout', () => {
-                pwd_format.style.display = 'none';
-            })
-
-            pwd.addEventListener('focusin', () => {
-                pwd_format.style.display = 'inline-block';
-            })
-
-        }
-    </script>
-
-    <h1>Sign Up Page</h1>
-    <form action="signUp.act" method="post">
-        <input type="hidden" name="command" value="signUp">
-        <input name="name" placeholder="First name" required><br/>
-        <input name="surname" placeholder="Second name" required><br/>
-        <input name="login" placeholder="User name" required><br/>
-        <div class="pwd_form_elem">
-            <span class="pwd_format">8-15 Alphanumeric characters, at least one letter and one number</span>
-            <input type="password" name="pwd" id="pwd" placeholder="Password" required><br/>
-            <input type="password" name="pwdConfirmation" placeholder="Confirm password" required><br/>
+    <div class="container">
+        <div class="d-flex justify-content-center">
+            <h5 class="mt-3">Sign up</h5>
         </div>
-        <input name="phoneNumber" placeholder="Phone number" required><br/>
-        <input type="email" name="email" placeholder="Email" required><br/>
-        <input type="submit" name="signUpBtn" value="Sign Up" class="button">
-    </form>
-    <c:if test="${not empty signUpError}">
-        <h2 style="color:red">${signUpError}</h2>
-    </c:if>
+        <hr/>
+        <form action="signUp.act" method="post">
+            <input type="hidden" name="command" value="signUp">
+            <div class="form-row">
+                <div class="col-md-6">
+                    <input class="form-control" name="name" placeholder="First name" required>
+                </div>
+                <div class="col-md-6">
+                    <input class="form-control" name="surname" placeholder="Second name" required><br/>
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="col-md">
+                    <input class="form-control" type="email" name="email" placeholder="Email" required>
+                </div>
+            </div>
+            <small class="form-text text-muted">
+                Password must be 8-15 Alphanumeric characters, at least one letter and one number
+            </small>
+            <div class="form-row">
+                <div class="col-md-6">
+                    <input class="form-control" type="password" name="pwd"
+                           id="signUpPwd" placeholder="Password" pattern="^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$" required><br/>
+                </div>
+                <div class="col-md-6">
+                    <input class="form-control" type="password" name="pwdConfirmation" placeholder="Confirm password" required><br/>
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="col-md">
+                    <input class="form-control" name="phoneNumber" placeholder="Phone number" required><br/>
+                </div>
+            </div>
+            <input type="submit" name="signUpBtn" value="Sign Up" class="button float-right">
+        </form>
+    </div>
+
+    <a href="#" type="hidden" id="error_modal_btn" data-toggle="modal" data-target="#errorModal"></a>
+<%--    <a href="#" id="sign_in_btn" class="button" data-toggle="modal" data-target="#signInModal"></a>--%>
+
+    <!-- Error modal -->
+    <div class="modal fade" id="errorModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="false">
+        <div class="modal-dialog modal-dialog-centered modal-sm" role="form">
+            <div class="modal-content">
+                <div class="modal-header d-flex justify-content-center pb-0">
+                    <h5 class="mt-1" style="color: red">Error</h5>
+                </div>
+                <div class="modal-body justify-content-center">
+                    ${signUpError}
+                </div>
+            </div>
+        </div>
+    </div>
 </t:wrapper>

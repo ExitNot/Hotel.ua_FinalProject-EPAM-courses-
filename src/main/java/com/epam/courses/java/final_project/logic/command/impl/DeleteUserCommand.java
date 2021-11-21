@@ -21,7 +21,6 @@ public class DeleteUserCommand implements Command {
     public Response execute(HttpServletRequest req, HttpServletResponse resp) throws JDBCException {
         UserService.delete((Long) req.getSession().getAttribute(ATTRIBUTE_ID));
         req.getSession().removeAttribute(ATTRIBUTE_ID);
-        req.getSession().removeAttribute(ATTRIBUTE_LOGIN);
         req.getSession().removeAttribute(ATTRIBUTE_ROLE);
         return new Response(Response.Direction.Redirect, INDEX_JSP);
     }
