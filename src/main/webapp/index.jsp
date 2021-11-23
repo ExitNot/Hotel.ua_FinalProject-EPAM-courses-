@@ -5,7 +5,7 @@
 
 <script>
     window.onload = function () {
-        <c:if test="${not empty loginError}">
+        <c:if test="${not empty loginEx}">
             document.getElementById("sign_in_btn").click();
         </c:if>
     }
@@ -36,7 +36,7 @@
                         <div class="card-footer mb-0 py-0" style="height: 40px; background-color: mediumslateblue; border-top: solid black;">
                             <form id="request_form${type.id}" action="request.act" method="post" style="margin-bottom: 0">
                                 <input type="hidden" name="typeId" value="${type.id}">
-                                <b href="#" class="btn float-right mr-0" onclick="document.getElementById('request_form${type.id}').submit();"
+                                <b class="btn float-right mr-0" onclick="document.getElementById('request_form${type.id}').submit();"
                                    style="width: 40%; color: white">Make a reservation</b>
                             </form>
 

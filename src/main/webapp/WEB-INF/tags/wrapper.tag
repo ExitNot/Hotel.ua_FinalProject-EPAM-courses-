@@ -75,9 +75,9 @@
             <div class="modal-content">
                 <div class="modal-body">
                     <form class="px-3 pt-3 mb-0" action="signIn.act" method="get" id="signInForm">
-                        <c:if test="${not empty loginError}">
-                            <b class="float-right" style="color:red; font-size: 12px;">${loginError}</b>
-                            <c:remove var="loginError"/>
+                        <c:if test="${not empty loginEx}">
+                            <b class="float-right" style="color:red; font-size: 12px;">${loginEx}</b>
+                            <c:remove var="loginEx"/>
                         </c:if>
                         <input type="hidden" name="command" value="signIn"/>
                         <div class="form-group mb-0">

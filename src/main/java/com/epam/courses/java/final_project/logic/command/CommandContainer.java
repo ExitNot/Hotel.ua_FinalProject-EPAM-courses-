@@ -41,6 +41,8 @@ public class CommandContainer {
         postCommands.put(BOOK_SPECIFIC_ROOM, new BookSpecificRoomCommand());
         postCommands.put(CREATE_REQUEST, new RequestCommand());
         postCommands.put(CANCEL_REQUEST, new CancelRequestCommand());
+        postCommands.put(USER_UPDATE, new UserUpdateCommand());
+        postCommands.put(PWD_UPDATE, new UserUpdateCommand());
     }
 
     public static CommandContainer getInstance(){

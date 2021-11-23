@@ -9,7 +9,7 @@
 
 <script>
     window.onload = function () {
-        <c:if test="${not empty signUpError}">
+        <c:if test="${not empty signUpEx}">
             console.log("tra")
             document.getElementById("error_modal_btn").click();
         </c:if>
@@ -69,7 +69,7 @@
                     <h5 class="mt-1" style="color: red">Error</h5>
                 </div>
                 <div class="modal-body justify-content-center">
-                    ${signUpError}
+                    ${signUpEx}
                 </div>
             </div>
         </div>

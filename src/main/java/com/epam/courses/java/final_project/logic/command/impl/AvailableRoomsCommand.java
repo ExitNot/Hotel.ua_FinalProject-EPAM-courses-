@@ -32,7 +32,7 @@ public class AvailableRoomsCommand implements Command {
         String to = req.getParameter(PARAM_TO);
 
         if (req.getSession().getAttribute(ATTRIBUTE_ID) == null) {
-            req.getSession().setAttribute(ATTRIBUTE_LOGIN_ERROR, "You have to login first");
+            req.getSession().setAttribute(ATTRIBUTE_LOGIN_EX, "You have to login first");
             return new Response(Response.Direction.Redirect, INDEX_JSP);
         }
 
@@ -44,7 +44,7 @@ public class AvailableRoomsCommand implements Command {
         from = Util.transformDate(from);
         to = Util.transformDate(to);
         if (Date.valueOf(from).after(Date.valueOf(to))){
-            req.getSession().setAttribute(ATTRIBUTE_ROOMS_LIST_ERROR, "Incorrect dates");
+            req.getSession().setAttribute(ATTRIBUTE_ROOMS_LIST_EX, "Incorrect dates");
             return new Response(Response.Direction.Forward, AVAILABLE_ROOMS_JSP);
         }
 

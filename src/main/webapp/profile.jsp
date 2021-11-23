@@ -8,7 +8,61 @@
 </c:if>
 
 <t:wrapper>
-    <a>User: ${login}</a><br/>
+    <div class="container px-0 pt-4 d-flex justify-content-center" style="border: #6610f2">
+        <div class="card col-10 px-0">
+            <div class="card-header d-flex justify-content-center py-2">
+                <h5 class="mt-3 mr-auto">Profile</h5>
+                <form action="deleteUser.act" method="post" id="delete_user">
+                    <a href="#" style="color: black"
+                       onclick="document.getElementById('delete_user').submit();">
+                        <i class="fas fa-user-slash fa-lg float-right"></i>
+                    </a>
+                </form>
+            </div>
+            <div class="card-body pb-0">
+                <form action="signUp.act"></form>
+                <div class="row mb-2">
+                    <div class="col-2">
+                        Name:
+                    </div>
+                    <div class="col">
+                        <input class="form-control" type="text" placeholder="${user.name}" readonly>
+                    </div>
+                    <div class="col">
+                        <input class="form-control" type="text" placeholder="${user.surname}" readonly>
+                    </div>
+                </div>
+                <div class="row mb-2">
+                    <div class="col-2">
+                        Email:
+                    </div>
+                    <div class="col">
+                        <input class="form-control" type="email" placeholder="${user.email}" readonly>
+                    </div>
+                </div>
+                <div class="row mb-3 pb-2">
+                    <div class="col-2">
+                        Phone number:
+                    </div>
+                    <div class="col">
+                        <input class="form-control" type="text" placeholder="${user.phoneNumber}" readonly>
+                    </div>
+                </div>
+                <div class="row mt-3" style="background-color: mediumslateblue; margin-left: -20px; margin-right: -20px">
+                    <div class="col">
+                        <a href="logout.act" class="btn w-100" style="color: white">Logout</a>
+                    </div>
+                    <div class="col">
+                        <a href="./editProfile.jsp" class="btn w-100" style="color: white">Edit profile</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+<%--    ============================ --%>
+
+    <a>User: ${email}</a><br/>
     <a>Role: ${role}</a>
     <form action="logout.act" method="get">
         <input type="submit" name="logout" value="Log out">

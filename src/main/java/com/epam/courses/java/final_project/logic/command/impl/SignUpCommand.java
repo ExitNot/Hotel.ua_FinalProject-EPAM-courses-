@@ -12,8 +12,6 @@ import org.apache.logging.log4j.Logger;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import java.util.Optional;
-
 import static com.epam.courses.java.final_project.util.CommandConstant.*;
 import static com.epam.courses.java.final_project.util.Constant.LOG_TRACE;
 
@@ -25,14 +23,14 @@ public class SignUpCommand implements Command {
     public Response execute(HttpServletRequest req, HttpServletResponse resp) throws JDBCException {
 //        todo check everything not null
 
-        if (UserService.findByEmail(req.getParameter(PARAM_EMAIL)).isPresent()){
-            req.getSession().setAttribute(ATTRIBUTE_SIGN_UP_ERROR, "User already exist");
+        if (UserService.getByEmail(req.getParameter(PARAM_EMAIL)).isPresent()){
+            req.getSession().setAttribute(ATTRIBUTE_SIGN_UP_EX, "User already exist");
             return new Response(Response.Direction.Forward, SIGN_UP_JSP);
         }
 
         String pwd = req.getParameter(PARAM_PWD);
         if (!pwd.equals(req.getParameter(PARAM_PWD + "Confirmation"))){
-            req.getSession().setAttribute(ATTRIBUTE_SIGN_UP_ERROR, "Passwords were different");
+            req.getSession().setAttribute(ATTRIBUTE_SIGN_UP_EX, "Passwords were different");
             return new Response(Response.Direction.Forward, SIGN_UP_JSP);
         }
         pwd = PasswordCryptoPbkdf2.hashPwd(pwd);

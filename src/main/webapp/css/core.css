@@ -44,17 +44,6 @@ body {
     width:100%;
 }
 
-/* Sign Up */
-.pwd_format {
-    position: absolute;
-    font-size: 11px;
-    width: 150px;
-    padding: 5px;
-    margin-left: 200px;
-    border-radius: 5px;
-    display: none;
-}
-
 /* Reservation tabs */
 
 #collapsible_content {

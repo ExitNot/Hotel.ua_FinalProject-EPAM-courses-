@@ -27,23 +27,23 @@ public class SignInCommand implements Command {
         String email = req.getParameter(PARAM_EMAIL);
         String password = req.getParameter(PARAM_PWD);
 
-        if (req.getParameter(PARAM_ID) != null){
+        if (req.getParameter(PARAM_ID) != null){  // RM because of filter
             return new Response(Response.Direction.Redirect, INDEX_JSP);
         }
 
-        Optional<User> user = UserService.findByEmail(email);
+        Optional<User> user = UserService.getByEmail(email);
         if (user.isEmpty()){
             req.getSession().setAttribute(ATTRIBUTE_EMAIL, email);
-            req.getSession().setAttribute(ATTRIBUTE_LOGIN_ERROR, errorMsg);
+            req.getSession().setAttribute(ATTRIBUTE_LOGIN_EX, errorMsg);
             return new Response(Response.Direction.Redirect, INDEX_JSP);
         } else if (!PasswordCryptoPbkdf2.validatePwd(password, user.get().getPassword())){
             req.getSession().setAttribute(ATTRIBUTE_EMAIL, email);
-            req.getSession().setAttribute(ATTRIBUTE_LOGIN_ERROR, errorMsg);
+            req.getSession().setAttribute(ATTRIBUTE_LOGIN_EX, errorMsg);
             return new Response(Response.Direction.Redirect, INDEX_JSP);
         }
 
         req.getSession().setAttribute(ATTRIBUTE_ID, user.get().getId());
-        req.getSession().setAttribute(ATTRIBUTE_USER, user.get().getEmail());
+        req.getSession().setAttribute(ATTRIBUTE_USER, user.get());
         req.getSession().setAttribute(ATTRIBUTE_ROLE, user.get().getRole().name());
         return new Response(Response.Direction.Redirect, INDEX_JSP);
     }

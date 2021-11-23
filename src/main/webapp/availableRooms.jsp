@@ -64,9 +64,9 @@
             </table>
             <c:remove var="roomsList"/>
         </c:if>
-        <c:if test="${not empty roomsListError}">
-            <h2 style="color:red">${roomsListError}</h2>
-            <c:remove var="roomsListError"/>
+        <c:if test="${not empty roomsListEx}">
+            <h2 style="color:red">${roomsListEx}</h2>
+            <c:remove var="roomsListEx"/>
         </c:if>
     </div>
 </t:wrapper>

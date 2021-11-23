@@ -65,10 +65,12 @@ public List<User> getUsersByRole(User.Role role) throws JDBCException {
         return JDBCManager.selectRequest(this, SELECT_BY, PARAM_ROLE, String.valueOf(role.getValue()));
     }
 
+//    public static final String USER_UPDATE = "UPDATE users SET email = ?, password = ?, name = ?, surname = ?, phone_number = ?, role = ? WHERE id = ?;";
     @Override
     public void update(User obj) throws JDBCException {
         JDBCManager.updateRequest(SQL.USER_UPDATE,
-                obj.getEmail(), obj.getPassword(), obj.getPhoneNumber(),
+                obj.getEmail(), obj.getPassword(),
+                obj.getName(), obj.getSurname(), obj.getPhoneNumber(),
                 String.valueOf(obj.getRole().getValue()), String.valueOf(obj.getId()));
     }
 

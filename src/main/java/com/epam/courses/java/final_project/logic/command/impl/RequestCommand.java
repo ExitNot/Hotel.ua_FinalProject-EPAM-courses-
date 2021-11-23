@@ -27,7 +27,7 @@ public class RequestCommand implements Command {
     @Override
     public Response execute(HttpServletRequest req, HttpServletResponse resp) throws JDBCException {
         if (req.getSession().getAttribute(ATTRIBUTE_ID) == null){
-            req.getSession().setAttribute(ATTRIBUTE_LOGIN_ERROR, "You have to login first");
+            req.getSession().setAttribute(ATTRIBUTE_LOGIN_EX, "You have to login first");
             return new Response(Response.Direction.Redirect, INDEX_JSP);
         }
         String from = Util.transformDate(req.getParameter(PARAM_FROM));

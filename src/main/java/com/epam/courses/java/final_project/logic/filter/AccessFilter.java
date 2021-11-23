@@ -30,6 +30,8 @@ public class AccessFilter implements Filter {
         accessLevel.put(BOOK_SPECIFIC_ROOM, Role.Customer);
         accessLevel.put(CREATE_REQUEST, Role.Customer);
         accessLevel.put(CANCEL_REQUEST, Role.Customer);
+        accessLevel.put(USER_UPDATE, Role.Customer);
+        accessLevel.put(PWD_UPDATE, Role.Customer);
     }
 
     @Override
@@ -47,7 +49,7 @@ public class AccessFilter implements Filter {
             chain.doFilter(request, response);
         } else {
             if (obj == null){
-                req.getSession().setAttribute(ATTRIBUTE_LOGIN_ERROR, "You have to login first");
+                req.getSession().setAttribute(ATTRIBUTE_LOGIN_EX, "You have to login first");
                 resp.sendRedirect(INDEX_JSP);
                 return;
             }

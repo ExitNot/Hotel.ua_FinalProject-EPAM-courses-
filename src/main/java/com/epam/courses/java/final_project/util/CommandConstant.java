@@ -18,6 +18,8 @@ public class CommandConstant {
     public static final String BOOK_SPECIFIC_ROOM = "bookSpecificRoom";
     public static final String CREATE_REQUEST = "request";
     public static final String CANCEL_REQUEST = "cancelRequest";
+    public static final String PWD_UPDATE = "pwdUpdate";
+    public static final String USER_UPDATE = "userUpdate";
 
 //    Parameters
     public static final String PARAM_USER_ID = "userId";
@@ -25,6 +27,7 @@ public class CommandConstant {
     public static final String PARAM_REQUEST_ID = "requestId";
     public static final String PARAM_ROOM_TYPE_ID = "typeId";
     public static final String PARAM_PWD = "pwd";  // User
+    public static final String PARAM_NEW_PWD = "newPwd";  // User
     public static final String PARAM_PHONE_NUM = "phoneNumber";
     public static final String PARAM_NAME = "name";
     public static final String PARAM_SURNAME = "surname";
@@ -49,15 +52,16 @@ public class CommandConstant {
     public static final String ATTRIBUTE_USER_RESERVATIONS_LIST = "userReservationsList";
     public static final String ATTRIBUTE_FROM = "dateFrom";
     public static final String ATTRIBUTE_TO = "dateTo";
-//    public static final String ATTRIBUTE_SIGN_IN_ALERT = "signInAlert";  // exception
-    public static final String ATTRIBUTE_LOGIN_ERROR = "loginError";  // exception
-    public static final String ATTRIBUTE_SIGN_UP_ERROR = "signUpError";  // exception
-    public static final String ATTRIBUTE_ROOMS_LIST_ERROR = "roomsListError";  // exception
+    public static final String ATTRIBUTE_LOGIN_EX = "loginEx";  // exception
+    public static final String ATTRIBUTE_USER_UPDATE_EX = "userUpdateEx";  // exception
+    public static final String ATTRIBUTE_SIGN_UP_EX = "signUpEx";  // exception
+    public static final String ATTRIBUTE_ROOMS_LIST_EX = "roomsListEx";  // exception
 
 //    Pages JSP
     public static final String SIGN_UP_JSP = "signUp.jsp";
     public static final String ROOM_TYPE_JSP = "roomType.jsp";
     public static final String PROFILE_JSP = "profile.jsp";
+    public static final String EDIT_PROFILE_JSP = "editProfile.jsp";
     public static final String INDEX_JSP = "index.jsp";
     public static final String REQUEST_JSP = "request.jsp";
     public static final String AVAILABLE_ROOMS_JSP = "availableRooms.jsp";
