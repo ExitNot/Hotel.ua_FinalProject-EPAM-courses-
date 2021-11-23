@@ -16,7 +16,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 import java.util.Optional;
 
-import static com.epam.courses.java.final_project.util.CommandConstant.*;
+import static com.epam.courses.java.final_project.util.constant.CommandConstant.*;
 
 public class ReservationListCommand implements Command {
 
@@ -27,7 +27,7 @@ public class ReservationListCommand implements Command {
         for (Reservation r : reservations){
             Optional<Room> room = RoomService.getById(r.getRoomId());
             if (room.isPresent()){
-                Optional<RoomType> rt = RoomTypeService.getById(room.get().getRoomType());
+                Optional<RoomType> rt = RoomTypeService.getById(room.get().getRoomTypeId());
                 r.setRoomNumber(room.get().getRoomNumber());
                 rt.ifPresent(r::setRoomType);
             }

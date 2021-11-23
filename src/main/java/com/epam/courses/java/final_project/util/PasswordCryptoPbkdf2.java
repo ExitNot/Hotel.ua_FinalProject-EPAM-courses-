@@ -10,7 +10,7 @@ import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
 import java.security.spec.InvalidKeySpecException;
 
-import static com.epam.courses.java.final_project.util.Constant.LOG_TRACE;
+import static com.epam.courses.java.final_project.util.constant.Constant.LOG_TRACE;
 
 public class PasswordCryptoPbkdf2 {
 

@@ -5,7 +5,7 @@ import com.epam.courses.java.final_project.model.Reservation;
 import com.epam.courses.java.final_project.dao.impl.jdbc.JDBCException;
 import com.epam.courses.java.final_project.dao.impl.jdbc.JDBCManager;
 
-import static com.epam.courses.java.final_project.util.Constant.*;
+import static com.epam.courses.java.final_project.util.constant.Constant.*;
 
 import java.sql.Date;
 import java.sql.ResultSet;

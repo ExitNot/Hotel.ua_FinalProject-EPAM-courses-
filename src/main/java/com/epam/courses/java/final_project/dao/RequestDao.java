@@ -1,15 +1,10 @@
 package com.epam.courses.java.final_project.dao;
 
 import com.epam.courses.java.final_project.dao.impl.jdbc.JDBCException;
-import com.epam.courses.java.final_project.dao.impl.jdbc.JDBCManager;
 import com.epam.courses.java.final_project.model.Request;
-import com.epam.courses.java.final_project.model.Reservation;
-import com.epam.courses.java.final_project.model.User;
 
 import java.sql.Date;
 import java.util.List;
-
-import static com.epam.courses.java.final_project.util.Constant.SQL;
 
 /**
  * DAO interface for Request.

@@ -1,7 +1,7 @@
 package com.epam.courses.java.final_project.dao.impl.jdbc;
 
 import com.epam.courses.java.final_project.dao.AbstractDao;
-import static com.epam.courses.java.final_project.util.Constant.*;
+import static com.epam.courses.java.final_project.util.constant.Constant.*;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 

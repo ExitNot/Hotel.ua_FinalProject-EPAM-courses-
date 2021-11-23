@@ -15,7 +15,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.Objects;
 
-import static com.epam.courses.java.final_project.util.Constant.LOG_TRACE;
+import static com.epam.courses.java.final_project.util.constant.Constant.LOG_TRACE;
 
 public class Controller extends HttpServlet {
 

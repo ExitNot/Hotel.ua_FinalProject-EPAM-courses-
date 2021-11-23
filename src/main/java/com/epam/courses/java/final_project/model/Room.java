@@ -3,9 +3,7 @@ package com.epam.courses.java.final_project.model;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import java.util.List;
-
-import static com.epam.courses.java.final_project.util.Constant.LOG_TRACE;
+import static com.epam.courses.java.final_project.util.constant.Constant.LOG_TRACE;
 
 /**
  * The {@code Room} class represent corresponding entity from database.
@@ -27,13 +25,14 @@ public class Room {
     private long id;
     private int roomNumber;
     private int floor;
-    private long roomType;
+    private long roomTypeId;
+    private RoomType roomType;
 
-    public Room(long id, int roomNumber, int floor, long roomType) {
+    public Room(long id, int roomNumber, int floor, long roomTypeId) {
         this.id = id;
         this.roomNumber = roomNumber;
         this.floor = floor;
-        this.roomType = roomType;
+        this.roomTypeId = roomTypeId;
     }
 
     public long getId() {
@@ -60,11 +59,19 @@ public class Room {
         this.floor = floor;
     }
 
-    public long getRoomType() {
+    public long getRoomTypeId() {
+        return roomTypeId;
+    }
+
+    public void setRoomTypeId(long roomTypeId) {
+        this.roomTypeId = roomTypeId;
+    }
+
+    public RoomType getRoomType() {
         return roomType;
     }
 
-    public void setRoomType(long roomType) {
+    public void setRoomType(RoomType roomType) {
         this.roomType = roomType;
     }
 

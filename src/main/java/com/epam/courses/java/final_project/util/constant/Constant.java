@@ -1,4 +1,4 @@
-package com.epam.courses.java.final_project.util;
+package com.epam.courses.java.final_project.util.constant;
 
 public class Constant {
 

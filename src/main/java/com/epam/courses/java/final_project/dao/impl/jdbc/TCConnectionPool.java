@@ -10,7 +10,7 @@ import javax.sql.DataSource;
 import java.sql.Connection;
 import java.sql.SQLException;
 
-import static com.epam.courses.java.final_project.util.Constant.LOG_TRACE;
+import static com.epam.courses.java.final_project.util.constant.Constant.LOG_TRACE;
 
 public class TCConnectionPool {
 

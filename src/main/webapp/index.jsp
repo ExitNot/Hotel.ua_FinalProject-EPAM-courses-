@@ -39,7 +39,6 @@
                                 <b class="btn float-right mr-0" onclick="document.getElementById('request_form${type.id}').submit();"
                                    style="width: 40%; color: white">Make a reservation</b>
                             </form>
-
                             <a>     </a>
                             <form id="info_form${type.id}" action="roomType.act" method="get" style="margin-bottom: 0">
                                 <input type="hidden" name="typeId" value="${type.id}">

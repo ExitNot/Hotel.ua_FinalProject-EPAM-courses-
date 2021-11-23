@@ -4,7 +4,7 @@ import com.epam.courses.java.final_project.dao.UserDao;
 import com.epam.courses.java.final_project.model.User;
 import com.epam.courses.java.final_project.dao.impl.jdbc.JDBCException;
 import com.epam.courses.java.final_project.dao.impl.jdbc.JDBCManager;
-import static com.epam.courses.java.final_project.util.Constant.*;
+import static com.epam.courses.java.final_project.util.constant.Constant.*;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;

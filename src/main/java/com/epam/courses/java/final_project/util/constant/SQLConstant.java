@@ -1,4 +1,4 @@
-package com.epam.courses.java.final_project.util;
+package com.epam.courses.java.final_project.util.constant;
 
 public class SQLConstant {
 
@@ -12,9 +12,9 @@ public class SQLConstant {
     public static final String RESERVATION_UPDATE = "UPDATE reservations SET user_id = ?, room_id = ?, date_from = ?, date_to = ?, guests_amount = ? WHERE id = ?;";
 
 //    Requests
-    public static final String REQUEST_INSERT = "INSERT INTO requests (user_id, room_id, date_from, date_to, adults_amount, children_amount, status, price) VALUES (?, ?, ?, ?, ?, ?, ?, ?);";
+    public static final String REQUEST_INSERT = "INSERT INTO requests (user_id, room_id, date_from, date_to, adults_amount, children_amount, class, status, price) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?);";
     public static final String REQUESTED_ROOMS = "SELECT * FROM requests WHERE (date_from < ? AND date_to > ?);";
-    public static final String REQUEST_UPDATE = "UPDATE requests SET user_id = ?, room_id = ?, date_from = ?, date_to = ?, adults_amount = ?, children_amount = ?, status = ?, price = ? WHERE id = ?";
+    public static final String REQUEST_UPDATE = "UPDATE requests SET user_id = ?, room_id = ?, date_from = ?, date_to = ?, adults_amount = ?, children_amount = ?, class = ?, status = ?, price = ? WHERE id = ?";
 
 //    Users
     public static final String USER_INSERT = "INSERT INTO users (email, password, name, surname, phone_number, role) VALUES (?, ?, ?, ?, ?, ?);";

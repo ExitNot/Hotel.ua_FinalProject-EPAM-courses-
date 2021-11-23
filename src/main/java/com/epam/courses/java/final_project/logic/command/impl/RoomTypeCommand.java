@@ -13,8 +13,8 @@ import javax.servlet.http.HttpServletResponse;
 
 import java.util.Optional;
 
-import static com.epam.courses.java.final_project.util.CommandConstant.*;
-import static com.epam.courses.java.final_project.util.Constant.LOG_TRACE;
+import static com.epam.courses.java.final_project.util.constant.CommandConstant.*;
+import static com.epam.courses.java.final_project.util.constant.Constant.LOG_TRACE;
 
 public class RoomTypeCommand implements Command {
 

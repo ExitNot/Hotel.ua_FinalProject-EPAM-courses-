@@ -11,8 +11,8 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
-import static com.epam.courses.java.final_project.util.CommandConstant.*;
-import static com.epam.courses.java.final_project.util.Constant.LOG_TRACE;
+import static com.epam.courses.java.final_project.util.constant.CommandConstant.*;
+import static com.epam.courses.java.final_project.util.constant.Constant.LOG_TRACE;
 
 public class AccessFilter implements Filter {
 

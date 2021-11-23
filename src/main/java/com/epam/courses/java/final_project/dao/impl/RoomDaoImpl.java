@@ -5,7 +5,7 @@ import com.epam.courses.java.final_project.model.Room;
 import com.epam.courses.java.final_project.dao.impl.jdbc.JDBCException;
 import com.epam.courses.java.final_project.dao.impl.jdbc.JDBCManager;
 
-import static com.epam.courses.java.final_project.util.Constant.*;
+import static com.epam.courses.java.final_project.util.constant.Constant.*;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -36,7 +36,7 @@ public class RoomDaoImpl implements RoomDao {
     public long create(Room obj) throws JDBCException {
         long id = JDBCManager.updateRequest(SQL.ROOM_INSERT,
                 String.valueOf(obj.getRoomNumber()),
-                String.valueOf(obj.getRoomType()));
+                String.valueOf(obj.getRoomTypeId()));
         obj.setId(id);
         return id;
     }

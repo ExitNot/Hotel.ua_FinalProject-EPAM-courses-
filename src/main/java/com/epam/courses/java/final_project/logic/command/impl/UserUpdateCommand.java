@@ -12,7 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import java.util.Optional;
 
-import static com.epam.courses.java.final_project.util.CommandConstant.*;
+import static com.epam.courses.java.final_project.util.constant.CommandConstant.*;
 
 public class UserUpdateCommand implements Command {
     @Override

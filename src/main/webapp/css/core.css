@@ -9,7 +9,7 @@ input{
 }
 
 table, th, td {
-    border: 1px solid black;
+    border: 1px solid black; !important;
 }
 
 body {
@@ -33,6 +33,14 @@ body {
     font-size: 20px !important;
 }
 
+.card {
+    border: solid black;
+}
+
+.card-header {
+    border-bottom: 2px solid black;
+}
+
 .card-img-left {
     width: 100%;
     object-fit: cover;
@@ -42,6 +50,11 @@ body {
     position:absolute;
     bottom:0;
     width:100%;
+}
+
+#room_template {
+    display: none;
+    visibility: hidden;
 }
 
 /* Reservation tabs */

@@ -8,7 +8,7 @@ import com.epam.courses.java.final_project.logic.command.Response;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import static com.epam.courses.java.final_project.util.CommandConstant.*;
+import static com.epam.courses.java.final_project.util.constant.CommandConstant.*;
 
 public class CancelReservationCommand implements Command {
 

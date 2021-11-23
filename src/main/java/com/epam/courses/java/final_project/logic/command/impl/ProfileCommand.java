@@ -18,16 +18,12 @@ import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 import java.util.Optional;
 
-import static com.epam.courses.java.final_project.util.CommandConstant.*;
+import static com.epam.courses.java.final_project.util.constant.CommandConstant.*;
 
 public class ProfileCommand implements Command {
 
     @Override
     public Response execute(HttpServletRequest req, HttpServletResponse resp) throws JDBCException {
-        if (req.getSession().getAttribute(ATTRIBUTE_ID) == null) {
-            req.getSession().setAttribute(ATTRIBUTE_LOGIN_EX, "You have to login first");
-            return new Response(Response.Direction.Redirect, INDEX_JSP);
-        }
         Optional<User> oUser = UserService.getById((Long) req.getSession().getAttribute(ATTRIBUTE_ID));
         List<Reservation> reservations = ReservationService.getByUser((Long) req.getSession().getAttribute(ATTRIBUTE_ID));
         List<Request> requests = RequestService.getByUserId((Long) req.getSession().getAttribute(ATTRIBUTE_ID));

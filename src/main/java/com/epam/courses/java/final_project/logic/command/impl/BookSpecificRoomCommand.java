@@ -5,7 +5,6 @@ import com.epam.courses.java.final_project.logic.command.Command;
 import com.epam.courses.java.final_project.logic.command.Response;
 import com.epam.courses.java.final_project.model.Request;
 import com.epam.courses.java.final_project.service.RequestService;
-import com.epam.courses.java.final_project.service.ReservationService;
 import com.epam.courses.java.final_project.util.Util;
 
 import javax.servlet.http.HttpServletRequest;
@@ -13,7 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import java.sql.Date;
 
-import static com.epam.courses.java.final_project.util.CommandConstant.*;
+import static com.epam.courses.java.final_project.util.constant.CommandConstant.*;
 
 public class BookSpecificRoomCommand implements Command {
 

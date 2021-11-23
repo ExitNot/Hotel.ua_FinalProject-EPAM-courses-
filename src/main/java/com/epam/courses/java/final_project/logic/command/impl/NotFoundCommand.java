@@ -5,12 +5,11 @@ import com.epam.courses.java.final_project.logic.command.Response;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import static com.epam.courses.java.final_project.util.CommandConstant.*;
-import static com.epam.courses.java.final_project.util.Constant.LOG_TRACE;
+import static com.epam.courses.java.final_project.util.constant.CommandConstant.*;
+import static com.epam.courses.java.final_project.util.constant.Constant.LOG_TRACE;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
 
 public class NotFoundCommand implements Command {
 

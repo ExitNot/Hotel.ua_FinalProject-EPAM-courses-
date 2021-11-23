@@ -8,12 +8,11 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import java.sql.Date;
-import java.time.LocalDate;
 import java.util.Calendar;
 import java.util.List;
 import java.util.Optional;
 
-import static com.epam.courses.java.final_project.util.Constant.LOG_TRACE;
+import static com.epam.courses.java.final_project.util.constant.Constant.LOG_TRACE;
 
 public class RequestService {
 

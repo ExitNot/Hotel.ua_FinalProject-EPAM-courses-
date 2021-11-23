@@ -1,4 +1,4 @@
-package com.epam.courses.java.final_project.util;
+package com.epam.courses.java.final_project.util.constant;
 
 public class CommandConstant {
 
@@ -38,6 +38,7 @@ public class CommandConstant {
     public static final String PARAM_EMAIL = "email";
     public static final String PARAM_ROLE = "role";
     public static final String PARAM_ROOM_TYPE = "type";
+    public static final String PARAM_ROOM_CLASS = "room_class";
     public static final String PARAM_ADULTS_AMOUNT = "amount_of_adults_room";
     public static final String PARAM_CHILDREN_AMOUNT = "amount_of_children_room";
 
@@ -77,4 +78,5 @@ public class CommandConstant {
     public static final String PROFILE_ACT = "profile.act";
     public static final String INDEX_ACT = "index.act";
     public static final String MY_RESERVATIONS_ACT = "myReservations.act";
+    public static final String MY_REQUESTS_ACT = "myRequests.act";
 }

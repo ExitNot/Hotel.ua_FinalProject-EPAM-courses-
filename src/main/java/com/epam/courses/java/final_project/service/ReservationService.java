@@ -2,19 +2,16 @@ package com.epam.courses.java.final_project.service;
 
 import com.epam.courses.java.final_project.dao.DAOFactory;
 import com.epam.courses.java.final_project.dao.impl.jdbc.JDBCException;
-import com.epam.courses.java.final_project.model.Request;
 import com.epam.courses.java.final_project.model.Reservation;
 import com.epam.courses.java.final_project.util.Util;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import java.sql.Date;
-import java.util.Arrays;
 import java.util.Calendar;
-import java.util.Iterator;
 import java.util.List;
 
-import static com.epam.courses.java.final_project.util.Constant.LOG_TRACE;
+import static com.epam.courses.java.final_project.util.constant.Constant.LOG_TRACE;
 
 public class ReservationService {
 

@@ -1,6 +1,5 @@
 package com.epam.courses.java.final_project.dao.impl;
 
-import com.epam.courses.java.final_project.dao.AbstractDao;
 import com.epam.courses.java.final_project.dao.RoomTypeDao;
 import com.epam.courses.java.final_project.dao.impl.jdbc.JDBCException;
 import com.epam.courses.java.final_project.dao.impl.jdbc.JDBCManager;
@@ -11,7 +10,7 @@ import java.sql.SQLException;
 import java.util.List;
 import java.util.Optional;
 
-import static com.epam.courses.java.final_project.util.Constant.*;
+import static com.epam.courses.java.final_project.util.constant.Constant.*;
 
 public class RoomTypeDaoImpl implements RoomTypeDao {
 

@@ -10,8 +10,8 @@ import java.sql.SQLException;
 import java.util.List;
 import java.util.Optional;
 
-import static com.epam.courses.java.final_project.util.Constant.*;
-import static com.epam.courses.java.final_project.util.Constant.TABLE_IMG;
+import static com.epam.courses.java.final_project.util.constant.Constant.*;
+import static com.epam.courses.java.final_project.util.constant.Constant.TABLE_IMG;
 
 public class ImageDaoImpl implements ImageDao {
 
