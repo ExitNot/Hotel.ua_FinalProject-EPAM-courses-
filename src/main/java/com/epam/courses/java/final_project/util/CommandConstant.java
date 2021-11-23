@@ -11,6 +11,8 @@ public class CommandConstant {
     public static final String PROFILE = "profile";
     public static final String LOGOUT = "logout";
     public static final String ROOM_TYPE = "roomType";
+    public static final String REQUEST_LIST = "myRequests";
+    public static final String RESERVATION_LIST = "myReservations";
 
 //    POST commands
     public static final String SIGN_UP = "signUp";
@@ -18,6 +20,7 @@ public class CommandConstant {
     public static final String BOOK_SPECIFIC_ROOM = "bookSpecificRoom";
     public static final String CREATE_REQUEST = "request";
     public static final String CANCEL_REQUEST = "cancelRequest";
+    public static final String CANCEL_RESERVATION = "cancelReservation";
     public static final String PWD_UPDATE = "pwdUpdate";
     public static final String USER_UPDATE = "userUpdate";
 
@@ -25,6 +28,7 @@ public class CommandConstant {
     public static final String PARAM_USER_ID = "userId";
     public static final String PARAM_ROOM_ID = "roomId";
     public static final String PARAM_REQUEST_ID = "requestId";
+    public static final String PARAM_RESERVATION_ID = "reservationId";
     public static final String PARAM_ROOM_TYPE_ID = "typeId";
     public static final String PARAM_PWD = "pwd";  // User
     public static final String PARAM_NEW_PWD = "newPwd";  // User
@@ -65,8 +69,12 @@ public class CommandConstant {
     public static final String INDEX_JSP = "index.jsp";
     public static final String REQUEST_JSP = "request.jsp";
     public static final String AVAILABLE_ROOMS_JSP = "availableRooms.jsp";
+    public static final String MY_RESERVATIONS_JSP = "myReservations.jsp";
+    public static final String MY_REQUESTS_JSP = "myRequests.jsp";
     public static final String ERROR_JSP = "error.jsp";
 
 //    Pages for Controller
     public static final String PROFILE_ACT = "profile.act";
+    public static final String INDEX_ACT = "index.act";
+    public static final String MY_RESERVATIONS_ACT = "myReservations.act";
 }

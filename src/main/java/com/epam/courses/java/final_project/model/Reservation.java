@@ -16,6 +16,7 @@ public class Reservation {
     Date to;
     int guestsAmount;
     int roomNumber;
+    RoomType rt;
 
     public Reservation(long userId, long roomId, Date from, Date to) {
         this.userId = userId;
@@ -96,6 +97,14 @@ public class Reservation {
 
     public void setRoomNumber(int roomNumber) {
         this.roomNumber = roomNumber;
+    }
+
+    public RoomType getRoomType() {
+        return rt;
+    }
+
+    public void setRoomType(RoomType rt) {
+        this.rt = rt;
     }
 
     @Override

@@ -95,7 +95,8 @@ VALUES
 INSERT INTO reservations  -- temporary values for dev process --
     (user_id, room_id, date_from,    date_to,      guests_amount)
 VALUES
-    (3,       2,       '2021-11-16', '2021-11-20', 2);
+    (3,       2,       '2021-11-16', '2021-11-20', 2),
+    (3,       2,       '2021-11-16', '2021-11-25', 2);
 
 INSERT INTO requests  -- temporary values for dev process --
     (user_id, room_id, date_from,    date_to,       date_of_customer_acceptance,      adults_amount, children_amount, status, price)

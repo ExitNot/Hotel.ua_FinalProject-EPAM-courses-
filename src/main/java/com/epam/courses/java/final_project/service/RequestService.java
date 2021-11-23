@@ -3,6 +3,7 @@ package com.epam.courses.java.final_project.service;
 import com.epam.courses.java.final_project.dao.DAOFactory;
 import com.epam.courses.java.final_project.dao.impl.jdbc.JDBCException;
 import com.epam.courses.java.final_project.model.Request;
+import com.epam.courses.java.final_project.util.Util;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -20,22 +21,28 @@ public class RequestService {
 
     public static List<Request> getByDate(Date from, Date to) throws JDBCException {
         List<Request> out = DAOFactory.getInstance().getRequestDao().getRequestsByDate(from, to);
-        for (Request r : out)
-            validateWaitingTime(r);
+        for (Request r : out){
+            if (!validateWaitingTime(r))
+                out.remove(r);
+        }
         return out;
     }
 
     public static List<Request> getByUserId(Long id) throws JDBCException {
         List<Request> out = DAOFactory.getInstance().getRequestDao().getUserRequests(id);
-        for (Request r : out)
-            validateWaitingTime(r);
+        for (Request r : out) {
+            if (!validateWaitingTime(r))
+                out.remove(r);
+        }
         return out;
     }
 
     public static Optional<Request> getById(Long id) throws JDBCException {
         Optional<Request> req = DAOFactory.getInstance().getRequestDao().getById(id);
-        if (req.isPresent())
-            validateWaitingTime(req.get());
+        if (req.isPresent()) {
+            if (!validateWaitingTime(req.get()))
+                req = Optional.empty();
+        }
         return req;
     }
 
@@ -47,13 +54,9 @@ public class RequestService {
         DAOFactory.getInstance().getRequestDao().update(request);
     }
 
-    private static void validateWaitingTime(Request req) throws JDBCException {
-        Calendar c = Calendar.getInstance();
-        c.set(Calendar.HOUR_OF_DAY, 0);
-        c.set(Calendar.MINUTE, 0);
-        c.set(Calendar.SECOND, 0);
-        c.set(Calendar.MILLISECOND, 0);
-        Date today = new Date(c.getTimeInMillis());
+    private static boolean validateWaitingTime(Request req) throws JDBCException {
+        Date today = Util.getToday();
+        Calendar c;
 
         if (req.getCustomerAcceptance() != null && req.getStatus() == Request.Status.Payment){
             c = Calendar.getInstance();
@@ -75,7 +78,9 @@ public class RequestService {
             if (today.after(deadline)) {
                 DAOFactory.getInstance().getRequestDao().delete(req.getId());
                 log.info("Request(" + req.getId() + ") was deleted, because was canceled 2 days ago");
+                return false;
             }
         }
+        return true;
     }
 }

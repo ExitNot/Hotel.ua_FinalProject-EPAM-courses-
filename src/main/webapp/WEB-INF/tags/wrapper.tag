@@ -18,7 +18,7 @@
     <%-- Fontawesome --%>
     <script src="https://kit.fontawesome.com/b9b6a4bb7d.js" crossorigin="anonymous"></script>
 
-    <nav class="navbar navbar-expand-lg navbar-light" style="background-color: mediumslateblue; border-bottom: solid black">
+    <nav class="navbar navbar-expand-lg navbar-dark" style="background-color: mediumslateblue; border-bottom: solid black">
         <div class="collapse.show navbar-collapse" id="navbar">
             <a class="navbar-brand" href="index.act" style="font-size: 30px">Hotel</a>
             <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
@@ -57,8 +57,8 @@
 
                                 <div class="dropdown-menu dropdown-menu-right" data-offset="2" aria-labelledby="dropdownMenuLink">
                                     <a class="dropdown-item" href="profile.act">Profile</a>
-                                    <a class="dropdown-item" href="./signUp.jsp">My reservations</a>
-                                    <a class="dropdown-item" href="./signUp.jsp">My requests</a>
+                                    <a class="dropdown-item" href="myReservations.act">My reservations</a>
+                                    <a class="dropdown-item" href="myRequests.act">My requests</a>
                                 </div>
                             </div>
                         </li>

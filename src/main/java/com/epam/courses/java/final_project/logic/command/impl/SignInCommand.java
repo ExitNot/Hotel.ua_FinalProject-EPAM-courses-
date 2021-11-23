@@ -45,7 +45,7 @@ public class SignInCommand implements Command {
         req.getSession().setAttribute(ATTRIBUTE_ID, user.get().getId());
         req.getSession().setAttribute(ATTRIBUTE_USER, user.get());
         req.getSession().setAttribute(ATTRIBUTE_ROLE, user.get().getRole().name());
-        return new Response(Response.Direction.Redirect, INDEX_JSP);
+        return new Response(Response.Direction.Redirect, INDEX_ACT);
     }
 
     @Override
