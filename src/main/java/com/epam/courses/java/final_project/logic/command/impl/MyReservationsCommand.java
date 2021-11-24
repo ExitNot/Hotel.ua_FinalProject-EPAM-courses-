@@ -18,7 +18,7 @@ import java.util.Optional;
 
 import static com.epam.courses.java.final_project.util.constant.CommandConstant.*;
 
-public class ReservationListCommand implements Command {
+public class MyReservationsCommand implements Command {
 
     @Override
     public Response execute(HttpServletRequest req, HttpServletResponse resp) throws JDBCException {
@@ -33,12 +33,12 @@ public class ReservationListCommand implements Command {
             }
         }
 
-        req.getSession().setAttribute(ATTRIBUTE_USER_RESERVATIONS_LIST, reservations);
+        req.getSession().setAttribute(ATTRIBUTE_RESERVATIONS_LIST, reservations);
         return new Response(Response.Direction.Redirect, MY_RESERVATIONS_JSP);
     }
 
     @Override
     public String getCommand() {
-        return RESERVATION_LIST;
+        return MY_RESERVATIONS;
     }
 }

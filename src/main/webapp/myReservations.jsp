@@ -11,10 +11,10 @@
     <div class="container px-0 pt-4 d-flex justify-content-center" style="border: #6610f2">
         <div class="card col-10 px-0">
             <div class="card-header d-flex justify-content-center py-2">
-                <h5 class="mt-3 mr-auto">Reservations</h5>
+                <h5 class="mt-3">Reservations</h5>
             </div>
             <div class="card-body pb-0">
-                <table class="table table-striped">
+                <table class="table table-bordered">
                     <thead style="background-color: mediumslateblue; color: white">
                     <tr>
                         <th scope="col">Room number</th>

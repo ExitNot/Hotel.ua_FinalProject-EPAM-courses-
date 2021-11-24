@@ -15,8 +15,10 @@ public class Reservation {
     Date from;
     Date to;
     int guestsAmount;
-    int roomNumber;
-    RoomType rt;
+
+    private int roomNumber;
+    private String userEmail;
+    private RoomType rt;
 
     public Reservation(long userId, long roomId, Date from, Date to) {
         this.userId = userId;
@@ -105,6 +107,14 @@ public class Reservation {
 
     public void setRoomType(RoomType rt) {
         this.rt = rt;
+    }
+
+    public String getUserEmail() {
+        return userEmail;
+    }
+
+    public void setUserEmail(String userEmail) {
+        this.userEmail = userEmail;
     }
 
     @Override

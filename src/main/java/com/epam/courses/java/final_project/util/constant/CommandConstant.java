@@ -11,8 +11,9 @@ public class CommandConstant {
     public static final String PROFILE = "profile";
     public static final String LOGOUT = "logout";
     public static final String ROOM_TYPE = "roomType";
-    public static final String REQUEST_LIST = "myRequests";
-    public static final String RESERVATION_LIST = "myReservations";
+    public static final String MY_REQUESTS = "myRequests";
+    public static final String MY_RESERVATIONS = "myReservations";
+    public static final String REQUEST_LIST = "requestsList";
 
 //    POST commands
     public static final String SIGN_UP = "signUp";
@@ -38,9 +39,11 @@ public class CommandConstant {
     public static final String PARAM_EMAIL = "email";
     public static final String PARAM_ROLE = "role";
     public static final String PARAM_ROOM_TYPE = "type";
-    public static final String PARAM_ROOM_CLASS = "room_class";
-    public static final String PARAM_ADULTS_AMOUNT = "amount_of_adults_room";
-    public static final String PARAM_CHILDREN_AMOUNT = "amount_of_children_room";
+    public static final String PARAM_ROOM_CLASS = "roomClass";
+    public static final String PARAM_ADULTS_AMOUNT = "amountOfAdultsInRoom";
+    public static final String PARAM_CHILDREN_AMOUNT = "amountOfChildrenInRoom";
+    public static final String PARAM_SEARCH_BTN = "searchBtn";
+    public static final String PARAM_WAITING_FOR_RESPONSE = "waitingForResponse";
 
     public static final String PARAM_FROM = "dateFrom";  // Reservation
     public static final String PARAM_TO = "dateTo";
@@ -53,8 +56,8 @@ public class CommandConstant {
     public static final String ATTRIBUTE_ROOM_TYPE = "roomType";
     public static final String ATTRIBUTE_ROOMS_LIST = "roomsList";
     public static final String ATTRIBUTE_ROOM_TYPES_LIST = "roomTypesList";
-    public static final String ATTRIBUTE_USER_REQUEST_LIST = "userRequestsList";
-    public static final String ATTRIBUTE_USER_RESERVATIONS_LIST = "userReservationsList";
+    public static final String ATTRIBUTE_REQUEST_LIST = "requestsList";
+    public static final String ATTRIBUTE_RESERVATIONS_LIST = "userReservationsList";
     public static final String ATTRIBUTE_FROM = "dateFrom";
     public static final String ATTRIBUTE_TO = "dateTo";
     public static final String ATTRIBUTE_LOGIN_EX = "loginEx";  // exception
@@ -72,6 +75,7 @@ public class CommandConstant {
     public static final String AVAILABLE_ROOMS_JSP = "availableRooms.jsp";
     public static final String MY_RESERVATIONS_JSP = "myReservations.jsp";
     public static final String MY_REQUESTS_JSP = "myRequests.jsp";
+    public static final String REQUEST_LIST_JSP = "requestsList.jsp";
     public static final String ERROR_JSP = "error.jsp";
 
 //    Pages for Controller

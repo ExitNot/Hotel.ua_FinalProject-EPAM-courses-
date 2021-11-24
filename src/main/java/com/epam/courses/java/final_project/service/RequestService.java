@@ -36,6 +36,24 @@ public class RequestService {
         return out;
     }
 
+    public static List<Request> getByStatus(Request.Status status) throws JDBCException {
+        List<Request> out = DAOFactory.getInstance().getRequestDao().getRequestsByStatus(status);
+        for (Request r : out) {
+            if (!validateWaitingTime(r))
+                out.remove(r);
+        }
+        return out;
+    }
+
+    public static List<Request> getAll() throws JDBCException {
+        List<Request> out = DAOFactory.getInstance().getRequestDao().getAll();
+        for (Request r : out) {
+            if (!validateWaitingTime(r))
+                out.remove(r);
+        }
+        return out;
+    }
+
     public static Optional<Request> getById(Long id) throws JDBCException {
         Optional<Request> req = DAOFactory.getInstance().getRequestDao().getById(id);
         if (req.isPresent()) {

@@ -8,106 +8,156 @@
 </c:if>
 
 <t:wrapper>
-    <h1>Create Reservation</h1>
-
     <script>
-        var rooms = 0;
+        let rooms = [5, 4, 3, 2, 1];
 
         window.onload = function () {
             document.getElementById("add_room_btn").click();
-            changeActiveNav(document.getElementsByClassName("nav-item")[1])
-        }
 
-        function changeTab(id) {
-            document.getElementById("page_content").innerHTML = document.getElementById(id + "_content").innerHTML;
-            document.getElementById("request").className = "not_selected";
-            document.getElementById("specific_room").className = "not_selected";
-            document.getElementById(id).className = "selected";
+            // Make nav element active
+            var current = document.getElementsByClassName("active");
+            current[0].className = current[0].className.replace(" active", "");
+            document.getElementsByClassName("nav-item")[1].className += " active"
         }
 
         function cloneRoom() {
             var wrapper = document.getElementById("rooms_wrapper");
             var room = document.getElementById("room_template").innerHTML;
-            room = room.replaceAll("room", "room".concat((rooms + 1).toString()));
-
-            if (rooms < 5) {
-                rooms++;
+            if (rooms.length > 0) {
+                room = room.replaceAll("room", "room".concat((rooms.pop()).toString()));
                 wrapper.insertAdjacentHTML('afterbegin', room);
             }
         }
 
         function removeRoom(id) {
-            rooms--;
+            rooms.push(id.substr(4, 5));
             const elem = document.getElementById(id);
             elem.parentNode.removeChild(elem);
         }
 
         function setRoomsAmount() {
-            document.getElementById("rooms_amount").value = rooms;
+            document.getElementById("rooms_amount").value = 5 - rooms.length;
         }
     </script>
     <script>
-        $(function() {
+        $(function () {
             var today = new Date();
             var tomorrow = new Date(today);
             tomorrow.setDate(today.getDate() + 1);
-            $( "#date_from" ).datepicker({
+            $("#date_from").datepicker({
                 minDate: 0
             });
-            $( "#date_to" ).datepicker({
+            $("#date_to").datepicker({
                 minDate: 1
             });
-            $( "#date_from" ).datepicker("setDate", today);
-            $( "#date_to" ).datepicker("setDate", tomorrow);
+            $("#date_from").datepicker("setDate", today);
+            $("#date_to").datepicker("setDate", tomorrow);
         });
     </script>
-    <div id="reservation">
-        <div class="page_content" id="request_content">
-            <h2>Create request</h2>
-            <form action="request.act" method="post" class="form">
-                <label>
-                    Dates:
-                    <input type="text" name="dateFrom" id="date_from"/> -
-                    <input type="text" name="dateTo" id="date_to"/>
-                </label>
-                <br/>
-                <c:choose>
-                    <c:when test="${not empty roomType}">
-                        Room:
-                        ${roomType.roomClass} room with ${roomType.parsedBedsType}
-                        <c:remove var="roomType"></c:remove>
-<%--                        todo Clear typeId in the end--%>
-                    </c:when>
-                    <c:otherwise>
-                        <a>Amount of rooms and guests</a>
-                        <div id="rooms_wrapper">
-                            <button type="button" onclick="cloneRoom()" id="add_room_btn">Add another room</button>
-                        </div>
-                    </c:otherwise>
-                </c:choose>
-                <input type="hidden" id="rooms_amount" name="rooms_amount"/>
-                <input type="submit" name="request_btn" value="Make reservation" class="button" onclick="setRoomsAmount()"/>
-            </form>
-        </div>
 
-        <div class="hidden_content" id="room_template">
-            <div id="room">
-                <label>
-                    <input type="number" name="amount_of_adults_room" placeholder="adult"
-                           max="5" value="1" onChange="guests_value()">
-                    <input type="number" name="amount_of_children_room" placeholder="child"
-                           max="5" value="0" onChange="guests_value()">
-                    <select name="room_class">
-                        <option value="1">standard</option>
-                        <option value="2">deluxe</option>
-                        <option value="3">suite</option>
-                    </select>
-<%--                    <input type=""> todo add room class  --%>
-                    <button type="button" id="delete_btn" onclick="removeRoom('room')">
-                        000<%-- todo insert icon --%></button>
-                </label>
+    <div class="container px-0 pt-4 d-flex justify-content-center" style="border: #6610f2">
+        <div class="card col-10 px-0">
+            <div class="card-header d-flex justify-content-center py-2" style="background-color: mediumslateblue">
+                <h5 class="mt-3">Create reservation request</h5>
+            </div>
+            <div class="card-body pb-0">
+                <form class="mb-0" action="request.act" method="post">
+                    <div class="row mb-2">
+                        <div class="col-2">
+                            <label for="date_from">From</label>
+                            <input class="form-control" type="text" name="dateFrom" id="date_from"/>
+                        </div>
+                        <div class="col-2">
+                            <label for="date_to">To</label>
+                            <input class="form-control" type="text" name="dateTo" id="date_to"/>
+                        </div>
+                        <div class="col-8">
+                            <c:choose>
+                                <c:when test="${not empty roomType}">
+                                    Chosen room:
+                                    <a href="#">
+                                            ${roomType.roomClass} room with ${roomType.parsedBedsType}
+                                    </a>
+                                    <%--                                <c:remove var="roomType"></c:remove>--%>
+                                </c:when>
+                                <c:otherwise>
+                                    <a class="row text-center mb-2">Amount of rooms and guests</a>
+                                    <div id="rooms_wrapper"></div>
+                                </c:otherwise>
+                            </c:choose>
+                        </div>
+                    </div>
+                    <div class="row mt-3"
+                         style="background-color: mediumslateblue; margin-left: -20px; margin-right: -20px">
+                        <div class="col">
+                            <a href="#" class="btn btn-link w-100" onclick="cloneRoom()" id="add_room_btn"
+                               style="color: white">
+                                Add another room
+                            </a>
+                        </div>
+                        <div class="col">
+                            <input type="hidden" id="rooms_amount" name="rooms_amount"/>
+                            <input type="submit" name="request_btn" value="Make reservation" class="btn btn-link w-100"
+                                   onclick="setRoomsAmount()" style="color: white"/>
+                        </div>
+                    </div>
+                </form>
             </div>
         </div>
-<%--        <div id="page_content"></div>--%>
     </div>
+
+    <div id="room_template">
+        <div class="row" id="room">
+            <label for="amountOfAdultsInRoom">adults:</label>
+            <input class="form-control col-3 mr-2" type="number" name="amountOfAdultsInRoom" placeholder="adult"
+            max="5" value="1" onChange="guests_value()" id="amountOfAdultsInRoom"/>
+            <label for="amountOfChildrenInRoom">children:</label>
+            <input class="form-control col-3" type="number" name="amountOfChildrenInRoom" placeholder="child"
+                   max="5" value="0" onChange="guests_value()" id="amountOfChildrenInRoom"/>
+            <select class="col-2 h-75 mt-2 ml-2" name="roomClass">
+                <option value="1">standard</option>
+                <option value="2">upgraded</option>
+                <option value="3">deluxe</option>
+                <option value="4">suite</option>
+            </select>
+            <button type="button" class="btn btn-link" id="delete_btn"
+                    onclick="removeRoom('room')" style="color: mediumslateblue">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+    </div>
+    <%--    =========================== --%>
+
+    <%--    <div id="reservation">--%>
+    <%--        <div class="page_content" id="request_content">--%>
+    <%--            <h2>Create request</h2>--%>
+    <%--            <form action="request.act" method="post" class="form">--%>
+    <%--                <label>--%>
+    <%--                    Dates:--%>
+    <%--                        &lt;%&ndash;                    <input type="text" name="dateFrom" id="date_from"/> -&ndash;%&gt;--%>
+    <%--                        &lt;%&ndash;                    <input type="text" name="dateTo" id="date_to"/>&ndash;%&gt;--%>
+    <%--                </label>--%>
+    <%--                <br/>--%>
+    <%--                <c:choose>--%>
+    <%--                    <c:when test="${not empty roomType}">--%>
+    <%--                        Room:--%>
+    <%--                        ${roomType.roomClass} room with ${roomType.parsedBedsType}--%>
+    <%--                        <c:remove var="roomType"></c:remove>--%>
+    <%--                        &lt;%&ndash;                        todo Clear typeId in the end&ndash;%&gt;--%>
+    <%--                    </c:when>--%>
+    <%--                    <c:otherwise>--%>
+    <%--                        <a>Amount of rooms and guests</a>--%>
+    <%--                        <div id="rooms_wrapper">--%>
+    <%--                                &lt;%&ndash;                            <button type="button" onclick="cloneRoom()" id="add_room_btn">Add another room</button>&ndash;%&gt;--%>
+    <%--                        </div>--%>
+    <%--                    </c:otherwise>--%>
+    <%--                </c:choose>--%>
+    <%--                    &lt;%&ndash;                <input type="hidden" id="rooms_amount" name="rooms_amount"/>&ndash;%&gt;--%>
+    <%--                <input type="submit" name="request_btn" value="Make reservation" class="button"--%>
+    <%--                       onclick="setRoomsAmount()"/>--%>
+    <%--            </form>--%>
+    <%--        </div>div--%>
+
+
+    <%--    </div>--%>
 </t:wrapper>

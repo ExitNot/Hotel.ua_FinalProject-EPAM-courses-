@@ -10,7 +10,15 @@
 <t:wrapper>
 
     <script>
-        $(function() {
+
+        window.onload = function () {
+            // Make nav element active
+            var current = document.getElementsByClassName("active");
+            current[0].className = current[0].className.replace(" active", "");
+            document.getElementsByClassName("nav-item")[1].className += " active"
+        }
+
+        $(function() {  // init minimal dates
             var today = new Date();
             var tomorrow = new Date(today);
             tomorrow.setDate(today.getDate() + 1);
@@ -30,43 +38,60 @@
         };
     </script>
 
-    <div class="page_content">
-        <h2>Choose specific room</h2>
-        <form action="availableRooms.act" method="get">
-            From <input type="text" name="dateFrom" id="date_from"/> to
-            <input type="text" name="dateTo" id="date_to" min="2021-11-17"/>
-            <input type="submit" name="search_btn" value="Search" class="button"/>
-        </form>
-        <c:if test="${not empty roomsList}">
-            <table style="border: black">
-                <tr>
-                    <th>Room number</th>
-                    <th>Floor</th>
-                    <th>capacity</th>
-                    <th>Beds types</th>
-                    <th>Room class</th>
-                </tr>
-                <c:forEach var="room" items="${roomsList}">
-                    <tr>
-                        <td>${room.roomNumber}</td>
-                        <td>${room.floor}</td>
-                        <td>${room.capacity}</td>
-                        <td>${room.bedType}</td>
-                        <td>${room.roomClassName}</td>
-                        <td>
-                            <form action="bookSpecificRoom.act" method="post" style="margin-bottom: 0">
-                                <input type="hidden" name="roomId" value="${room.id}">
-                                <input type="submit" value="Make reservation">
+    <div class="container px-0 pt-4 d-flex justify-content-center">
+        <div class="card col-11 px-0">
+            <div class="card-header d-flex justify-content-center py-2">
+                    <form action="availableRooms.act" method="get" class="row w-100 h-75 mt-3">
+                        <div class="col-10">
+                            <label for="date_from">From</label>
+                            <input type="text" name="dateFrom" id="date_from"/>
+                            <label for="date_to">To</label>
+                            <input type="text" name="dateTo" id="date_to"/>
+                        </div>
+                        <div class="col-2">
+                            <input class="btn" type="submit" name="search_btn" value="Search"
+                                   style="background-color: mediumslateblue; color: white"/>
+                        </div>
+                    </form>
+            </div>
+            <div class="card-body pb-0">
+                <c:if test="${not empty roomsList}">
+                    <table class="table table-bordered text-center">
+                        <thead style="background-color: mediumslateblue; color: white">
+                        <tr>
+                            <th class="col-1">Room number</th>
+                            <th class="col-1">Floor</th>
+                            <th class="col-4">Beds</th>
+                            <th class="col-3">Room class</th>
+                            <th class="col-3">Reservation</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <c:forEach var="room" items="${roomsList}">
+                            <tr class="text-center">
+                                <td>${room.roomNumber}</td>
+                                <td>${room.floor}</td>
+                                <td>${room.roomType.parsedBedsType}</td>
+                                <td>${room.roomType.roomClass}</td>
+                                <td>
+                                    <a class="link-error" href="#"
+                                       onclick="document.getElementById('cancel_form${request.id}').submit();">
+                                        Make a reservation
+                                    </a>
+                                </td>
+                            </tr>
+                            <form id="info_form${request.id}" action="roomType.act" method="get" style="margin-bottom: 0">
+                                <input type="hidden" name="typeId" value="${request.roomType.id}">
                             </form>
-                        </td>
-                    </tr>
-                </c:forEach>
-            </table>
-            <c:remove var="roomsList"/>
-        </c:if>
-        <c:if test="${not empty roomsListEx}">
-            <h2 style="color:red">${roomsListEx}</h2>
-            <c:remove var="roomsListEx"/>
-        </c:if>
+                            <form id="cancel_form${request.roomType.id}" action="cancelRequest.act" method="post"
+                                  style="margin-bottom: 0">
+                                <input type="hidden" name="requestId" value="${request.id}">
+                            </form>
+                        </c:forEach>
+                        </tbody>
+                    </table>
+                </c:if>
+            </div>
+        </div>
     </div>
 </t:wrapper>

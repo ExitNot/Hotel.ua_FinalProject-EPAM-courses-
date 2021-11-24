@@ -19,7 +19,7 @@
                 </form>
             </div>
             <div class="card-body pb-0">
-                <form action="userUpdate.act" method="post" id="user_update_form">
+                <form action="userUpdate.act" method="post" id="user_update_form" class="mb-0">
                     <div class="row mb-2">
                         <div class="col-2">
                             Name:

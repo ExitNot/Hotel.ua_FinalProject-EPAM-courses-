@@ -33,8 +33,9 @@ public class AccessFilter implements Filter {
         accessLevel.put(CANCEL_RESERVATION, Role.Customer);
         accessLevel.put(USER_UPDATE, Role.Customer);
         accessLevel.put(PWD_UPDATE, Role.Customer);
-        accessLevel.put(RESERVATION_LIST, Role.Customer);
-        accessLevel.put(REQUEST_LIST, Role.Customer);
+        accessLevel.put(MY_RESERVATIONS, Role.Customer);
+        accessLevel.put(MY_REQUESTS, Role.Customer);
+        accessLevel.put(REQUEST_LIST, Role.Manager);
     }
 
     @Override

@@ -25,14 +25,21 @@
                 <li class="nav-item active">
                     <a class="nav-link" href="index.act">Home</a>
                 </li>
-                <c:if test="${not empty id}">
-                    <li class="nav-item">
-                        <a class="nav-link" href="./request.jsp">Make a reservation</a>
-                    </li>
-                </c:if>
-                <li class="nav-item">
-                    <a class="nav-link" href="./availableRooms.act">Available rooms</a>
-                </li>
+                <c:choose>
+                    <c:when test="${role == 'Customer'}">
+                        <li class="nav-item">
+                            <a class="nav-link" href="./request.jsp">Make a reservation</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="./availableRooms.act">Available rooms</a>
+                        </li>
+                    </c:when>
+                    <c:when test="${role == 'Manager'}">
+                        <li class="nav-item">
+                            <a class="nav-link" href="./requestsList.act">Requests</a>
+                        </li>
+                    </c:when>
+                </c:choose>
                 <li class="nav-item">
                     <a class="nav-link" href="#">Contacts</a>
                 </li>
@@ -45,7 +52,7 @@
                     <a href="#" id="sign_in_btn" class="button" data-toggle="modal" data-target="#signInModal">Sign in</a>
                     <a href="./signUp.jsp" class="button">Sign up</a>
                 </c:when>
-                <c:otherwise>
+                <c:when test="${role == 'Customer'}">
                     <ul class="navbar-nav">
                         <li class="nav-item dropdown">
                             <div class="btn dropdown show">  <%-- profile icon --%>
@@ -63,7 +70,20 @@
                             </div>
                         </li>
                     </ul>
-                </c:otherwise>
+                </c:when>
+                <c:when test="${role == 'Manager'}">
+                    <ul class="navbar-nav">
+                        <li class="nav-item dropdown">
+                            <div class="btn dropdown show">  <%-- profile icon --%>
+                                <a href="profile.act" role="button">
+                                    <span style="color: black">
+                                        <i class="fas fa-user-circle fa-2x"></i>
+                                    </span>
+                                </a>
+                            </div>
+                        </li>
+                    </ul>
+                </c:when>
             </c:choose>
 
         </div>

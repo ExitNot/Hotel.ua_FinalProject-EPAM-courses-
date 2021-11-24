@@ -4,6 +4,7 @@ import com.epam.courses.java.final_project.dao.RequestDao;
 import com.epam.courses.java.final_project.dao.impl.jdbc.JDBCManager;
 import com.epam.courses.java.final_project.model.Request;
 import com.epam.courses.java.final_project.dao.impl.jdbc.JDBCException;
+import com.epam.courses.java.final_project.model.RoomType;
 
 import java.sql.Date;
 import java.sql.ResultSet;
@@ -11,7 +12,7 @@ import java.sql.SQLException;
 import java.util.List;
 import java.util.Optional;
 
-import static com.epam.courses.java.final_project.util.Constant.*;
+import static com.epam.courses.java.final_project.util.constant.Constant.*;
 
 public class RequestDaoImpl implements RequestDao {
 
@@ -35,6 +36,7 @@ public class RequestDaoImpl implements RequestDao {
                 rs.getDate(PARAM_DATE_OF_CUSTOMER_ACCEPTANCE),
                 rs.getInt(PARAM_ADULTS_AMOUNT),
                 rs.getInt(PARAM_CHILDREN_AMOUNT),
+                RoomType.RoomClass.getRoomClass(rs.getInt(PARAM_CLASS)),
                 Request.Status.getStatus(rs.getInt(PARAM_STATUS)),
                 rs.getInt(PARAM_PRICE)
         );
@@ -48,13 +50,15 @@ public class RequestDaoImpl implements RequestDao {
                     String.valueOf(obj.getUserId()), null,
                     obj.getFrom().toString(), obj.getTo().toString(),
                     String.valueOf(obj.getAdultsAmount()), String.valueOf(obj.getChildrenAmount()),
-                    String.valueOf(obj.getStatus().getValue()), String.valueOf(obj.getPrice()));
+                    String.valueOf(obj.getRc().getValue()), String.valueOf(obj.getStatus().getValue()),
+                    String.valueOf(obj.getPrice()));
         } else {
             id = JDBCManager.updateRequest(SQL.REQUEST_INSERT,
                     String.valueOf(obj.getUserId()), String.valueOf(obj.getRoomId()),
                     obj.getFrom().toString(), obj.getTo().toString(),
                     String.valueOf(obj.getAdultsAmount()), String.valueOf(obj.getChildrenAmount()),
-                    String.valueOf(obj.getStatus().getValue()), String.valueOf(obj.getPrice()));
+                    String.valueOf(obj.getRc().getValue()), String.valueOf(obj.getStatus().getValue()),
+                    String.valueOf(obj.getPrice()));
         }
         obj.setId(id);
         return id;
@@ -95,8 +99,8 @@ public class RequestDaoImpl implements RequestDao {
                 String.valueOf(obj.getUserId()), String.valueOf(obj.getRoomId()),
                 obj.getFrom().toString(), obj.getTo().toString(),
                 String.valueOf(obj.getAdultsAmount()), String.valueOf(obj.getChildrenAmount()),
-                String.valueOf(obj.getStatus().getValue()), String.valueOf(obj.getPrice()),
-                String.valueOf(obj.getId()));
+                String.valueOf(obj.getRc().getValue()), String.valueOf(obj.getStatus().getValue()),
+                String.valueOf(obj.getPrice()), String.valueOf(obj.getId()));
     }
 
     @Override

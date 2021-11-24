@@ -17,8 +17,8 @@ import javax.servlet.http.HttpServletResponse;
 import java.sql.Date;
 import java.util.Optional;
 
-import static com.epam.courses.java.final_project.util.CommandConstant.*;
-import static com.epam.courses.java.final_project.util.Constant.LOG_TRACE;
+import static com.epam.courses.java.final_project.util.constant.CommandConstant.*;
+import static com.epam.courses.java.final_project.util.constant.Constant.LOG_TRACE;
 
 public class RequestCommand implements Command {
 
@@ -39,7 +39,7 @@ public class RequestCommand implements Command {
             return new Response(Response.Direction.Redirect, REQUEST_JSP);
         }
 
-        for (int i = 1; i <= Integer.parseInt(req.getParameter("rooms_amount")); i++ ){
+        for (int i = 1; i <= Integer.parseInt(req.getParameter("rooms_amount")); i++ ){  // TODO not always consequent
             Request request = new Request(
                 Long.parseLong(req.getSession().getAttribute(ATTRIBUTE_ID).toString()),
                 Date.valueOf(from),
@@ -47,9 +47,12 @@ public class RequestCommand implements Command {
                 Integer.parseInt(req.getParameter(PARAM_ADULTS_AMOUNT + i) ),
                 Integer.parseInt(req.getParameter(PARAM_CHILDREN_AMOUNT + i)),
                 Request.Status.ManagerResponse, Util.calcPrice());
+            request.setRc(RoomType.RoomClass.getRoomClass(Integer.parseInt(
+                    req.getParameter(PARAM_ROOM_CLASS.replace("room", "room" + i))
+            )));
             RequestService.create(request);
         }
-        return new Response(Response.Direction.Redirect, PROFILE_ACT);
+        return new Response(Response.Direction.Redirect, MY_REQUESTS_ACT);
     }
 
     @Override
