@@ -14,7 +14,9 @@ import org.apache.logging.log4j.Logger;
 
 import static com.epam.courses.java.final_project.util.constant.CommandConstant.*;
 import static com.epam.courses.java.final_project.util.constant.Constant.LOG_TRACE;
+import static com.epam.courses.java.final_project.util.constant.Constant.PARAM_FLOOR;
 
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.sql.Date;
@@ -29,6 +31,7 @@ public class AvailableRoomsCommand implements Command {
     public Response execute(HttpServletRequest req, HttpServletResponse resp) throws JDBCException {
         List<Reservation> occupiedRooms;
         List<Room> availableRooms;
+        req.getSession().setAttribute("floor", 0);
         String from = req.getParameter(PARAM_FROM);
         String to = req.getParameter(PARAM_TO);
 
@@ -48,6 +51,8 @@ public class AvailableRoomsCommand implements Command {
             req.getSession().setAttribute(ATTRIBUTE_ROOMS_LIST_EX, "Incorrect dates");
             return new Response(Response.Direction.Forward, AVAILABLE_ROOMS_JSP);
         }
+        req.getSession().setAttribute(ATTRIBUTE_FROM, from);
+        req.getSession().setAttribute(ATTRIBUTE_TO, to);
 
         occupiedRooms = ReservationService.getByDate(
                 Date.valueOf(from), Date.valueOf(to)
@@ -58,9 +63,20 @@ public class AvailableRoomsCommand implements Command {
             availableRooms.removeIf(a -> i.equals(a.getId()));
         }
 
+//        Filter/Sorting
+        if (!req.getParameter(PARAM_FLOOR).equals("0")){
+            log.trace("floor: " + req.getParameter(PARAM_FLOOR));
+            req.getSession().setAttribute("floor", req.getParameter(PARAM_FLOOR));
+            availableRooms = availableRooms.stream()
+                    .filter(a -> a.getFloor() == Integer.parseInt(req.getParameter(PARAM_FLOOR)))
+                    .collect(Collectors.toList());
+        }
+
+//        Insert RoomType
         for (Room r : availableRooms){
             RoomTypeService.getById(r.getRoomTypeId()).ifPresent(r::setRoomType);
         }
+
 
         req.getSession().setAttribute(ATTRIBUTE_FROM, from.substring(0, 10));
         req.getSession().setAttribute(ATTRIBUTE_TO, to.substring(0, 10));
