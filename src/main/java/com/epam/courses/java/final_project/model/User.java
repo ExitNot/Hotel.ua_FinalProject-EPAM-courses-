@@ -132,6 +132,8 @@ public class User {
         return "User{" +
                 "id=" + id +
                 ", email='" + email + '\'' +
+                ", name='" + name + '\'' +
+                ", surname='" + surname + '\'' +
                 ", password='" + password + '\'' +
                 ", phoneNumber='" + phoneNumber + '\'' +
                 ", role=" + role +

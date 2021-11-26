@@ -1,9 +1,14 @@
 <%@ tag description="Base page structure wrapper" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%--<%@ attribute name="onload" required="false" %>--%>
-<html>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+
+<c:set var="language" value="${not empty param.language ? param.language : not empty language ? language : pageContext.request.locale}" scope="session" />
+<fmt:setLocale value="${language}" scope="session"/>
+<fmt:setBundle basename="web-text"/>
+
+<html lang="${language}">
     <head>
-        <title>Hotel</title>
+        <title>Hotel ${language}</title>
         <%-- jQuery --%>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
         <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.js"></script>
@@ -23,30 +28,42 @@
             <a class="navbar-brand" href="index.act" style="font-size: 30px">Hotel</a>
             <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
                 <li class="nav-item active">
-                    <a class="nav-link" href="index.act">Home</a>
+                    <a class="nav-link" href="index.act"><fmt:message key="nav.label.home"/></a>
                 </li>
                 <c:choose>
                     <c:when test="${role == 'Customer'}">
                         <li class="nav-item">
-                            <a class="nav-link" href="./request.jsp">Make a reservation</a>
+                            <a class="nav-link" href="./request.jsp">
+                                <fmt:message key="nav.label.makeAReservation"/>
+                            </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="./availableRooms.act">Available rooms</a>
+                            <a class="nav-link" href="./availableRooms.act">
+                                <fmt:message key="nav.label.availableRooms"/>
+                            </a>
                         </li>
                     </c:when>
                     <c:when test="${role == 'Manager'}">
                         <li class="nav-item">
-                            <a class="nav-link" href="./requestsList.act">Requests</a>
+                            <a class="nav-link" href="./requestsList.act"><fmt:message key="label.requests"/></a>
                         </li>
                     </c:when>
                 </c:choose>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Contacts</a>
+                    <a class="nav-link" href="#"><fmt:message key="nav.label.contacts"/></a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Info</a>
+                    <a class="nav-link" href="#"><fmt:message key="nav.label.info"/></a>
                 </li>
             </ul>
+            <form>
+                <select class="form-select mr-3 mt-3 font-weight-bold" name="language"  <%-- Language changer --%>
+                        onchange="submit()" aria-label="Default select example"
+                        style="appearance: none; background-color: mediumslateblue; color: white">
+                    <option value="en" ${language == 'en' ? 'selected' : ''}>EN</option>
+                    <option value="ru" ${language == 'ru' ? 'selected' : ''}>RU</option>
+                </select>
+            </form>
             <c:choose>
                 <c:when test="${empty id}">
                     <a href="#" id="sign_in_btn" class="button" data-toggle="modal" data-target="#signInModal">Sign in</a>
@@ -63,9 +80,12 @@
                                 </a>
 
                                 <div class="dropdown-menu dropdown-menu-right" data-offset="2" aria-labelledby="dropdownMenuLink">
-                                    <a class="dropdown-item" href="profile.act">Profile</a>
-                                    <a class="dropdown-item" href="myReservations.act">My reservations</a>
-                                    <a class="dropdown-item" href="myRequests.act">My requests</a>
+                                    <a class="dropdown-item" href="profile.act">
+                                        <fmt:message key="label.profile"/></a>
+                                    <a class="dropdown-item" href="myReservations.act">
+                                        <fmt:message key="label.my"/> <fmt:message key="label.reservations"/></a>
+                                    <a class="dropdown-item" href="myRequests.act">
+                                        <fmt:message key="label.my"/> <fmt:message key="label.requests"/></a>
                                 </div>
                             </div>
                         </li>
@@ -116,13 +136,13 @@
                         <div class="form-check pl-1">
                             <label class="form-check-label ml-4">
                                 <input type="checkbox" class="form-check-input col-md-1 w-25" id="dropdownCheck">
-                                <a class="col-md-2">Remember me</a>
+                                <a class="col-md-2"><fmt:message key="acc.label.rememberMe"/></a>
                             </label>
                         </div>
                     </form>
                 </div>
                 <div class="modal-footer">
-                    <a class="col-l-5" href="#">Forgot password?</a>
+                    <a class="col-l-5" href="#"><fmt:message key="acc.link.forgotPwd"/>?</a>
                     <button type="submit" form="signInForm" class="btn btn-primary col-5">Sign in</button>
                 </div>
             </div>

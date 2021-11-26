@@ -52,6 +52,10 @@ body {
     width:100%;
 }
 
+.tooltip-arrow {
+    display: none !important;
+}
+
 #room_template {
     display: none;
     visibility: hidden;

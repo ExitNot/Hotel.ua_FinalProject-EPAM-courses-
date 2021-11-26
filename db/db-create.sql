@@ -2,6 +2,22 @@
 -- Drop all tables
 --------
 
+-- SELECT pg_terminate_backend(pg_stat_activity.pid)
+-- FROM pg_stat_activity
+-- WHERE pg_stat_activity.datname = 'postgres' -- ← change this to your DB
+--   AND pid <> pg_backend_pid();
+--
+-- SELECT *
+-- FROM pg_stat_activity
+-- WHERE datname = 'postgres';
+--
+-- SELECT	pg_terminate_backend (pid)
+-- FROM	pg_stat_activity
+-- WHERE	pg_stat_activity.datname = 'postgres';
+
+-- DROP DATABASE hotel WITH (FORCE);
+-- CREATE DATABASE hotel ENCODING 'UTF-8';
+
 DROP SCHEMA IF EXISTS public CASCADE;
 
 CREATE SCHEMA public;
