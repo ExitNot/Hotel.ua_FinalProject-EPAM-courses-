@@ -40,7 +40,7 @@ public class ProfileCommand implements Command {
         oUser.ifPresent(user -> req.getSession().setAttribute(ATTRIBUTE_USER, user));
         req.getSession().setAttribute(ATTRIBUTE_RESERVATIONS_LIST, reservations);
         req.getSession().setAttribute(ATTRIBUTE_REQUEST_LIST, requests);
-        return new Response(Response.Direction.Forward, PROFILE_JSP);
+        return new Response(Response.Direction.Redirect, PROFILE_JSP);
     }
 
     @Override

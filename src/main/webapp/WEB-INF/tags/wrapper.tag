@@ -8,7 +8,7 @@
 
 <html lang="${language}">
     <head>
-        <title>Hotel ${language}</title>
+        <title>Hotel</title>
         <%-- jQuery --%>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
         <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.js"></script>
@@ -45,7 +45,7 @@
                     </c:when>
                     <c:when test="${role == 'Manager'}">
                         <li class="nav-item">
-                            <a class="nav-link" href="./requestsList.act"><fmt:message key="label.requests"/></a>
+                            <a class="nav-link" href="./requestsList.act"><fmt:message key="label.request"/></a>
                         </li>
                     </c:when>
                 </c:choose>
@@ -58,7 +58,7 @@
             </ul>
             <form>
                 <select class="form-select mr-3 mt-3 font-weight-bold" name="language"  <%-- Language changer --%>
-                        onchange="submit()" aria-label="Default select example"
+                        onchange="submit()" aria-label="select"
                         style="appearance: none; background-color: mediumslateblue; color: white">
                     <option value="en" ${language == 'en' ? 'selected' : ''}>EN</option>
                     <option value="ru" ${language == 'ru' ? 'selected' : ''}>RU</option>
@@ -66,26 +66,35 @@
             </form>
             <c:choose>
                 <c:when test="${empty id}">
-                    <a href="#" id="sign_in_btn" class="button" data-toggle="modal" data-target="#signInModal">Sign in</a>
-                    <a href="./signUp.jsp" class="button">Sign up</a>
+                    <a href="#" id="sign_in_btn" class="button col-1" data-toggle="modal" data-target="#signInModal">
+                        <fmt:message key="button.signIn"/>
+                    </a>
+                    <a href="./signUp.jsp" class="button col-1">
+                        <fmt:message key="button.signUp"/>
+                    </a>
                 </c:when>
                 <c:when test="${role == 'Customer'}">
                     <ul class="navbar-nav">
                         <li class="nav-item dropdown">
                             <div class="btn dropdown show">  <%-- profile icon --%>
-                                <a href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <a href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown"
+                                   aria-haspopup="true" aria-expanded="false">
                                     <span style="color: black">
                                         <i class="fas fa-user-circle fa-2x"></i>
                                     </span>
                                 </a>
 
-                                <div class="dropdown-menu dropdown-menu-right" data-offset="2" aria-labelledby="dropdownMenuLink">
+                                <div class="dropdown-menu dropdown-menu-right" data-offset="2"
+                                     aria-labelledby="dropdownMenuLink">
                                     <a class="dropdown-item" href="profile.act">
-                                        <fmt:message key="label.profile"/></a>
+                                        <fmt:message key="label.profile"/>
+                                    </a>
                                     <a class="dropdown-item" href="myReservations.act">
-                                        <fmt:message key="label.my"/> <fmt:message key="label.reservations"/></a>
+                                        <fmt:message key="acc.link.myReservations"/>
+                                    </a>
                                     <a class="dropdown-item" href="myRequests.act">
-                                        <fmt:message key="label.my"/> <fmt:message key="label.requests"/></a>
+                                        <fmt:message key="acc.link.myRequests"/>
+                                    </a>
                                 </div>
                             </div>
                         </li>
@@ -110,7 +119,8 @@
     </nav>
 
     <!-- Sign in modal -->
-    <div class="modal fade" id="signInModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="false">
+    <div class="modal fade" id="signInModal" tabindex="-1" role="dialog"
+         aria-labelledby="exampleModalCenterTitle" aria-hidden="false">
         <div class="modal-dialog modal-dialog-centered modal-sm" role="form">
             <div class="modal-content">
                 <div class="modal-body">
@@ -126,12 +136,13 @@
                                     <input class="form-control" name="email" value="${email}"/><br/>
                                 </c:when >
                                 <c:otherwise>
-                                    <input class="form-control" name="email" placeholder="Email"/><br/>
+                                    <input class="form-control" name="email" placeholder="<fmt:message key="acc.label.email"/>"/><br/>
                                 </c:otherwise>
                             </c:choose>
                         </div>
                         <div class="form-group">
-                            <input type="password" class="form-control" id="pwd" name="pwd" placeholder="Password">
+                            <input type="password" class="form-control" id="pwd" name="pwd"
+                                   placeholder="<fmt:message key="acc.label.pwd"/>">
                         </div>
                         <div class="form-check pl-1">
                             <label class="form-check-label ml-4">
@@ -142,8 +153,10 @@
                     </form>
                 </div>
                 <div class="modal-footer">
-                    <a class="col-l-5" href="#"><fmt:message key="acc.link.forgotPwd"/>?</a>
-                    <button type="submit" form="signInForm" class="btn btn-primary col-5">Sign in</button>
+                    <a class="col-l-5 mr-3" href="#"><fmt:message key="acc.link.forgotPwd"/>?</a>
+                    <button type="submit" form="signInForm" class="btn btn-primary col-5">
+                        <fmt:message key="button.signIn"/>
+                    </button>
                 </div>
             </div>
         </div>

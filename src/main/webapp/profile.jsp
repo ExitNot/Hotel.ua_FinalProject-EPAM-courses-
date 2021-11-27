@@ -4,7 +4,7 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
-<fmt:setLocale value="${language}" scope="session"/>
+<fmt:setLocale value="${not empty param.language ? param.language : language}" scope="session"/>
 <fmt:setBundle basename="web-text"/>
 
 <c:if test="${empty id}">
@@ -19,7 +19,7 @@
                 <form action="deleteUser.act" method="post" id="delete_user">
                     <a href="#" style="color: black"
                        onclick="document.getElementById('delete_user').submit();"
-                       data-bs-toggle="tooltip" data-bs-placement="bottom" title="Delete user">
+                       data-bs-toggle="tooltip" data-bs-placement="bottom" title="<fmt:message key="acc.button.deleteUser"/>">
                         <i class="fas fa-user-slash fa-lg float-right"></i>
                     </a>
                 </form>
@@ -49,12 +49,12 @@
                         <fmt:message key="acc.label.phoneNum"/>:
                     </div>
                     <div class="col">
-                        <input class="form-control" type="text" placeholder="${user.phoneNumber}" readonly>
+                        <input class="form-control" type="text" placeholder="${user.phoneNumber} (${param.language})" readonly>
                     </div>
                 </div>
                 <div class="row mt-3" style="background-color: mediumslateblue; margin-left: -20px; margin-right: -20px">
                     <div class="col">
-                        <a href="logout.act" class="btn w-100" style="color: white">Logout</a>
+                        <a href="logout.act" class="btn w-100" style="color: white"><fmt:message key="button.logout"/></a>
                     </div>
                     <div class="col">
                         <a href="./editProfile.jsp" class="btn w-100" style="color: white"><fmt:message key="edit.button.editProfile"/></a>

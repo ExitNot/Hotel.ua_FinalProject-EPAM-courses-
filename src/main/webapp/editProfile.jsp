@@ -1,7 +1,11 @@
 <%-- Created by Kostiantyn Kolchenko(@ExitNot) --%>
 <%@ taglib prefix="t" tagdir="/WEB-INF/tags" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+
+<fmt:setLocale value="${not empty param.language ? param.language : language}" scope="session"/>
+<fmt:setBundle basename="web-text"/>
 
 <c:if test="${empty id}">
     <c:redirect url="profile.act"></c:redirect>
@@ -11,18 +15,18 @@
     <div class="container px-0 pt-4 d-flex justify-content-center" style="border: #6610f2">
         <div class="card col-10 px-0">
             <div class="card-header d-flex justify-content-center">
-                <h5 class="mt-3 mr-auto">Edit profile</h5>
-                <form action="deleteUser.act" method="post" id="delete_user">
-                    <a href="#" onclick="document.getElementById('delete_user').submit();" style="color: black">
-                        <i class="fas fa-user-slash fa-lg float-right"></i>
-                    </a>
-                </form>
+                <h5 class="mt-3 mr-auto"><fmt:message key="edit.button.editProfile"/></h5>
+<%--                <form action="deleteUser.act" method="post" id="delete_user">--%>
+<%--                    <a href="#" onclick="document.getElementById('delete_user').submit();" style="color: black">--%>
+<%--                        <i class="fas fa-user-slash fa-lg float-right"></i>--%>
+<%--                    </a>--%>
+<%--                </form>--%>
             </div>
             <div class="card-body pb-0">
                 <form action="userUpdate.act" method="post" id="user_update_form" class="mb-0">
                     <div class="row mb-2">
                         <div class="col-2">
-                            Name:
+                            <fmt:message key="acc.label.name"/>:
                         </div>
                         <div class="col">
                             <input class="form-control" name="name" type="text" value="${user.name}" required>
@@ -33,7 +37,7 @@
                     </div>
                     <div class="row mb-2">
                         <div class="col-2">
-                            Email:
+                            <fmt:message key="acc.label.email"/>:
                         </div>
                         <div class="col">
                             <input class="form-control" type="email" name="email" value="${user.email}" required>
@@ -41,7 +45,7 @@
                     </div>
                     <div class="row mb-3 pb-2">
                         <div class="col-2">
-                            Phone number:
+                            <fmt:message key="acc.label.phoneNum"/>:
                         </div>
                         <div class="col">
                             <input class="form-control" type="text" name="phoneNumber" value="${user.phoneNumber}" required>
@@ -50,13 +54,13 @@
                     <div class="row mt-3" style="background-color: mediumslateblue; margin-left: -20px; margin-right: -20px">
                         <div class="col">
                             <a href="#" class="btn w-100" style="color: white">  <%-- todo finsh pwd change --%>
-                                Change password
+                                <fmt:message key="edit.button.changePwd"/>
                             </a>
                         </div>
                         <div class="col">
                             <a class="btn w-100" style="color: white"
                                onclick="document.getElementById('user_update_form').submit()">
-                                Save changes
+                                <fmt:message key="edit.button.saveChanges"/>
                             </a>
                         </div>
                     </div>
