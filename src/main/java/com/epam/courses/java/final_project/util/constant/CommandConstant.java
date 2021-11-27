@@ -14,12 +14,14 @@ public class CommandConstant {
     public static final String MY_REQUESTS = "myRequests";
     public static final String MY_RESERVATIONS = "myReservations";
     public static final String REQUEST_LIST = "requestsList";
+    public static final String REQUEST = "request";
+    public static final String REQUEST_RESPONSE = "requestResponse";
 
 //    POST commands
     public static final String SIGN_UP = "signUp";
     public static final String DELETE_USER = "deleteUser";
     public static final String BOOK_SPECIFIC_ROOM = "bookSpecificRoom";
-    public static final String CREATE_REQUEST = "request";
+    public static final String CREATE_REQUEST = "createRequest";
     public static final String CANCEL_REQUEST = "cancelRequest";
     public static final String CANCEL_RESERVATION = "cancelReservation";
     public static final String PWD_UPDATE = "pwdUpdate";
@@ -57,6 +59,7 @@ public class CommandConstant {
     public static final String ATTRIBUTE_ROOMS_LIST = "roomsList";
     public static final String ATTRIBUTE_ROOM_TYPES_LIST = "roomTypesList";
     public static final String ATTRIBUTE_REQUEST_LIST = "requestsList";
+    public static final String ATTRIBUTE_REQUEST = "request";
     public static final String ATTRIBUTE_RESERVATIONS_LIST = "userReservationsList";
     public static final String ATTRIBUTE_FROM = "dateFrom";
     public static final String ATTRIBUTE_TO = "dateTo";
@@ -71,7 +74,7 @@ public class CommandConstant {
     public static final String PROFILE_JSP = "profile.jsp";
     public static final String EDIT_PROFILE_JSP = "editProfile.jsp";
     public static final String INDEX_JSP = "index.jsp";
-    public static final String REQUEST_JSP = "request.jsp";
+    public static final String REQUEST_JSP = "createRequest.jsp";
     public static final String AVAILABLE_ROOMS_JSP = "availableRooms.jsp";
     public static final String MY_RESERVATIONS_JSP = "myReservations.jsp";
     public static final String MY_REQUESTS_JSP = "myRequests.jsp";

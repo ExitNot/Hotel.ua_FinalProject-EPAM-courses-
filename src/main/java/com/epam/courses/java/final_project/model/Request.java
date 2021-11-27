@@ -14,7 +14,7 @@ public class Request extends Reservation {
     double price;
     int adultsAmount;
     int childrenAmount;
-    Date customerAcceptance;
+    Date managerAcceptance;
     RoomType.RoomClass rc;
 
     public Request(long userId, Date from, Date to, int adultsAmount, int childrenAmount, Status status, double price) {
@@ -33,10 +33,10 @@ public class Request extends Reservation {
         this.price = price;
     }
 
-    public Request(long id, long userId, long roomId, Date from, Date to, Date customerAcceptance, int adultsAmount,
+    public Request(long id, long userId, long roomId, Date from, Date to, Date managerAcceptance, int adultsAmount,
                    int childrenAmount, RoomType.RoomClass rc, Status status, double price) {
         super(id, userId, roomId, from, to, adultsAmount + childrenAmount);
-        this.customerAcceptance = customerAcceptance;
+        this.managerAcceptance = managerAcceptance;
         this.adultsAmount = adultsAmount;
         this.childrenAmount = childrenAmount;
         this.rc = rc;
@@ -88,11 +88,11 @@ public class Request extends Reservation {
     }
 
     public Date getCustomerAcceptance() {
-        return customerAcceptance;
+        return managerAcceptance;
     }
 
-    public void setCustomerAcceptance(Date customerAcceptance) {
-        this.customerAcceptance = customerAcceptance;
+    public void setCustomerAcceptance(Date managerAcceptance) {
+        this.managerAcceptance = managerAcceptance;
     }
 
     public RoomType.RoomClass getRc() {
@@ -139,6 +139,8 @@ public class Request extends Reservation {
                 ", to=" + to +
                 ", adultsAmount=" + adultsAmount +
                 ", childrenAmount=" + childrenAmount +
+                ", email=" + getUserEmail() +
+                ", roomNumber=" + getRoomNumber() +
                 '}';
     }
 }

@@ -18,6 +18,7 @@
                     <thead style="background-color: mediumslateblue; color: white">
                     <tr>
                         <th scope="col">Room number</th>
+                        <th scope="col">Guests amount</th>
                         <th scope="col">From</th>
                         <th scope="col">To</th>
                         <th scope="col">Room class</th>
@@ -30,6 +31,7 @@
                     <c:forEach var="request" items="${requestsList}">
                         <tr class="text-center">
                             <td>${request.roomNumber}</td>
+                            <td>${request.adultsAmount + request.childrenAmount}</td>
                             <td>${request.from}</td>
                             <td>${request.to}</td>
                             <td>

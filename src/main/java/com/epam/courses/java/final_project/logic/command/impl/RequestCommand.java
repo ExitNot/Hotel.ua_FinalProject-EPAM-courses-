@@ -4,59 +4,66 @@ import com.epam.courses.java.final_project.dao.impl.jdbc.JDBCException;
 import com.epam.courses.java.final_project.logic.command.Command;
 import com.epam.courses.java.final_project.logic.command.Response;
 import com.epam.courses.java.final_project.model.Request;
+import com.epam.courses.java.final_project.model.Room;
 import com.epam.courses.java.final_project.model.RoomType;
 import com.epam.courses.java.final_project.service.RequestService;
+import com.epam.courses.java.final_project.service.RoomService;
 import com.epam.courses.java.final_project.service.RoomTypeService;
-import com.epam.courses.java.final_project.util.Util;
+import com.epam.courses.java.final_project.service.UserService;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import java.sql.Date;
+import java.util.List;
 import java.util.Optional;
 
+import static com.epam.courses.java.final_project.logic.command.impl.AvailableRoomsCommand.getAvailableRooms;
 import static com.epam.courses.java.final_project.util.constant.CommandConstant.*;
 import static com.epam.courses.java.final_project.util.constant.Constant.LOG_TRACE;
 
 public class RequestCommand implements Command {
 
-    private final Logger log = LogManager.getLogger(LOG_TRACE);
+    private static final Logger log = LogManager.getLogger(LOG_TRACE);
 
     @Override
     public Response execute(HttpServletRequest req, HttpServletResponse resp) throws JDBCException {
-        if (req.getSession().getAttribute(ATTRIBUTE_ID) == null){
-            req.getSession().setAttribute(ATTRIBUTE_LOGIN_EX, "You have to login first");
-            return new Response(Response.Direction.Redirect, INDEX_JSP);
-        }
-        String from = Util.transformDate(req.getParameter(PARAM_FROM));
-        String to = Util.transformDate(req.getParameter(PARAM_TO));
+        long id = Long.parseLong(req.getParameter("requestId"));
+        long assignedRoomId = 0;
+        Optional<Request> oRequest = RequestService.getById(id);
+        List<Room> availableRooms = null;
 
-        if (from == null){
-            Optional<RoomType> rt = RoomTypeService.getById(Long.parseLong(req.getParameter(PARAM_ROOM_TYPE_ID)));
-            rt.ifPresent(roomType -> req.getSession().setAttribute(ATTRIBUTE_ROOM_TYPE, roomType));
-            return new Response(Response.Direction.Redirect, REQUEST_JSP);
+        if (oRequest.isPresent()){
+            Request r = oRequest.get();
+            availableRooms = getAvailableRooms(r.getFrom().toString(), r.getTo().toString());
+
+            if (req.getParameter("assignedRoomId") != null){
+                assignedRoomId = Long.parseLong(req.getParameter("assignedRoomId"));
+                r.setRoomId(assignedRoomId);
+                RequestService.update(r);
+            }
+
+            if (r.getRoomId() != 0)
+                RoomService.getById(r.getRoomId()).ifPresent(room -> r.setRoomNumber(room.getRoomNumber()));
+            UserService.getById(r.getUserId()).ifPresent(user -> r.setUserEmail(user.getEmail()));
+            log.trace(r.toString());
+
+            //        Insert RoomType
+            for (Room room : availableRooms){
+                RoomTypeService.getById(room.getRoomTypeId()).ifPresent(room::setRoomType);
+                log.trace(room);
+            }
+
+            req.getSession().setAttribute(ATTRIBUTE_REQUEST, r);
+            req.getSession().setAttribute(ATTRIBUTE_ROOMS_LIST, availableRooms);
         }
 
-        for (int i = 1; i <= Integer.parseInt(req.getParameter("rooms_amount")); i++ ){  // TODO not always consequent
-            Request request = new Request(
-                Long.parseLong(req.getSession().getAttribute(ATTRIBUTE_ID).toString()),
-                Date.valueOf(from),
-                Date.valueOf(to),
-                Integer.parseInt(req.getParameter(PARAM_ADULTS_AMOUNT + i) ),
-                Integer.parseInt(req.getParameter(PARAM_CHILDREN_AMOUNT + i)),
-                Request.Status.ManagerResponse, Util.calcPrice());
-            request.setRc(RoomType.RoomClass.getRoomClass(Integer.parseInt(
-                    req.getParameter(PARAM_ROOM_CLASS.replace("room", "room" + i))
-            )));
-            RequestService.create(request);
-        }
-        return new Response(Response.Direction.Redirect, MY_REQUESTS_ACT);
+        return new Response(Response.Direction.Redirect, "responseRequest.jsp");
     }
 
     @Override
     public String getCommand() {
-        return CREATE_REQUEST;
+        return REQUEST;
     }
 }

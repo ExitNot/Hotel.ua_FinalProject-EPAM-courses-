@@ -49,7 +49,7 @@
                         <fmt:message key="acc.label.phoneNum"/>:
                     </div>
                     <div class="col">
-                        <input class="form-control" type="text" placeholder="${user.phoneNumber} (${param.language})" readonly>
+                        <input class="form-control" type="text" placeholder="${user.phoneNumber}" readonly>
                     </div>
                 </div>
                 <div class="row mt-3" style="background-color: mediumslateblue; margin-left: -20px; margin-right: -20px">

@@ -38,15 +38,17 @@ public class CommandContainer {
         getCommands.put(MY_RESERVATIONS, new MyReservationsCommand());
         getCommands.put(MY_REQUESTS, new MyRequestsCommand());
         getCommands.put(REQUEST_LIST, new RequestListCommand());
+        getCommands.put(REQUEST, new RequestCommand());
 //        POST commands
         postCommands.put(SIGN_UP, new SignUpCommand());
         postCommands.put(DELETE_USER, new DeleteUserCommand());
         postCommands.put(BOOK_SPECIFIC_ROOM, new BookSpecificRoomCommand());
-        postCommands.put(CREATE_REQUEST, new RequestCommand());
+        postCommands.put(CREATE_REQUEST, new CreateRequestCommand());
         postCommands.put(CANCEL_REQUEST, new CancelRequestCommand());
         postCommands.put(CANCEL_RESERVATION, new CancelReservationCommand());
         postCommands.put(USER_UPDATE, new UserUpdateCommand());
         postCommands.put(PWD_UPDATE, new UserUpdateCommand());
+        postCommands.put(REQUEST_RESPONSE, new RequestResponseCommand());
     }
 
     public static CommandContainer getInstance(){

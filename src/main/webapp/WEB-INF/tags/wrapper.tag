@@ -33,7 +33,7 @@
                 <c:choose>
                     <c:when test="${role == 'Customer'}">
                         <li class="nav-item">
-                            <a class="nav-link" href="./request.jsp">
+                            <a class="nav-link" href="./createRequest.jsp">
                                 <fmt:message key="nav.label.makeAReservation"/>
                             </a>
                         </li>
@@ -45,7 +45,7 @@
                     </c:when>
                     <c:when test="${role == 'Manager'}">
                         <li class="nav-item">
-                            <a class="nav-link" href="./requestsList.act"><fmt:message key="label.request"/></a>
+                            <a class="nav-link" href="./requestsList.act"><fmt:message key="label.requests"/></a>
                         </li>
                     </c:when>
                 </c:choose>

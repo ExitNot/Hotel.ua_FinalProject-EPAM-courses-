@@ -103,6 +103,7 @@ public class Room {
                 "id=" + id +
                 ", roomNumber=" + roomNumber +
                 ", floor=" + floor +
+                ", type=" + roomType +
                 '}';
     }
 }

@@ -38,7 +38,7 @@ public class Constant {
 
     public static final String PARAM_DATE_FROM = "date_from";  // Reservation
     public static final String PARAM_DATE_TO = "date_to";
-    public static final String PARAM_DATE_OF_CUSTOMER_ACCEPTANCE = "date_of_customer_acceptance";
+    public static final String PARAM_DATE_OF_CUSTOMER_ACCEPTANCE = "date_of_manager_response";
     public static final String PARAM_GUESTS_AMOUNT = "guests_amount";
 
     public static final String PARAM_STATUS = "status";  // Request

@@ -10,7 +10,6 @@
 <script>
     window.onload = function () {
         <c:if test="${not empty signUpEx}">
-            console.log("tra")
             document.getElementById("error_modal_btn").click();
         </c:if>
     }

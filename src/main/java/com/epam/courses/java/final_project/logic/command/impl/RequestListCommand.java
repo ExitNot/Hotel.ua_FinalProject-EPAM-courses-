@@ -26,27 +26,24 @@ public class RequestListCommand implements Command {
     @Override
     public Response execute(HttpServletRequest req, HttpServletResponse resp) throws JDBCException {
         List<Request> requests;
-        Cookie waitingForResponseCB = new Cookie("waitingForResponseCB", "true");
 
         if (req.getParameter(PARAM_SEARCH_BTN) != null){
             if (req.getParameter(PARAM_WAITING_FOR_RESPONSE) != null){
-                resp.addCookie(waitingForResponseCB);
+                req.getSession().setAttribute("waitingForResponse", true);
                 requests = RequestService.getByStatus(Request.Status.ManagerResponse);
             } else {
-                waitingForResponseCB.setValue(null);
-                resp.addCookie(waitingForResponseCB);
                 requests = RequestService.getAll();
             }
         } else {
-            resp.addCookie(waitingForResponseCB);
+            req.getSession().setAttribute("waitingForResponse", true);
             requests = RequestService.getByStatus(Request.Status.ManagerResponse);
         }
 
         for (Request r : requests){
             if (r.getRoomId() != 0){
                 RoomService.getById(r.getRoomId()).ifPresent(room -> r.setRoomNumber(room.getRoomNumber()));
-                UserService.getById(r.getUserId()).ifPresent(user -> r.setUserEmail(user.getEmail()));
             }
+            UserService.getById(r.getUserId()).ifPresent(user -> r.setUserEmail(user.getEmail()));
         }
 
         req.getSession().setAttribute(ATTRIBUTE_REQUEST_LIST, requests);

@@ -75,7 +75,7 @@ public class RequestService {
         Date today = Util.getToday();
         Calendar c;
 
-        if (req.getCustomerAcceptance() != null && req.getStatus() == Request.Status.Payment){
+        if (req.getCustomerAcceptance() != null && (req.getStatus() != Request.Status.Canceled)){
             c = Calendar.getInstance();
             c.setTime(req.getCustomerAcceptance());
             c.add(Calendar.DATE, 2);
@@ -86,7 +86,7 @@ public class RequestService {
                 DAOFactory.getInstance().getRequestDao().update(req);
                 log.info("Request status was changed to canceled");
             }
-        } else if (req.getCustomerAcceptance() != null && req.getStatus().equals(Request.Status.Canceled)) {
+        } else if (req.getCustomerAcceptance() != null && req.getStatus().equals(Request.Status.Canceled)){
             c = Calendar.getInstance();
             c.setTime(req.getCustomerAcceptance());
             c.add(Calendar.DATE, 4);
