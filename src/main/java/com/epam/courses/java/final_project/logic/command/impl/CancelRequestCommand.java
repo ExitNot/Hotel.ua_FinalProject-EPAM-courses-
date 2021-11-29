@@ -4,6 +4,7 @@ import com.epam.courses.java.final_project.dao.DAOFactory;
 import com.epam.courses.java.final_project.dao.impl.jdbc.JDBCException;
 import com.epam.courses.java.final_project.logic.command.Command;
 import com.epam.courses.java.final_project.logic.command.Response;
+import com.epam.courses.java.final_project.service.RequestService;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -14,10 +15,8 @@ public class CancelRequestCommand implements Command {
 
     @Override
     public Response execute(HttpServletRequest req, HttpServletResponse resp) throws JDBCException {
-        long requestId = Long.parseLong(req.getParameter(PARAM_REQUEST_ID));
-        DAOFactory.getInstance().getRequestDao().delete(requestId);
-
-        return new Response(Response.Direction.Redirect, PROFILE_ACT);
+        RequestService.delete(Long.parseLong(req.getParameter(PARAM_REQUEST_ID)));
+        return new Response(Response.Direction.Redirect, MY_REQUESTS_ACT);
     }
 
     @Override

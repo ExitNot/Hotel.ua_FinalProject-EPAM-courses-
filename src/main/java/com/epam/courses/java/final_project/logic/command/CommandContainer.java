@@ -49,6 +49,8 @@ public class CommandContainer {
         postCommands.put(USER_UPDATE, new UserUpdateCommand());
         postCommands.put(PWD_UPDATE, new UserUpdateCommand());
         postCommands.put(REQUEST_RESPONSE, new RequestResponseCommand());
+        postCommands.put(ACCEPT, new AcceptRequestCommand());
+        postCommands.put(PAYMENT, new PaymentCommand());
     }
 
     public static CommandContainer getInstance(){

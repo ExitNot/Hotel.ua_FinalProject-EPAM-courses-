@@ -1,5 +1,8 @@
 package com.epam.courses.java.final_project.dao.impl.jdbc;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import java.io.FileReader;
 import java.io.IOException;
 import java.sql.Connection;
@@ -11,6 +14,8 @@ import java.util.Properties;
 import java.util.Queue;
 import java.util.concurrent.ConcurrentLinkedQueue;
 
+import static com.epam.courses.java.final_project.util.constant.Constant.LOG_TRACE;
+
 public class ConnectionPool {
 
     private String url;
@@ -20,6 +25,7 @@ public class ConnectionPool {
     private List<Connection> usedConnectionPool;
     private int poolSize;
     private static final ConnectionPool INSTANCE = new ConnectionPool();
+    private static final Logger log = LogManager.getLogger(LOG_TRACE);
 
     private ConnectionPool() {
         Properties prop = new Properties();
@@ -35,10 +41,8 @@ public class ConnectionPool {
             for (int i = 0; i < poolSize; i++) {
                 connectionPool.add(DriverManager.getConnection(url, user, password));
             }
-        } catch (IOException e) {
-            System.err.println(e.getMessage()); // todo logg amd throw my exceptions
-        } catch (SQLException e) {
-            System.err.println(e.getMessage());
+        } catch (IOException | SQLException e) {
+            log.error(e.getMessage());
         }
     }
 
@@ -53,8 +57,7 @@ public class ConnectionPool {
     }
 
     public void releaseConnection(Connection connection) throws SQLException {
-        // todo re-open connection
-        connectionPool.add(connection);
+        connectionPool.add(DriverManager.getConnection(url, user, password));
         usedConnectionPool.remove(connection);
         connection.close();
     }

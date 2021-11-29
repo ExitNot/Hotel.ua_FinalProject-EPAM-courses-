@@ -24,7 +24,7 @@
                         <th scope="col">Room class</th>
                         <th scope="col">Price</th>
                         <th scope="col">Status</th>
-                        <th scope="col">Cancel</th>
+                        <th scope="col">Action</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -53,23 +53,56 @@
                             <td>${request.price}</td>
                             <td>${request.statusName}</td>
                             <td>
-                                <a class="link-error" href="#"
-                                   onclick="document.getElementById('cancel_form${request.id}').submit();">
-                                    Cancel
-                                </a>
+                                <c:if test="${request.statusName == 'Waiting for accept'}">
+                                    <a class="link-error" href="#"
+                                       onclick="document.getElementById('accept_form${request.id}').submit();">
+                                        Accept
+                                    </a>
+                                </c:if>
+                                <c:if test="${request.statusName != 'Payment'}">
+                                    <a class="link-error" href="#"
+                                       onclick="document.getElementById('cancel_form${request.id}').submit();">
+                                        Cancel
+                                    </a>
+                                </c:if>
+                                <c:if test="${request.statusName == 'Payment'}">
+                                    <a class="link-error" href="#"
+                                       data-toggle="modal" data-target="#paymentModal${request.id}">
+                                        Pay
+                                    </a>
+                                </c:if>
                             </td>
                         </tr>
                         <form id="info_form${request.id}" action="roomType.act" method="get" style="margin-bottom: 0">
                             <input type="hidden" name="typeId" value="${request.roomType.id}">
                         </form>
-                        <form id="cancel_form${request.roomType.id}" action="cancelRequest.act" method="post"
+                        <form id="accept_form${request.id}" action="acceptRequest.act" method="post" style="margin-bottom: 0">
+                            <input type="hidden" name="requestId" value="${request.id}">
+                        </form>
+                        <form id="cancel_form${request.id}" action="cancelRequest.act" method="post"
                               style="margin-bottom: 0">
                             <input type="hidden" name="requestId" value="${request.id}">
                         </form>
+                        <!-- Payment modal -->
+                        <div class="modal fade" id="paymentModal${request.id}" tabindex="-1" role="dialog"
+                             aria-labelledby="exampleModalCenterTitle" aria-hidden="false">
+                            <div class="modal-dialog modal-dialog-centered modal-sm" role="form">
+                                <div class="modal-content">
+                                    <div class="modal-body text-center py-5">
+                                        <form class="px-3 mb-0" action="payment.act" method="post" id="paymentForm">
+                                            <input type="hidden" name="requestId" value="${request.id}">
+                                            <input class="btn" type="submit" value="Pay"
+                                                   style="background-color: mediumslateblue; color: white"/>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </c:forEach>
                     </tbody>
                 </table>
             </div>
         </div>
     </div>
+
 </t:wrapper>

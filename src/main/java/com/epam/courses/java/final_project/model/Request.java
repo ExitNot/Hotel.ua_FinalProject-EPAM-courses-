@@ -75,11 +75,11 @@ public class Request extends Reservation {
     public String getStatusName() {
         switch (status.value){
             case 1:
-                return "manager response";
+                return "Waiting for manager response";
             case 2:
-                return "customer accept";
+                return "Waiting for accept";
             default:
-                return status.name().toLowerCase(Locale.ROOT);
+                return status.name();
         }
     }
 
@@ -87,11 +87,11 @@ public class Request extends Reservation {
         this.status = Status.getStatus(value);
     }
 
-    public Date getCustomerAcceptance() {
+    public Date getManagerAcceptance() {
         return managerAcceptance;
     }
 
-    public void setCustomerAcceptance(Date managerAcceptance) {
+    public void setManagerAcceptance(Date managerAcceptance) {
         this.managerAcceptance = managerAcceptance;
     }
 

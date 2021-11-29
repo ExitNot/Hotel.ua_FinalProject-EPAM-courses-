@@ -7,6 +7,17 @@
     <c:redirect url="myRequests.act"></c:redirect>
 </c:if>
 
+<script>
+
+    window.onload = function () {
+        // Make nav element active
+        var current = document.getElementsByClassName("active");
+        current[0].className = current[0].className.replace(" active", "");
+        document.getElementsByClassName("nav-item")[1].className += " active"
+    }
+
+</script>
+
 <t:wrapper>
     <div class="container px-0 pt-4 d-flex justify-content-center">
         <div class="card col-12 px-0">
@@ -35,11 +46,11 @@
                 </form>
             </div>
             <div class="card-body pb-0">
-                <table class="table table-bordered">
+                <table class="table table-bordered text-center">
                     <thead style="background-color: mediumslateblue; color: white">
                     <tr>
                         <th scope="col">User</th>
-                        <th scope="col" class="col-2">Room number</th>
+                        <th scope="col" class="col-1">Room number</th>
                         <th scope="col">From</th>
                         <th scope="col">To</th>
                         <th scope="col">Room class</th>
@@ -52,13 +63,8 @@
                     <tbody>
                     <c:forEach var="request" items="${requestsList}">
                         <tr class="text-center">
-<%--                            <form action="requestResponse.act" method="post" id="requestResponse">--%>
-<%--                                <input type="hidden" name="requestId" value="${request.id}"/>--%>
                                 <td>${request.userEmail}</td>
-                                <td>
-                                        ${request.roomNumber}
-<%--                                    <input class="col-3 px-1" type="number" name="roomNumber" value="${request.roomNumber}"/>--%>
-                                </td>
+                                <td>${request.roomNumber}</td>
                                 <td>${request.from}</td>
                                 <td>${request.to}</td>
                                 <td>
@@ -81,11 +87,18 @@
                                 <td>
                                     <form action="request.act">
                                         <input type="hidden" name="requestId" value="${request.id}">
-                                        <input type="submit" class="link" value="Response">
+                                        <c:choose>
+                                            <c:when test="${request.statusName == 'Waiting for manager response'}">
+                                                <input type="submit" class="btn-link border-0" value="Response">
+                                            </c:when>
+                                            <c:otherwise>
+                                                <input type="submit" class="btn-link disabled border-0" value="Response">
+                                            </c:otherwise>
+                                        </c:choose>
                                     </form>
                                 </td>
                                 <td>
-                                    <a class="link" href="#"
+                                    <a class="link" href="#" style="color: red"
                                        onclick="document.getElementById('cancel_form${request.id}').submit();">
                                         Cancel
                                     </a>

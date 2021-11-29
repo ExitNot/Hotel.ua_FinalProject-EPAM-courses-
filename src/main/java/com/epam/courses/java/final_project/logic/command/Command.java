@@ -6,7 +6,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 public interface Command {
-//    todo resp remove
+
     Response execute(HttpServletRequest req,
                    HttpServletResponse resp) throws JDBCException;
 

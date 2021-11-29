@@ -27,13 +27,13 @@ public class Reservation {
         this.to = to;
     }
 
-    public Reservation(long userId, long roomId, Date from, Date to, int guests_amount) {
+    public Reservation(long userId, long roomId, Date from, Date to, int guestsAmount) {
         id = 0;
         this.userId = userId;
         this.roomId = roomId;
         this.from = from;
         this.to = to;
-        this.guestsAmount = guests_amount;
+        this.guestsAmount = guestsAmount;
     }
 
     public Reservation(long id, long userId, long roomId, Date from, Date to, int guests_amount) {

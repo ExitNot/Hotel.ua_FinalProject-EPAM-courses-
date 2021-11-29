@@ -4,34 +4,28 @@ import com.epam.courses.java.final_project.dao.impl.jdbc.JDBCException;
 import com.epam.courses.java.final_project.logic.command.Command;
 import com.epam.courses.java.final_project.logic.command.Response;
 import com.epam.courses.java.final_project.model.Request;
-import com.epam.courses.java.final_project.model.RoomType;
 import com.epam.courses.java.final_project.service.RequestService;
-import com.epam.courses.java.final_project.util.Util;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import java.sql.Date;
+import java.util.Optional;
 
 import static com.epam.courses.java.final_project.util.constant.CommandConstant.*;
 
-public class BookSpecificRoomCommand implements Command {
-
+public class AcceptRequestCommand implements Command {
     @Override
     public Response execute(HttpServletRequest req, HttpServletResponse resp) throws JDBCException {
-
-        Request request = new Request(Long.parseLong(req.getSession().getAttribute(ATTRIBUTE_ID).toString()),
-                Long.parseLong(req.getParameter(PARAM_ROOM_ID)),
-                Date.valueOf(req.getSession().getAttribute(ATTRIBUTE_FROM).toString()),
-                Date.valueOf(req.getSession().getAttribute(ATTRIBUTE_TO).toString()),
-                0, 0, Request.Status.Payment, 0);
-
-        RequestService.create(request);
-        return new Response(Response.Direction.Redirect, PROFILE_ACT);
+        Optional<Request> request = RequestService.getById(Long.parseLong(req.getParameter(PARAM_REQUEST_ID)));
+        if (request.isPresent()){
+            request.get().setStatus(3);
+            RequestService.update(request.get());
+        }
+        return new Response(Response.Direction.Redirect, MY_REQUESTS_ACT);
     }
 
     @Override
     public String getCommand() {
-        return BOOK_SPECIFIC_ROOM;
+        return ACCEPT;
     }
 }

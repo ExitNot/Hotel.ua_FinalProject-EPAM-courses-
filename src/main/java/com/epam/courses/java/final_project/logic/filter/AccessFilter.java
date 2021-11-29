@@ -35,6 +35,8 @@ public class AccessFilter implements Filter {
         accessLevel.put(PWD_UPDATE, Role.Customer);
         accessLevel.put(MY_RESERVATIONS, Role.Customer);
         accessLevel.put(MY_REQUESTS, Role.Customer);
+        accessLevel.put(ACCEPT, Role.Customer);
+        accessLevel.put(PAYMENT, Role.Customer);
         accessLevel.put(REQUEST_LIST, Role.Manager);
         accessLevel.put(REQUEST_RESPONSE, Role.Manager);
         accessLevel.put(REQUEST, Role.Manager);

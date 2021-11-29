@@ -58,7 +58,6 @@
     </div>
 
     <a href="#" type="hidden" id="error_modal_btn" data-toggle="modal" data-target="#errorModal"></a>
-<%--    <a href="#" id="sign_in_btn" class="button" data-toggle="modal" data-target="#signInModal"></a>--%>
 
     <!-- Error modal -->
     <div class="modal fade" id="errorModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="false">

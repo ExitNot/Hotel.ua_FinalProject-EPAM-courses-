@@ -15,6 +15,8 @@ public class CommandConstant {
     public static final String MY_RESERVATIONS = "myReservations";
     public static final String REQUEST_LIST = "requestsList";
     public static final String REQUEST = "request";
+    public static final String ACCEPT = "acceptRequest";
+    public static final String PAYMENT = "payment";
     public static final String REQUEST_RESPONSE = "requestResponse";
 
 //    POST commands
@@ -40,10 +42,12 @@ public class CommandConstant {
     public static final String PARAM_SURNAME = "surname";
     public static final String PARAM_EMAIL = "email";
     public static final String PARAM_ROLE = "role";
+    public static final String PARAM_FLOOR = "floor";
     public static final String PARAM_ROOM_TYPE = "type";
     public static final String PARAM_ROOM_CLASS = "roomClass";
-    public static final String PARAM_ADULTS_AMOUNT = "amountOfAdultsInRoom";
-    public static final String PARAM_CHILDREN_AMOUNT = "amountOfChildrenInRoom";
+    public static final String PARAM_CAPACITY = "capacity";
+    public static final String PARAM_ADULTS_AMOUNT = "amountOfAdultsIn_room";
+    public static final String PARAM_CHILDREN_AMOUNT = "amountOfChildrenIn_room";
     public static final String PARAM_SEARCH_BTN = "searchBtn";
     public static final String PARAM_WAITING_FOR_RESPONSE = "waitingForResponse";
 
@@ -61,6 +65,9 @@ public class CommandConstant {
     public static final String ATTRIBUTE_REQUEST_LIST = "requestsList";
     public static final String ATTRIBUTE_REQUEST = "request";
     public static final String ATTRIBUTE_RESERVATIONS_LIST = "userReservationsList";
+    public static final String ATTRIBUTE_ROOM_CLASS = "roomClass";
+    public static final String ATTRIBUTE_CAPACITY = "capacity";
+    public static final String ATTRIBUTE_FLOOR = "floor";
     public static final String ATTRIBUTE_FROM = "dateFrom";
     public static final String ATTRIBUTE_TO = "dateTo";
     public static final String ATTRIBUTE_LOGIN_EX = "loginEx";  // exception
@@ -86,4 +93,5 @@ public class CommandConstant {
     public static final String INDEX_ACT = "index.act";
     public static final String MY_RESERVATIONS_ACT = "myReservations.act";
     public static final String MY_REQUESTS_ACT = "myRequests.act";
+    public static final String REQUEST_LIST_ACT = "requestsList.act";
 }

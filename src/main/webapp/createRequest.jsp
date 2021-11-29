@@ -4,7 +4,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
 <c:if test="${empty id}">
-    <c:redirect url="request.act"></c:redirect>
+    <c:redirect url="createRequest.act"></c:redirect>
 </c:if>
 
 <t:wrapper>
@@ -34,10 +34,6 @@
             const elem = document.getElementById(id);
             elem.parentNode.removeChild(elem);
         }
-
-        function setRoomsAmount() {
-            document.getElementById("rooms_amount").value = 5 - rooms.length;
-        }
     </script>
     <script>
         $(function () {
@@ -61,7 +57,7 @@
                 <h5 class="mt-3">Create reservation request</h5>
             </div>
             <div class="card-body pb-0">
-                <form class="mb-0" action="request.act" method="post">
+                <form class="mb-0" action="createRequest.act" method="post">
                     <div class="row mb-2">
                         <div class="col-2">
                             <label for="date_from">From</label>
@@ -84,7 +80,7 @@
                                     <a class="row text-center mb-2">Amount of rooms and guests</a>
                                     <div id="rooms_wrapper"></div>
                                 </c:otherwise>
-                            </c:choose>
+                            </c:choose>-+
                         </div>
                     </div>
                     <div class="row mt-3"
@@ -96,9 +92,8 @@
                             </a>
                         </div>
                         <div class="col">
-                            <input type="hidden" id="rooms_amount" name="rooms_amount"/>
-                            <input type="submit" name="request_btn" value="Make reservation" class="btn btn-link w-100"
-                                   onclick="setRoomsAmount()" style="color: white"/>
+                            <input type="submit" name="request_btn" value="Make reservation"
+                                   class="btn btn-link w-100" style="color: white"/>
                         </div>
                     </div>
                 </form>
@@ -109,10 +104,10 @@
     <div id="room_template">
         <div class="row" id="room">
             <label for="amountOfAdultsInRoom">adults:</label>
-            <input class="form-control col-3 mr-2" type="number" name="amountOfAdultsInRoom" placeholder="adult"
+            <input class="form-control col-3 mr-2" type="number" name="amountOfAdultsIn_room" placeholder="adult"
             max="5" value="1" onChange="guests_value()" id="amountOfAdultsInRoom"/>
             <label for="amountOfChildrenInRoom">children:</label>
-            <input class="form-control col-3" type="number" name="amountOfChildrenInRoom" placeholder="child"
+            <input class="form-control col-3" type="number" name="amountOfChildrenIn_room" placeholder="child"
                    max="5" value="0" onChange="guests_value()" id="amountOfChildrenInRoom"/>
             <select class="col-2 h-75 mt-2 ml-2" name="roomClass">
                 <option value="1">standard</option>

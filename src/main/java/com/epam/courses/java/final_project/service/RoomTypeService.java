@@ -18,6 +18,10 @@ public class RoomTypeService {
         return DAOFactory.getInstance().getRoomTypeDao().getAll();
     }
 
+    public static List<RoomType> getByCapacity(int capacity) throws JDBCException {
+        return DAOFactory.getInstance().getRoomTypeDao().getRoomTypesByCapacity(capacity);
+    }
+
     public static List<Image> getImg(long id) throws JDBCException {
         return DAOFactory.getInstance().getImageDao().getByRoomType(id);
     }

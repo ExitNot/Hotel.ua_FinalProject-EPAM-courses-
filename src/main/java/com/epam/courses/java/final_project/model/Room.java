@@ -75,28 +75,6 @@ public class Room {
         this.roomType = roomType;
     }
 
-    public enum RoomClass{
-        Standard(1), Deluxe(2), Suite(3);
-
-        int value;
-
-        RoomClass(int num) {
-            value = num;
-        }
-
-        public int getValue() {
-            return value;
-        }
-
-        public static RoomClass getRoomClass(int num){
-            if (num == 3)
-                return Suite;
-            else if (num == 2)
-                return Deluxe;
-            return Standard;
-        }
-    }
-
     @Override
     public String toString() {
         return "Room{" +

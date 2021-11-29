@@ -8,8 +8,27 @@
 <fmt:setBundle basename="web-text"/>
 
 <c:if test="${empty id}">
-    <c:redirect url="requestsResponse.act"></c:redirect>
+    <c:redirect url="requestResponse.act"></c:redirect>
 </c:if>
+
+<script>
+
+    window.onload = function () {
+        <c:if test="${not empty requestResponseEx}">
+        document.getElementById("error_modal_btn").click();
+        </c:if>
+    }
+
+    function choose(id, roomNumber) {
+        document.getElementById("hiddenRoomId").value = id;
+        document.getElementById("hiddenRoomNumber").value = roomNumber;
+        var aTag = document.createElement("a");
+        aTag.append(roomNumber);
+        document.getElementById("choose_room_btn").replaceWith(aTag);
+        $('#chooseRoomModal').modal('toggle');
+    }
+
+</script>
 
 <t:wrapper>
     <div class="container px-0 pt-4 d-flex justify-content-center">
@@ -24,6 +43,10 @@
                         <th scope="col">User</th>
                         <th scope="col">From</th>
                         <th scope="col">To</th>
+                        <th scope="col">Guests amount</th>
+                        <th scope="col">Room class</th>
+                        <th scope="col">Price</th>
+                        <th scope="col">Status</th>
                         <th scope="col">Room number</th>
                     </tr>
                     </thead>
@@ -32,6 +55,26 @@
                         <td>${request.userEmail}</td>
                         <td>${request.from}</td>
                         <td>${request.to}</td>
+                        <td>${request.guestsAmount}</td>
+                        <td>
+                            <c:choose>
+                                <c:when test="${not empty request.roomType}">
+                                    <a class="link-info" href="#"
+                                       onclick="document.getElementById('info_form${request.id}').submit();">
+                                            ${request.roomType.roomClass} with ${request.roomType.parsedBedsType}
+                                    </a>
+                                </c:when>
+                                <c:otherwise>
+                                    <a>
+                                            ${request.rc}
+                                    </a>
+                                </c:otherwise>
+                            </c:choose>
+                        </td>
+                        <td>
+                            <input class="form-control" type="number" name="price" form="responseRequestForm">
+                        </td>
+                        <td>${request.statusName}</td>
                         <td>
                             <c:choose>
                                 <c:when test="${request.roomNumber == 0}">
@@ -50,11 +93,18 @@
                 </table>
                 <div class="row mt-3"
                      style="background-color: mediumslateblue; margin-left: -20px; margin-right: -20px">
-                    <a href="requestsResponse.act" class="btn w-100" style="color: white">Send</a>
+                    <a class="btn w-100" style="color: white"
+                    onclick="document.getElementById('responseRequestForm').submit();">Send</a>
                 </div>
             </div>
         </div>
     </div>
+
+    <form id="responseRequestForm" action="requestResponse.act" method="post">
+        <input type="hidden" name="requestId" value="${request.id}"/>
+        <input id="hiddenRoomId" type="hidden" name="chosenRoomId"/>
+        <input id="hiddenRoomNumber" type="hidden" name="chosenRoomNumber"/>
+    </form>
 
     <!-- choose room modal -->
     <div class="modal fade" id="chooseRoomModal" tabindex="-1" role="dialog"
@@ -85,10 +135,12 @@
                                         <td>${room.roomType.parsedBedsType}</td>
                                         <td>${room.roomType.roomClass}</td>
                                         <td>
-                                            <form action="request.act">
-                                                <input type="hidden" name="assignedRoomId" value="${room.id}">
-                                                <input type="submit" class="link" value="Choose">
-                                            </form>
+                                            <a href="#" class="btn-link border-0"
+                                               onclick="choose(${room.id}, ${room.roomNumber})">Choose</a>
+<%--                                            <form action="requestResponse.act">--%>
+<%--                                                <input type="hidden" name="assignedRoomId" value="${room.id}">--%>
+<%--                                                <input type="submit" class="btn-link border-0 mt-2" value="Choose">--%>
+<%--                                            </form>--%>
                                         </td>
                                     </tr>
                                 </c:forEach>
@@ -97,12 +149,23 @@
                         </c:otherwise>
                     </c:choose>
                 </div>
-<%--                <div class="modal-footer">--%>
-<%--                    <a class="col-l-5 mr-3" href="#"><fmt:message key="acc.link.forgotPwd"/>?</a>--%>
-<%--                    <button type="submit" form="signInForm" class="btn btn-primary col-5">--%>
-<%--                        <fmt:message key="button.signIn"/>--%>
-<%--                    </button>--%>
-<%--                </div>--%>
+            </div>
+        </div>
+    </div>
+
+    <a href="#" type="hidden" id="error_modal_btn" data-toggle="modal" data-target="#errorModal"></a>
+
+    <!-- Error modal -->
+    <div class="modal fade" id="errorModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="false">
+        <div class="modal-dialog modal-dialog-centered modal-sm" role="form">
+            <div class="modal-content">
+                <div class="modal-header d-flex justify-content-center pb-0">
+                    <h5 class="mt-1" style="color: red">Error</h5>
+                </div>
+                <div class="modal-body justify-content-center">
+                        ${requestResponseEx}
+                </div>
+                <c:remove var="requestResponseEx"/>
             </div>
         </div>
     </div>

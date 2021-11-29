@@ -11,6 +11,15 @@
     <c:redirect url="profile.act"></c:redirect>
 </c:if>
 
+<script>
+
+    window.onclick = function () {
+        var current = document.getElementsByClassName("active");
+        current[0].className = current[0].className.replace(" active", "");
+    }
+
+</script>
+
 <t:wrapper>
     <div class="container px-0 pt-4 d-flex justify-content-center" style="border: #6610f2">
         <div class="card col-10 px-0">

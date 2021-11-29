@@ -71,13 +71,17 @@ public class RequestService {
         DAOFactory.getInstance().getRequestDao().update(request);
     }
 
+    public static void delete(long id) throws JDBCException {
+        DAOFactory.getInstance().getRequestDao().delete(id);
+    }
+
     private static boolean validateWaitingTime(Request req) throws JDBCException {
         Date today = Util.getToday();
         Calendar c;
 
-        if (req.getCustomerAcceptance() != null && (req.getStatus() != Request.Status.Canceled)){
+        if (req.getManagerAcceptance() != null && (req.getStatus() != Request.Status.Canceled)){
             c = Calendar.getInstance();
-            c.setTime(req.getCustomerAcceptance());
+            c.setTime(req.getManagerAcceptance());
             c.add(Calendar.DATE, 2);
             Date deadline = new Date(c.getTimeInMillis());
 
@@ -86,9 +90,9 @@ public class RequestService {
                 DAOFactory.getInstance().getRequestDao().update(req);
                 log.info("Request status was changed to canceled");
             }
-        } else if (req.getCustomerAcceptance() != null && req.getStatus().equals(Request.Status.Canceled)){
+        } else if (req.getManagerAcceptance() != null && req.getStatus().equals(Request.Status.Canceled)){
             c = Calendar.getInstance();
-            c.setTime(req.getCustomerAcceptance());
+            c.setTime(req.getManagerAcceptance());
             c.add(Calendar.DATE, 4);
             Date deadline = new Date(c.getTimeInMillis());
 

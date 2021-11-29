@@ -2,6 +2,7 @@ package com.epam.courses.java.final_project.service;
 
 import com.epam.courses.java.final_project.dao.DAOFactory;
 import com.epam.courses.java.final_project.dao.impl.jdbc.JDBCException;
+import com.epam.courses.java.final_project.model.Request;
 import com.epam.courses.java.final_project.model.Reservation;
 import com.epam.courses.java.final_project.util.Util;
 import org.apache.logging.log4j.LogManager;
@@ -33,6 +34,11 @@ public class ReservationService {
                 out.remove(r);
         }
         return out;
+    }
+
+    public static void createByRequest(Request req) throws JDBCException {
+        DAOFactory.getInstance().getReservationDao().create(new Reservation(req.getUserId(), req.getRoomId(),
+                req.getFrom(), req.getTo(), req.getGuestsAmount()));
     }
 
     public static void createByRoom(Long userId, Long roomId, Date from, Date to) throws JDBCException {

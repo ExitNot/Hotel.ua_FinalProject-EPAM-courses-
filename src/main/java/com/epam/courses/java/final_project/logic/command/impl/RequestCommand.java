@@ -5,7 +5,6 @@ import com.epam.courses.java.final_project.logic.command.Command;
 import com.epam.courses.java.final_project.logic.command.Response;
 import com.epam.courses.java.final_project.model.Request;
 import com.epam.courses.java.final_project.model.Room;
-import com.epam.courses.java.final_project.model.RoomType;
 import com.epam.courses.java.final_project.service.RequestService;
 import com.epam.courses.java.final_project.service.RoomService;
 import com.epam.courses.java.final_project.service.RoomTypeService;
@@ -28,7 +27,7 @@ public class RequestCommand implements Command {
     private static final Logger log = LogManager.getLogger(LOG_TRACE);
 
     @Override
-    public Response execute(HttpServletRequest req, HttpServletResponse resp) throws JDBCException {
+    public Response execute(HttpServletRequest req, HttpServletResponse resp) throws JDBCException {  // todo  sorting depend on request
         long id = Long.parseLong(req.getParameter("requestId"));
         long assignedRoomId = 0;
         Optional<Request> oRequest = RequestService.getById(id);
@@ -47,19 +46,17 @@ public class RequestCommand implements Command {
             if (r.getRoomId() != 0)
                 RoomService.getById(r.getRoomId()).ifPresent(room -> r.setRoomNumber(room.getRoomNumber()));
             UserService.getById(r.getUserId()).ifPresent(user -> r.setUserEmail(user.getEmail()));
-            log.trace(r.toString());
 
             //        Insert RoomType
             for (Room room : availableRooms){
                 RoomTypeService.getById(room.getRoomTypeId()).ifPresent(room::setRoomType);
-                log.trace(room);
             }
 
             req.getSession().setAttribute(ATTRIBUTE_REQUEST, r);
             req.getSession().setAttribute(ATTRIBUTE_ROOMS_LIST, availableRooms);
         }
 
-        return new Response(Response.Direction.Redirect, "responseRequest.jsp");
+        return new Response(Response.Direction.Redirect, "requestResponse.jsp");
     }
 
     @Override

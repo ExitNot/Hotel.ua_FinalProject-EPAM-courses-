@@ -1,5 +1,8 @@
 package com.epam.courses.java.final_project.util;
 
+import com.epam.courses.java.final_project.model.Room;
+import com.epam.courses.java.final_project.model.RoomType;
+
 import java.sql.Date;
 import java.util.Calendar;
 
@@ -22,7 +25,26 @@ public class Util {
         return new Date(c.getTimeInMillis());
     }
 
-    public static double calcPrice() {
-        return 0.0;
+    public static double calcPrice(int capacity, int childrenAmount, RoomType.RoomClass rc) {
+        int out = 0;
+
+        switch (rc) {
+            case Standard:
+                out += 1000 * (capacity * 2);
+                if (childrenAmount > 0) out = (out / 100) * 30;
+                break;
+            case Upgraded:
+                out += 1200 * (capacity * 2);
+                if (childrenAmount > 0) out = (out / 100) * 30;
+                break;
+            case Deluxe:
+                out += 1500 * (capacity * 2);
+                if (childrenAmount > 0) out = (out / 100) * 30;
+                break;
+            case Suite:
+                out += 2000 * (capacity * 2);
+                if (childrenAmount > 0) out = (out / 100) * 30;
+        }
+        return out;
     }
 }
