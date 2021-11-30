@@ -32,7 +32,7 @@
 
 <t:wrapper>
     <div class="container px-0 pt-4 d-flex justify-content-center">
-        <div class="card col-10 px-0">
+        <div class="card col-12 px-0">
             <div class="card-header d-flex justify-content-center py-2">
                 <h5 class="mt-3">Request</h5>
             </div>
@@ -40,12 +40,12 @@
                 <table class="table table-bordered w-100">
                     <thead style="background-color: mediumslateblue; color: white">
                     <tr class="text-center">
-                        <th scope="col">User</th>
+                        <th scope="col" class="col-2">User</th>
                         <th scope="col">From</th>
                         <th scope="col">To</th>
-                        <th scope="col">Guests amount</th>
+                        <th scope="col" class="col-1">Guests amount</th>
                         <th scope="col">Room class</th>
-                        <th scope="col">Price</th>
+                        <th scope="col" class="col-2">Price</th>
                         <th scope="col">Status</th>
                         <th scope="col">Room number</th>
                     </tr>
@@ -94,7 +94,7 @@
                 <div class="row mt-3"
                      style="background-color: mediumslateblue; margin-left: -20px; margin-right: -20px">
                     <a class="btn w-100" style="color: white"
-                    onclick="document.getElementById('responseRequestForm').submit();">Send</a>
+                       onclick="document.getElementById('responseRequestForm').submit();">Send</a>
                 </div>
             </div>
         </div>
@@ -137,10 +137,6 @@
                                         <td>
                                             <a href="#" class="btn-link border-0"
                                                onclick="choose(${room.id}, ${room.roomNumber})">Choose</a>
-<%--                                            <form action="requestResponse.act">--%>
-<%--                                                <input type="hidden" name="assignedRoomId" value="${room.id}">--%>
-<%--                                                <input type="submit" class="btn-link border-0 mt-2" value="Choose">--%>
-<%--                                            </form>--%>
                                         </td>
                                     </tr>
                                 </c:forEach>
@@ -156,7 +152,8 @@
     <a href="#" type="hidden" id="error_modal_btn" data-toggle="modal" data-target="#errorModal"></a>
 
     <!-- Error modal -->
-    <div class="modal fade" id="errorModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="false">
+    <div class="modal fade" id="errorModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+         aria-hidden="false">
         <div class="modal-dialog modal-dialog-centered modal-sm" role="form">
             <div class="modal-content">
                 <div class="modal-header d-flex justify-content-center pb-0">

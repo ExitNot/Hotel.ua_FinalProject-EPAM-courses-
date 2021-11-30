@@ -80,7 +80,7 @@
                                     <a class="row text-center mb-2">Amount of rooms and guests</a>
                                     <div id="rooms_wrapper"></div>
                                 </c:otherwise>
-                            </c:choose>-+
+                            </c:choose>
                         </div>
                     </div>
                     <div class="row mt-3"

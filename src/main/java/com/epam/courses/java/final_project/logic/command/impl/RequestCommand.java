@@ -5,6 +5,7 @@ import com.epam.courses.java.final_project.logic.command.Command;
 import com.epam.courses.java.final_project.logic.command.Response;
 import com.epam.courses.java.final_project.model.Request;
 import com.epam.courses.java.final_project.model.Room;
+import com.epam.courses.java.final_project.model.RoomType;
 import com.epam.courses.java.final_project.service.RequestService;
 import com.epam.courses.java.final_project.service.RoomService;
 import com.epam.courses.java.final_project.service.RoomTypeService;
@@ -28,7 +29,7 @@ public class RequestCommand implements Command {
 
     @Override
     public Response execute(HttpServletRequest req, HttpServletResponse resp) throws JDBCException {  // todo  sorting depend on request
-        long id = Long.parseLong(req.getParameter("requestId"));
+        long id = Long.parseLong(req.getParameter(PARAM_REQUEST_ID));
         long assignedRoomId = 0;
         Optional<Request> oRequest = RequestService.getById(id);
         List<Room> availableRooms = null;
@@ -37,8 +38,8 @@ public class RequestCommand implements Command {
             Request r = oRequest.get();
             availableRooms = getAvailableRooms(r.getFrom().toString(), r.getTo().toString());
 
-            if (req.getParameter("assignedRoomId") != null){
-                assignedRoomId = Long.parseLong(req.getParameter("assignedRoomId"));
+            if (req.getParameter(PARAM_ASSIGNED_ROOM_ID) != null){
+                assignedRoomId = Long.parseLong(req.getParameter(PARAM_ASSIGNED_ROOM_ID));
                 r.setRoomId(assignedRoomId);
                 RequestService.update(r);
             }
@@ -52,11 +53,13 @@ public class RequestCommand implements Command {
                 RoomTypeService.getById(room.getRoomTypeId()).ifPresent(room::setRoomType);
             }
 
+            availableRooms.removeIf(a -> a.getRoomType().getCapacity() < r.getGuestsAmount());
+
             req.getSession().setAttribute(ATTRIBUTE_REQUEST, r);
             req.getSession().setAttribute(ATTRIBUTE_ROOMS_LIST, availableRooms);
         }
 
-        return new Response(Response.Direction.Redirect, "requestResponse.jsp");
+        return new Response(Response.Direction.Redirect, REQUEST_RESPONSE_JSP);
     }
 
     @Override

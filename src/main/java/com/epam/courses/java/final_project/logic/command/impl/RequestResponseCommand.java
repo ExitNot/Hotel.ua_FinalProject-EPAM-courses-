@@ -4,7 +4,10 @@ import com.epam.courses.java.final_project.dao.impl.jdbc.JDBCException;
 import com.epam.courses.java.final_project.logic.command.Command;
 import com.epam.courses.java.final_project.logic.command.Response;
 import com.epam.courses.java.final_project.model.Request;
+import com.epam.courses.java.final_project.model.User;
 import com.epam.courses.java.final_project.service.RequestService;
+import com.epam.courses.java.final_project.service.UserService;
+import com.epam.courses.java.final_project.util.MailManager;
 import com.epam.courses.java.final_project.util.Util;
 
 import javax.servlet.http.HttpServletRequest;
@@ -27,7 +30,7 @@ public class RequestResponseCommand implements Command {
             }
             r.setPrice(Double.parseDouble(req.getParameter("price")));
             if (r.getRoomId() == 0){
-                if (req.getParameter("chosenRoomId") == null){
+                if (req.getParameter("chosenRoomId") == null || req.getParameter("chosenRoomId").isEmpty()){
                     req.getSession().setAttribute("requestResponseEx", "Room was not chosen");
                     return new Response(Response.Direction.Forward, "requestResponse.jsp");
                 }
@@ -37,6 +40,9 @@ public class RequestResponseCommand implements Command {
             r.setManagerAcceptance(Util.getToday());
             r.setStatus(2);
             RequestService.update(r);
+//            Optional<User> user = UserService.getById(r.getUserId());
+//            MailManager.getInstance().sendEmail(r.getUserEmail(),
+//                    MailManager.requestResponseMailTemplate(user.get().getName(), user.get().getSurname()));
         }
 
         return new Response(Response.Direction.Redirect, REQUEST_LIST_ACT);

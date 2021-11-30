@@ -85,14 +85,19 @@
                                 <td>${request.price}</td>
                                 <td>${request.statusName}</td>
                                 <td>
-                                    <form action="request.act">
+                                    <form action="request.act" id="requestForm${request.id}">
                                         <input type="hidden" name="requestId" value="${request.id}">
+                                        <input type="hidden" name="requestRcVal"
+                                               value="${empty request.rc ? request.roomType.roomClass.value : request.rc.value}"/>
                                         <c:choose>
                                             <c:when test="${request.statusName == 'Waiting for manager response'}">
-                                                <input type="submit" class="btn-link border-0" value="Response">
+                                                <a href="#" class="btn-link border-0"
+                                                   onclick="document.getElementById('requestForm${request.id}').submit()">
+                                                    Response
+                                                </a>
                                             </c:when>
                                             <c:otherwise>
-                                                <input type="submit" class="btn-link disabled border-0" value="Response">
+                                                <a class="btn-link border-0">Response</a>
                                             </c:otherwise>
                                         </c:choose>
                                     </form>
@@ -103,12 +108,11 @@
                                         Cancel
                                     </a>
                                 </td>
-<%--                            </form>--%>
                         </tr>
-<%--                        <form id="info_form${request.id}" action="roomType.act" method="get" style="margin-bottom: 0">--%>
-<%--                            <input type="hidden" name="typeId" value="${request.roomType.id}">--%>
-<%--                        </form>--%>
-                        <form id="cancel_form${request.roomType.id}" action="cancelRequest.act" method="post"
+                        <form id="info_form${request.id}" action="roomType.act" method="get" style="margin-bottom: 0">
+                            <input type="hidden" name="typeId" value="${request.roomType.id}">
+                        </form>
+                        <form id="cancel_form${request.id}" action="cancelRequest.act" method="post"
                               style="margin-bottom: 0">
                             <input type="hidden" name="requestId" value="${request.id}">
                         </form>

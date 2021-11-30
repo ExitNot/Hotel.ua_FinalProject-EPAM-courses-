@@ -21,8 +21,6 @@ public class SignUpCommand implements Command {
 
     @Override
     public Response execute(HttpServletRequest req, HttpServletResponse resp) throws JDBCException {
-//        todo check everything not null
-
         if (UserService.getByEmail(req.getParameter(PARAM_EMAIL)).isPresent()){
             req.getSession().setAttribute(ATTRIBUTE_SIGN_UP_EX, "User already exist");
             return new Response(Response.Direction.Forward, SIGN_UP_JSP);
@@ -43,7 +41,6 @@ public class SignUpCommand implements Command {
 
         log.trace(user.toString());
         long id = UserService.create(user);
-//        todo send email of confirmation
 
         req.getSession().setAttribute(ATTRIBUTE_ID, id);
         req.getSession().setAttribute(ATTRIBUTE_EMAIL, user.getEmail());

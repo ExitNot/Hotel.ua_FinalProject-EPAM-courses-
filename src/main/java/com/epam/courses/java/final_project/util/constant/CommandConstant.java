@@ -32,7 +32,9 @@ public class CommandConstant {
 //    Parameters
     public static final String PARAM_USER_ID = "userId";
     public static final String PARAM_ROOM_ID = "roomId";
+    public static final String PARAM_ASSIGNED_ROOM_ID = "assignedRoomId";
     public static final String PARAM_REQUEST_ID = "requestId";
+    public static final String PARAM_REQUEST_RC = "requestRCVal";
     public static final String PARAM_RESERVATION_ID = "reservationId";
     public static final String PARAM_ROOM_TYPE_ID = "typeId";
     public static final String PARAM_PWD = "pwd";  // User
@@ -83,6 +85,7 @@ public class CommandConstant {
     public static final String INDEX_JSP = "index.jsp";
     public static final String REQUEST_JSP = "createRequest.jsp";
     public static final String AVAILABLE_ROOMS_JSP = "availableRooms.jsp";
+    public static final String REQUEST_RESPONSE_JSP = "requestResponse.jsp";
     public static final String MY_RESERVATIONS_JSP = "myReservations.jsp";
     public static final String MY_REQUESTS_JSP = "myRequests.jsp";
     public static final String REQUEST_LIST_JSP = "requestsList.jsp";
