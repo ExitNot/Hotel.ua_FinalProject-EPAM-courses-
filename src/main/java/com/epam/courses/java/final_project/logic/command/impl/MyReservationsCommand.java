@@ -34,7 +34,7 @@ public class MyReservationsCommand implements Command {
         }
 
         req.getSession().setAttribute(ATTRIBUTE_RESERVATIONS_LIST, reservations);
-        return new Response(Response.Direction.Redirect, MY_RESERVATIONS_JSP);
+        return new Response(Response.Direction.Forward, MY_RESERVATIONS_JSP);
     }
 
     @Override

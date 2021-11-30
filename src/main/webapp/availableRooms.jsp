@@ -4,7 +4,7 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
-<fmt:setLocale value="${param.language}" scope="session"/>
+<fmt:setLocale value="${not empty param.language ? param.language : language}" scope="session"/>
 <fmt:setBundle basename="web-text"/>
 
 <c:if test="${empty id}">
@@ -78,7 +78,7 @@
                             <div class="col-2">
                                 <div class="row">
                                     <div class="col-6 pr-0">
-                                        <label for="floor"><fmt:message key="label.room"/></label>
+                                        <label for="floor"><fmt:message key="room.label.floor"/></label>
                                         <input class="form-control" type="number" name="floor"
                                                id="floor" value="${empty floor ? 0 : floor}"/>
                                     </div>
@@ -146,12 +146,45 @@
                                     <td>${room.roomType.parsedBedsType}</td>
                                     <td>${room.roomType.roomClass}</td>
                                     <td>
-                                        <a class="link-error" href="#"
-                                           onclick="document.getElementById('cancel_form${request.id}').submit();">
+                                        <a class="link" href="#"
+                                           data-toggle="modal" data-target="#requestModal${room.id}">
                                             <fmt:message key="nav.label.makeAReservation"/>
                                         </a>
                                     </td>
                                 </tr>
+                                <!-- Request modal -->
+                                <div class="modal fade" id="requestModal${room.id}" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="false">
+                                    <div class="modal-dialog modal-dialog-centered modal-sm" role="form">
+                                        <div class="modal-content border-0">
+                                            <div class="modal-body justify-content-center">
+                                                <form action="./createRequest.act" name="createRequest" method="post"
+                                                        id="createRequest${room.id}">
+                                                    <input type="hidden" name="roomId" value="${room.id}">
+                                                    <input type="hidden" name="dateFrom" value="${dateFrom}">
+                                                    <input type="hidden" name="dateTo" value="${dateTo}">
+                                                    <div class="row">
+                                                        <div class="col">
+                                                            <label for="amountOfAdultsInRoom">adults:</label>
+                                                            <input class="form-control" type="number" name="amountOfAdultsIn_room" placeholder="adult"
+                                                                   min="1" max="5" value="1" onChange="guests_value()" id="amountOfAdultsInRoom"/>
+                                                        </div>
+                                                        <div class="col">
+                                                            <label for="amountOfChildrenInRoom">children:</label>
+                                                            <input class="form-control" type="number" name="amountOfChildrenIn_room" placeholder="child"
+                                                                   min="0" max="5" value="0" onChange="guests_value()" id="amountOfChildrenInRoom"/>
+                                                        </div>
+                                                    </div>
+                                                </form>
+                                            </div>
+                                            <div class="modal-footer" style="background-color: mediumslateblue">
+                                                <a class="link" href="#" style="color: white"
+                                                   onclick="document.getElementById('createRequest${room.id}').submit();">
+                                                    <fmt:message key="nav.label.makeAReservation"/>
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                             </c:forEach>
                             </tbody>
                         </table>

@@ -54,6 +54,7 @@ public class AvailableRoomsCommand implements Command {
             to = Util.transformDate(to);
         }
 
+
         if (Date.valueOf(from).after(Date.valueOf(to))){
             req.getSession().setAttribute(ATTRIBUTE_ROOMS_LIST_EX, "Incorrect dates");
             return new Response(Response.Direction.Forward, AVAILABLE_ROOMS_JSP);
@@ -74,9 +75,7 @@ public class AvailableRoomsCommand implements Command {
             }  // todo add attributes of filters
         }
 
-        log.trace("capacity: " + req.getParameter(PARAM_CAPACITY));
         if (req.getParameter(PARAM_CAPACITY) != null && !req.getParameter(PARAM_CAPACITY).equals("0")){
-            log.trace("change capacity");
             List<RoomType> list = RoomTypeService.getByCapacity(Integer.parseInt(req.getParameter(PARAM_CAPACITY)));
             List<Long> listId = list.stream()
                     .map(RoomType::getId).collect(Collectors.toList());

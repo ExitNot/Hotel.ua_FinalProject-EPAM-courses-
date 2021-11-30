@@ -105,10 +105,10 @@
         <div class="row" id="room">
             <label for="amountOfAdultsInRoom">adults:</label>
             <input class="form-control col-3 mr-2" type="number" name="amountOfAdultsIn_room" placeholder="adult"
-            max="5" value="1" onChange="guests_value()" id="amountOfAdultsInRoom"/>
+            min="1" max="5" value="1" onChange="guests_value()" id="amountOfAdultsInRoom"/>
             <label for="amountOfChildrenInRoom">children:</label>
             <input class="form-control col-3" type="number" name="amountOfChildrenIn_room" placeholder="child"
-                   max="5" value="0" onChange="guests_value()" id="amountOfChildrenInRoom"/>
+                   min="0" max="5" value="0" onChange="guests_value()" id="amountOfChildrenInRoom"/>
             <select class="col-2 h-75 mt-2 ml-2" name="roomClass">
                 <option value="1">standard</option>
                 <option value="2">upgraded</option>
@@ -121,38 +121,4 @@
             </button>
         </div>
     </div>
-    <%--    =========================== --%>
-
-    <%--    <div id="reservation">--%>
-    <%--        <div class="page_content" id="request_content">--%>
-    <%--            <h2>Create request</h2>--%>
-    <%--            <form action="request.act" method="post" class="form">--%>
-    <%--                <label>--%>
-    <%--                    Dates:--%>
-    <%--                        &lt;%&ndash;                    <input type="text" name="dateFrom" id="date_from"/> -&ndash;%&gt;--%>
-    <%--                        &lt;%&ndash;                    <input type="text" name="dateTo" id="date_to"/>&ndash;%&gt;--%>
-    <%--                </label>--%>
-    <%--                <br/>--%>
-    <%--                <c:choose>--%>
-    <%--                    <c:when test="${not empty roomType}">--%>
-    <%--                        Room:--%>
-    <%--                        ${roomType.roomClass} room with ${roomType.parsedBedsType}--%>
-    <%--                        <c:remove var="roomType"></c:remove>--%>
-    <%--                        &lt;%&ndash;                        todo Clear typeId in the end&ndash;%&gt;--%>
-    <%--                    </c:when>--%>
-    <%--                    <c:otherwise>--%>
-    <%--                        <a>Amount of rooms and guests</a>--%>
-    <%--                        <div id="rooms_wrapper">--%>
-    <%--                                &lt;%&ndash;                            <button type="button" onclick="cloneRoom()" id="add_room_btn">Add another room</button>&ndash;%&gt;--%>
-    <%--                        </div>--%>
-    <%--                    </c:otherwise>--%>
-    <%--                </c:choose>--%>
-    <%--                    &lt;%&ndash;                <input type="hidden" id="rooms_amount" name="rooms_amount"/>&ndash;%&gt;--%>
-    <%--                <input type="submit" name="request_btn" value="Make reservation" class="button"--%>
-    <%--                       onclick="setRoomsAmount()"/>--%>
-    <%--            </form>--%>
-    <%--        </div>div--%>
-
-
-    <%--    </div>--%>
 </t:wrapper>

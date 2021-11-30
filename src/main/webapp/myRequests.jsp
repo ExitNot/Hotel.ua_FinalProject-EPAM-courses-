@@ -9,7 +9,7 @@
 
 <t:wrapper>
     <div class="container px-0 pt-4 d-flex justify-content-center">
-        <div class="card col-10 px-0">
+        <div class="card col-12 px-0">
             <div class="card-header d-flex justify-content-center py-2">
                 <h5 class="mt-3">Requests</h5>
             </div>
@@ -19,8 +19,8 @@
                     <tr>
                         <th scope="col">Room number</th>
                         <th scope="col">Guests amount</th>
-                        <th scope="col">From</th>
-                        <th scope="col">To</th>
+                        <th scope="col" class="col-2">From</th>
+                        <th scope="col" class="col-2">To</th>
                         <th scope="col">Room class</th>
                         <th scope="col">Price</th>
                         <th scope="col">Status</th>
@@ -62,7 +62,7 @@
                                 <c:if test="${request.statusName != 'Payment'}">
                                     <a class="link-error" href="#"
                                        onclick="document.getElementById('cancel_form${request.id}').submit();">
-                                        Cancel
+                                        Delete
                                     </a>
                                 </c:if>
                                 <c:if test="${request.statusName == 'Payment'}">
@@ -82,6 +82,7 @@
                         <form id="cancel_form${request.id}" action="cancelRequest.act" method="post"
                               style="margin-bottom: 0">
                             <input type="hidden" name="requestId" value="${request.id}">
+                            <input type="hidden" name="redirect" value="true">
                         </form>
                         <!-- Payment modal -->
                         <div class="modal fade" id="paymentModal${request.id}" tabindex="-1" role="dialog"

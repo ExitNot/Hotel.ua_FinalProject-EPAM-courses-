@@ -28,7 +28,7 @@ public class RequestCommand implements Command {
     private static final Logger log = LogManager.getLogger(LOG_TRACE);
 
     @Override
-    public Response execute(HttpServletRequest req, HttpServletResponse resp) throws JDBCException {  // todo  sorting depend on request
+    public Response execute(HttpServletRequest req, HttpServletResponse resp) throws JDBCException {
         long id = Long.parseLong(req.getParameter(PARAM_REQUEST_ID));
         long assignedRoomId = 0;
         Optional<Request> oRequest = RequestService.getById(id);

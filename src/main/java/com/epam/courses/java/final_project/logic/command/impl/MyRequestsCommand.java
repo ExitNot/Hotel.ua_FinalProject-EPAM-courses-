@@ -35,7 +35,7 @@ public class MyRequestsCommand implements Command {  // todo replace to RequestL
         }
 
         req.getSession().setAttribute(ATTRIBUTE_REQUEST_LIST, requests);
-        return new Response(Response.Direction.Redirect, MY_REQUESTS_JSP);
+        return new Response(Response.Direction.Forward, MY_REQUESTS_JSP);
     }
 
     @Override

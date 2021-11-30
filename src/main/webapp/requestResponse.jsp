@@ -72,7 +72,8 @@
                             </c:choose>
                         </td>
                         <td>
-                            <input class="form-control" type="number" name="price" form="responseRequestForm">
+                            <input class="form-control" type="number" name="price"
+                                   form="responseRequestForm" value="${request.price}">
                         </td>
                         <td>${request.statusName}</td>
                         <td>

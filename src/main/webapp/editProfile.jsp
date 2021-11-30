@@ -25,11 +25,6 @@
         <div class="card col-10 px-0">
             <div class="card-header d-flex justify-content-center">
                 <h5 class="mt-3 mr-auto"><fmt:message key="edit.button.editProfile"/></h5>
-<%--                <form action="deleteUser.act" method="post" id="delete_user">--%>
-<%--                    <a href="#" onclick="document.getElementById('delete_user').submit();" style="color: black">--%>
-<%--                        <i class="fas fa-user-slash fa-lg float-right"></i>--%>
-<%--                    </a>--%>
-<%--                </form>--%>
             </div>
             <div class="card-body pb-0">
                 <form action="userUpdate.act" method="post" id="user_update_form" class="mb-0">
@@ -83,7 +78,7 @@
         <div class="modal-dialog modal-dialog-centered modal-md" role="form">
             <div class="modal-content">
                 <div class="modal-body justify-content-center mt-3">
-                    <form action="pwdChange.act" ></form>
+                    <form action="pwdChange.act"></form>
                 </div>
             </div>
         </div>

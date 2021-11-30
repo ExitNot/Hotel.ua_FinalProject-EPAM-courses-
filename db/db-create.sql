@@ -79,12 +79,10 @@ CREATE TABLE users_requests(user_id INT REFERENCES users(id) ON DELETE CASCADE,
 INSERT INTO users  -- temporary values for dev process --
     (password, name, surname, phone_number, email, role)
 VALUES
-    ('a141aeaa52255df9:8e05661b11d6bdad94b2f50a1fdef8fe4ba19b8f405c6f2fa751e132c15d7bcd',
-     'Admin', 'Adminov', '+111111111111', 'hotel_admin@gmail.com', 3),
     ('824bcb1c0446d078:6ec937e670eea75bc7dd2d8d30b41807690d4955b6c902f1dc7e46e24d25670e',
-     'Manager', 'Managerov', '+222222222222', 'hotel_manager@gmail.com', 2),
+     'Manager', 'Managerov', '+222222222222', 'unnamed.hotel@gmail.com', 2),
     ('ca1f23e567162130:c4987aef350c32d8720c8d97fe215cd9a2e228d9c016a61647c9dbd1abb24b03',
-     'User', 'Userov', '+333333333333', 'hotel_user@gmail.com', 1);
+     'User', 'Userov', '+333333333333', 'user.unnamed.hotel@gmail.com', 1);
 
 INSERT INTO room_types  -- temporary values for dev process --
     (capacity,    beds_types, class, description)
@@ -137,15 +135,15 @@ VALUES
 INSERT INTO reservations  -- temporary values for dev process --
     (user_id, room_id, date_from,    date_to,      guests_amount)
 VALUES
-    (3,       2,       '2021-11-29', '2021-11-30', 2),
-    (3,       2,       '2021-11-16', '2021-11-25', 2);
+    (2,       2,       '2021-11-29', '2021-11-30', 2),
+    (2,       2,       '2021-11-16', '2021-11-25', 2);
 
 INSERT INTO requests  -- temporary values for dev process --
     (user_id, room_id, date_from,    date_to,       date_of_manager_response,      adults_amount, children_amount, class, status, price)
 VALUES
-    (3,       3,       '2021-11-29', '2021-11-30',  null,                             1,             1,                1,    1,       900),
-    (3,       4,       '2021-11-29', '2021-11-30',  '2021-11-28',                     1,             1,                2,    2,       900),
-    (3,       5,       '2021-11-27', '2021-11-28',  '2021-11-15',                     1,             1,                1,    2,       900);
+    (2,       3,       '2021-11-29', '2021-11-30',  null,                             1,             1,                1,    1,       900),
+    (2,       4,       '2021-11-29', '2021-11-30',  '2021-11-28',                     1,             1,                2,    2,       900),
+    (2,       5,       '2021-11-27', '2021-11-28',  '2021-11-15',                     1,             1,                1,    2,       900);
 
 INSERT INTO room_images
     (room_type_id, img_path)

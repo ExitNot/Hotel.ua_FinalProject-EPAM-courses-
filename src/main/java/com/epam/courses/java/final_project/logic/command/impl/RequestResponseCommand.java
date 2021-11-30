@@ -40,6 +40,15 @@ public class RequestResponseCommand implements Command {
             r.setManagerAcceptance(Util.getToday());
             r.setStatus(2);
             RequestService.update(r);
+
+            for (Request i : RequestService.getAll()){
+                if (i.getRoomId() == r.getRoomId() && i.getFrom().before(r.getTo()) &&
+                        i.getTo().after(r.getFrom()) && i.getId() != r.getId()){
+                    i.setStatus(4);
+                    RequestService.update(i);
+//                    todo email that room was booked
+                }
+            }
 //            Optional<User> user = UserService.getById(r.getUserId());
 //            MailManager.getInstance().sendEmail(r.getUserEmail(),
 //                    MailManager.requestResponseMailTemplate(user.get().getName(), user.get().getSurname()));
