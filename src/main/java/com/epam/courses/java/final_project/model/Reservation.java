@@ -3,7 +3,8 @@ package com.epam.courses.java.final_project.model;
 import java.sql.Date;
 
 /**
- * The {@code Request} class represent corresponding entity from database.
+ * The {@code Reservation} class represent corresponding entity from database.
+ * {@code Reservation} - means already paid {@code Request}
  *
  * @author Kostiantyn Kolchenko
  * */
@@ -36,6 +37,7 @@ public class Reservation {
         this.guestsAmount = guestsAmount;
     }
 
+    // Special constructor for creating entity from db
     public Reservation(long id, long userId, long roomId, Date from, Date to, int guests_amount) {
         this.id = id;
         this.userId = userId;

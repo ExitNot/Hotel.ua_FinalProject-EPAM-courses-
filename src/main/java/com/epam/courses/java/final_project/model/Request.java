@@ -5,7 +5,9 @@ import java.util.Locale;
 
 /**
  * The {@code Request} class represent corresponding entity from database.
- *
+ * Users create requests for reservations and this request pass through 3 steps. Status field represent this steps.
+ * <p>
+ * ~ {@code ManagerResponse} - request is waiting for {@code manager} response
  * @author Kostiantyn Kolchenko
  */
 public class Request extends Reservation {
@@ -104,7 +106,7 @@ public class Request extends Reservation {
     }
 
     public enum Status {
-        ManagerResponse(1), CustomerAccept(2), Payment(3), Canceled(4);  // waiting for
+        ManagerResponse(1), CustomerAccept(2), Payment(3), Canceled(4);
 
         int value;
 

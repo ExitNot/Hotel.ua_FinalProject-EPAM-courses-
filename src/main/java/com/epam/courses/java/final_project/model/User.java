@@ -2,20 +2,17 @@ package com.epam.courses.java.final_project.model;
 
 /**
  * The {@code User} class represent corresponding entity from database.
- * User entity can have only one role, which define abilities of this account.
+ * {@code User} entity can have only one role, which define abilities of this account.
  * <p>
- *     ~ {@code Customer} role - base role of any {@code User}
+ * ~ {@code Customer} role - base role of any {@code User}.
  * <p>
- *     ~ {@code Manager} role gives ability to accept {@code Request}'s
+ * ~ {@code Manager} role gives ability to accept and create responses for {@code Request}'s.
  * <p>
- *     ~ {@code Admin} can give manager privileges to user
- * <p>
- * Some fields are have to be unique in db: id, login, phoneNumber, email
  *
  * @author Kostiantyn Kolchenko
- * */
+ */
 public class User {
-    
+
     long id;  // value ether equal to corresponding db value, or 0
     String email;
     String password;
@@ -28,6 +25,7 @@ public class User {
         role = Role.Customer;
     }
 
+    // Special constructor for creating entity from db
     public User(long id, String email, String password, String name, String surname, String phoneNumber, Role role) {
         this.id = id;
         this.email = email;
@@ -107,7 +105,10 @@ public class User {
         this.role = Role.getRole(value);
     }
 
-    public enum Role{
+    /**
+     * Enum for user role. Have special getter for getting corresponding value from db.
+     */
+    public enum Role {
         Customer(1), Manager(2);
 
         int dbValue;
@@ -120,7 +121,7 @@ public class User {
             return dbValue;
         }
 
-        public static Role getRole(int num){
+        public static Role getRole(int num) {
             if (num == 2)
                 return Manager;
             return Customer;

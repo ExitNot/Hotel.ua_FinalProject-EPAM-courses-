@@ -4,6 +4,25 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+/**
+ * The {@code RoomType} class represent corresponding entity from database.
+ * RoomType entity must have room class, which represent level of comfortable of this room.
+ * <p>
+ * ~ {@code Standard} represent the most basic type of room offered by the hotel.
+ * <p>
+ * ~ {@code Upgraded} represent room step above standard.
+ * <p>
+ * ~ {@code Deluxe} Moderate and superior rooms, deluxe accommodations combine a desirable view
+ * with a number of luxurious amenities.
+ * <p>
+ * ~ {@code Suite} offers a separate rooms. Suit for families.
+ * <p>
+ * Also each room have beds type. This type is storing in db as
+ * string of type [1T, 2S, 1D] => (1 twin bed, 2 single beds, 1 double bed).
+ * This string is being parsed inside this class in to sentence useful for web.
+ *
+ * @author Kostiantyn Kolchenko
+ */
 public class RoomType {
 
     private long id;
@@ -20,7 +39,7 @@ public class RoomType {
         this.bedsType = bedsType;
         this.roomClass = roomClass;
         int amenIndex = description.indexOf("AMENITIES");
-        if (amenIndex == -1){
+        if (amenIndex == -1) {
             this.description = description;
             amenities = null;
         } else {
@@ -50,6 +69,10 @@ public class RoomType {
         return bedsType;
     }
 
+    /**
+     * Beds type parser, that was described in class documentation.
+     * Parse string of type [1S, 1T] into [1 single bed and 1 twin beds]
+     * */
     public String getParsedBedsType() {
         StringBuilder sb = new StringBuilder();
         Matcher match = Pattern.compile("\\d[SDT]").matcher(bedsType);
@@ -129,6 +152,9 @@ public class RoomType {
                 '}';
     }
 
+    /**
+     * Enum for room class. Have special getter for getting corresponding value from db.
+     * */
     public enum RoomClass {
         Standard(1), Upgraded(2), Deluxe(3), Suite(4);
 

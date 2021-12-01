@@ -36,7 +36,7 @@ public class ImageDaoImpl implements ImageDao {
     @Override
     public long create(Image obj) throws JDBCException {
         return JDBCManager.updateRequest(SQL.IMG_INSERT,
-                String.valueOf(obj.getRoom_id()), obj.getPath());
+                String.valueOf(obj.getRoomTypeId()), obj.getPath());
     }
 
     @Override

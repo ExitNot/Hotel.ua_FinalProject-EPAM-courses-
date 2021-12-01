@@ -1,21 +1,27 @@
 package com.epam.courses.java.final_project.model;
 
+/**
+ * The {@code Image} class represent corresponding entity from database.
+ * {@code Image} correspond to one or several roomTypes. Image
+ *
+ * @author Kostiantyn Kolchenko
+ */
 public class Image {
 
-    long room_id;
+    long roomTypeId;
     String path;
 
-    public Image(long room_id, String path) {
-        this.room_id = room_id;
+    public Image(long roomTypeId, String path) {
+        this.roomTypeId = roomTypeId;
         this.path = path;
     }
 
-    public long getRoom_id() {
-        return room_id;
+    public long getRoomTypeId() {
+        return roomTypeId;
     }
 
-    public void setRoom_id(long room_id) {
-        this.room_id = room_id;
+    public void setRoomTypeId(long roomTypeId) {
+        this.roomTypeId = roomTypeId;
     }
 
     public String getPath() {

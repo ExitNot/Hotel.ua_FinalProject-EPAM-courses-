@@ -1,26 +1,12 @@
 package com.epam.courses.java.final_project.model;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
-
-import static com.epam.courses.java.final_project.util.constant.Constant.LOG_TRACE;
-
 /**
  * The {@code Room} class represent corresponding entity from database.
- * Room entity must have room class, which represent level of comfortable of this room.
- * <p>
- *     ~ {@code Standard} represent the most basic type of room offered by the hotel
- * <p>
- *     ~ {@code Deluxe} A step above standard, moderate and superior rooms,
- *     deluxe accommodations combine a desirable view with a number of luxurious amenities
- * <p>
- *     ~ {@code Suite} offers a separate sleeping and working area
+ * {@code Room} have to belong to one of {@code RoomType}'s.
  *
  * @author Kostiantyn Kolchenko
  * */
 public class Room {
-
-    private static final Logger log = LogManager.getLogger(LOG_TRACE);
 
     private long id;
     private int roomNumber;
