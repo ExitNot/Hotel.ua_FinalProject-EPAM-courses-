@@ -19,7 +19,7 @@ public class RequestService {
     private static final Logger log = LogManager.getLogger(LOG_TRACE);
 
     public static List<Request> getByDate(Date from, Date to) throws JDBCException {
-        List<Request> out = DAOFactory.getInstance().getRequestDao().getRequestsByDate(from, to);
+        List<Request> out = DAOFactory.getInstance().getRequestDao().getByDate(from, to);
         for (Request r : out){
             if (!validateWaitingTime(r))
                 out.remove(r);

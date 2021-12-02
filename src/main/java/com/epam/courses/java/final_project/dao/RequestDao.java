@@ -17,5 +17,5 @@ public interface RequestDao extends AbstractDao<Request> {
 
     List<Request> getRequestsByStatus(Request.Status status) throws JDBCException;
 
-    List<Request> getRequestsByDate(Date from, Date to) throws JDBCException;
+    List<Request> getByDate(Date from, Date to) throws JDBCException;
 }

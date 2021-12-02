@@ -19,7 +19,7 @@ public class RoomTypeService {
     }
 
     public static List<RoomType> getByCapacity(int capacity) throws JDBCException {
-        return DAOFactory.getInstance().getRoomTypeDao().getRoomTypesByCapacity(capacity);
+        return DAOFactory.getInstance().getRoomTypeDao().getByCapacity(capacity);
     }
 
     public static List<Image> getImg(long id) throws JDBCException {

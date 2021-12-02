@@ -8,9 +8,9 @@ import java.util.List;
 
 public interface RoomTypeDao extends AbstractDao<RoomType>{
 
-    List<RoomType> getRoomTypesByCapacity(int capacity) throws JDBCException;
+    List<RoomType> getByCapacity(int capacity) throws JDBCException;
 
-    List<RoomType> getRoomTypesByBedsTypes(String bedsTypes) throws JDBCException;
+    List<RoomType> getByBedsType(String bedsTypes) throws JDBCException;
 
-    List<RoomType> getRoomTypesByClass(RoomType.RoomClass roomClass) throws JDBCException;  // may be with String param
+    List<RoomType> getByClass(RoomType.RoomClass roomClass) throws JDBCException;  // may be with String param
 }

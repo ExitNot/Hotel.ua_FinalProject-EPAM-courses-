@@ -20,9 +20,9 @@ public class ImageDaoImpl implements ImageDao {
     private static final String DELETE;
 
     static {
-        SELECT_BY = JDBCManager.setTableName(SQL.SELECT_BY, TABLE_IMG);
-        SELECT_ALL = JDBCManager.setTableName(SQL.SELECT_ALL, TABLE_IMG);
-        DELETE = JDBCManager.setTableName(SQL.DELETE, TABLE_IMG);
+        SELECT_BY = JDBCManager.getInstance().setTableName(SQL.SELECT_BY, TABLE_IMG);
+        SELECT_ALL = JDBCManager.getInstance().setTableName(SQL.SELECT_ALL, TABLE_IMG);
+        DELETE = JDBCManager.getInstance().setTableName(SQL.DELETE, TABLE_IMG);
     }
 
     @Override
@@ -35,7 +35,7 @@ public class ImageDaoImpl implements ImageDao {
 
     @Override
     public long create(Image obj) throws JDBCException {
-        return JDBCManager.updateRequest(SQL.IMG_INSERT,
+        return JDBCManager.getInstance().updateRequest(SQL.IMG_INSERT,
                 String.valueOf(obj.getRoomTypeId()), obj.getPath());
     }
 
@@ -46,17 +46,17 @@ public class ImageDaoImpl implements ImageDao {
 
     @Override
     public List<Image> getByRoomType(long id) throws JDBCException {
-        return JDBCManager.selectRequest(this,
+        return JDBCManager.getInstance().selectRequest(this,
                 SELECT_BY.replace("param", PARAM_ROOM_TYPE_ID), String.valueOf(id));
     }
 
     @Override
     public List<Image> getAll() throws JDBCException {
-        return JDBCManager.selectRequest(this, SELECT_ALL);
+        return JDBCManager.getInstance().selectRequest(this, SELECT_ALL);
     }
 
     @Override
-    public void update(Image obj) throws JDBCException {
+    public long update(Image obj) throws JDBCException {
         throw new JDBCException("Illegal operation");
     }
 

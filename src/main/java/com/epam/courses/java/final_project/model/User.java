@@ -1,5 +1,7 @@
 package com.epam.courses.java.final_project.model;
 
+import java.util.Objects;
+
 /**
  * The {@code User} class represent corresponding entity from database.
  * {@code User} entity can have only one role, which define abilities of this account.
@@ -139,5 +141,18 @@ public class User {
                 ", phoneNumber='" + phoneNumber + '\'' +
                 ", role=" + role +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        User user = (User) o;
+        return id == user.id && email.equals(user.email) && password.equals(user.password) && Objects.equals(name, user.name) && Objects.equals(surname, user.surname) && Objects.equals(phoneNumber, user.phoneNumber) && role == user.role;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, email, password, name, surname, phoneNumber, role);
     }
 }

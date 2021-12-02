@@ -11,10 +11,18 @@ import java.util.List;
 
 public class JDBCManager {
 
-    private static Connection conn;
+    private Connection conn;
     private static final Logger log = LogManager.getLogger(LOG_TRACE);
+    private Connection testConn;
+    private static final JDBCManager INSTANCE = new JDBCManager();
 
-    public static <T> T selectOneRequest(AbstractDao<T> dao, String sql, String... params) throws JDBCException {
+    private JDBCManager(){}
+
+    public static JDBCManager getInstance(){
+        return INSTANCE;
+    }
+
+    public <T> T selectOneRequest(AbstractDao<T> dao, String sql, String... params) throws JDBCException {
         PreparedStatement ps = null;
         ResultSet rs = null;
         T out = null;
@@ -32,7 +40,7 @@ public class JDBCManager {
         return out;
     }
 
-    public static <T> List<T> selectRequest(AbstractDao<T> dao, String sql, String... params) throws JDBCException {
+    public <T> List<T> selectRequest(AbstractDao<T> dao, String sql, String... params) throws JDBCException {
         PreparedStatement ps = null;
         ResultSet rs = null;
         List<T> list = new ArrayList<>();
@@ -51,17 +59,17 @@ public class JDBCManager {
         return list;
     }
 
-    public static int updateRequest(String sql, String... params) throws JDBCException {
+    public long updateRequest(String sql, String... params) throws JDBCException {
         PreparedStatement ps = null;
         ResultSet rs = null;
-        int newId = 0;
+        long newId = 0;
         try {
             ps = createStatement(sql, params);
             log.trace(ps);
             ps.executeUpdate();
             rs = ps.getGeneratedKeys();
             if (rs.next())
-                newId = rs.getInt(1);
+                newId = rs.getLong(1);
             else
                 throw new JDBCException("ResultSet is empty");
         } catch (SQLException e) {
@@ -72,16 +80,14 @@ public class JDBCManager {
         return newId;
     }
 
-    private static PreparedStatement createStatement(String sql, String... params) throws SQLException {
-        TCConnectionPool cp = TCConnectionPool.getInstance();
-//        ConnectionPool cp = ConnectionPool.getInstance();
-        conn = cp.getConnection();
+    private PreparedStatement createStatement(String sql, String... params) throws SQLException {
+        conn = getConnection();
         PreparedStatement ps = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
         setStatementParams(ps, params);
         return ps;
     }
 
-    private static void setStatementParams(PreparedStatement ps, String... params) throws SQLException {
+    private void setStatementParams(PreparedStatement ps, String... params) throws SQLException {
         for (int i = 0; i < params.length; i++){
             if (params[i] == null){
                 ps.setNull(i + 1, 0);
@@ -96,11 +102,11 @@ public class JDBCManager {
         }
     }
 
-    public static String setTableName(String sql, String tableName) {
+    public String setTableName(String sql, String tableName) {
         return sql.replace("table", tableName);
     }
 
-    private static void close(PreparedStatement ps, ResultSet rs) throws JDBCException {
+    private void close(PreparedStatement ps, ResultSet rs) throws JDBCException {
         try {
             if (ps != null)
                 ps.close();
@@ -114,4 +120,17 @@ public class JDBCManager {
         }
     }
 
+    private Connection getConnection() {
+        if (testConn != null)
+            return testConn;
+        return TCConnectionPool.getInstance().getConnection();
+    }
+
+    public void setTestConn(Connection conn) {
+        testConn = conn;
+    }
+
+    public void deleteTestConn() {
+        testConn = null;
+    }
 }

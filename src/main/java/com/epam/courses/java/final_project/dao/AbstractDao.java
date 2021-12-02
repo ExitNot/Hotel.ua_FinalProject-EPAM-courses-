@@ -20,7 +20,7 @@ public interface AbstractDao<T> {
 
     List<T> getAll() throws JDBCException;
 
-    void update(T obj) throws JDBCException;
+    long update(T obj) throws JDBCException;
 
     void delete(long id) throws JDBCException;
 

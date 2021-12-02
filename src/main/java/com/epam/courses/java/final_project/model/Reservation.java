@@ -1,6 +1,7 @@
 package com.epam.courses.java.final_project.model;
 
 import java.sql.Date;
+import java.util.Objects;
 
 /**
  * The {@code Reservation} class represent corresponding entity from database.
@@ -129,5 +130,18 @@ public class Reservation {
                 ", to=" + to +
                 ", guests_amount=" + guestsAmount +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Reservation that = (Reservation) o;
+        return id == that.id && userId == that.userId && roomId == that.roomId && guestsAmount == that.guestsAmount && from.equals(that.from) && to.equals(that.to);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, userId, roomId, from, to, guestsAmount);
     }
 }

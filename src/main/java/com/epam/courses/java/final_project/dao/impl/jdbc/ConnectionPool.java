@@ -32,7 +32,7 @@ public class ConnectionPool {
         try {
             prop.load(new FileReader("src/main/resources/app.properties"));
 
-            url = prop.getProperty("db.url");
+            url = prop.getProperty("db.testUrl");
             user = prop.getProperty("db.user");
             password = prop.getProperty("db.password");
             poolSize = Integer.parseInt(prop.getProperty("connection.pool.size"));

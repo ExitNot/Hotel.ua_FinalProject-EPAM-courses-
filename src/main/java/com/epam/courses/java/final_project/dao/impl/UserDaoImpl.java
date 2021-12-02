@@ -18,9 +18,9 @@ public class UserDaoImpl implements UserDao {
     private static final String DELETE;
 
     static {
-        SELECT_BY = JDBCManager.setTableName(SQL.SELECT_BY, TABLE_USER);
-        SELECT_ALL = JDBCManager.setTableName(SQL.SELECT_ALL, TABLE_USER);
-        DELETE = JDBCManager.setTableName(SQL.DELETE, TABLE_USER);
+        SELECT_BY = JDBCManager.getInstance().setTableName(SQL.SELECT_BY, TABLE_USER);
+        SELECT_ALL = JDBCManager.getInstance().setTableName(SQL.SELECT_ALL, TABLE_USER);
+        DELETE = JDBCManager.getInstance().setTableName(SQL.DELETE, TABLE_USER);
     }
 
     @Override
@@ -36,7 +36,7 @@ public class UserDaoImpl implements UserDao {
 
     @Override
     public long create(User obj) throws JDBCException {
-        long id = JDBCManager.updateRequest(SQL.USER_INSERT,
+        long id = JDBCManager.getInstance().updateRequest(SQL.USER_INSERT,
                 obj.getEmail(), obj.getPassword(),
                 obj.getName(), obj.getSurname(),
                 obj.getPhoneNumber(),
@@ -47,28 +47,27 @@ public class UserDaoImpl implements UserDao {
 
     @Override
     public Optional<User> getById(long id) throws JDBCException {
-        return Optional.ofNullable(JDBCManager.selectOneRequest(this, SELECT_BY.replace("param",  PARAM_ID), String.valueOf(id)));
+        return Optional.ofNullable(JDBCManager.getInstance().selectOneRequest(this, SELECT_BY.replace("param",  PARAM_ID), String.valueOf(id)));
     }
 
     @Override
     public Optional<User> getByEmail(String email) throws JDBCException {
-        return Optional.ofNullable(JDBCManager.selectOneRequest(this, SELECT_BY.replace("param",  PARAM_EMAIL), email));
+        return Optional.ofNullable(JDBCManager.getInstance().selectOneRequest(this, SELECT_BY.replace("param",  PARAM_EMAIL), email));
     }
 
     @Override
     public List<User> getAll() throws JDBCException {
-        return JDBCManager.selectRequest(this, SELECT_ALL);
+        return JDBCManager.getInstance().selectRequest(this, SELECT_ALL);
     }
 
     @Override
-public List<User> getUsersByRole(User.Role role) throws JDBCException {
-        return JDBCManager.selectRequest(this, SELECT_BY, PARAM_ROLE, String.valueOf(role.getValue()));
+    public List<User> getUsersByRole(User.Role role) throws JDBCException {
+        return JDBCManager.getInstance().selectRequest(this, SELECT_BY, PARAM_ROLE, String.valueOf(role.getValue()));
     }
 
-//    public static final String USER_UPDATE = "UPDATE users SET email = ?, password = ?, name = ?, surname = ?, phone_number = ?, role = ? WHERE id = ?;";
     @Override
-    public void update(User obj) throws JDBCException {
-        JDBCManager.updateRequest(SQL.USER_UPDATE,
+    public long update(User obj) throws JDBCException {
+        return JDBCManager.getInstance().updateRequest(SQL.USER_UPDATE,
                 obj.getEmail(), obj.getPassword(),
                 obj.getName(), obj.getSurname(), obj.getPhoneNumber(),
                 String.valueOf(obj.getRole().getValue()), String.valueOf(obj.getId()));
@@ -76,6 +75,6 @@ public List<User> getUsersByRole(User.Role role) throws JDBCException {
 
     @Override
     public void delete(long id) throws JDBCException {
-        JDBCManager.updateRequest(DELETE, String.valueOf(id));
+        JDBCManager.getInstance().updateRequest(DELETE, String.valueOf(id));
     }
 }

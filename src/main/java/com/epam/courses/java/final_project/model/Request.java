@@ -2,6 +2,7 @@ package com.epam.courses.java.final_project.model;
 
 import java.sql.Date;
 import java.util.Locale;
+import java.util.Objects;
 
 /**
  * The {@code Request} class represent corresponding entity from database.
@@ -144,5 +145,18 @@ public class Request extends Reservation {
                 ", email=" + getUserEmail() +
                 ", roomNumber=" + getRoomNumber() +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Request request = (Request) o;
+        return Double.compare(request.price, price) == 0 && adultsAmount == request.adultsAmount && childrenAmount == request.childrenAmount && status == request.status && Objects.equals(managerAcceptance.toString(), request.managerAcceptance.toString());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(status, price, adultsAmount, childrenAmount, managerAcceptance);
     }
 }

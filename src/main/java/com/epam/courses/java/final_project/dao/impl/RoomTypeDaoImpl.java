@@ -20,10 +20,10 @@ public class RoomTypeDaoImpl implements RoomTypeDao {
     private static final String DELETE;
 
     static {
-        SELECT_BY = JDBCManager.setTableName(SQL.SELECT_BY, TABLE_ROOM_TYPE);
-        SELECT_ALL = JDBCManager.setTableName(SQL.SELECT_ALL, TABLE_ROOM_TYPE);
-        DELETE = JDBCManager.setTableName(SQL.DELETE, TABLE_ROOM_TYPE);
-        SELECT_IMG = JDBCManager.setTableName(SQL.SELECT_BY, TABLE_IMG);
+        SELECT_BY = JDBCManager.getInstance().setTableName(SQL.SELECT_BY, TABLE_ROOM_TYPE);
+        SELECT_ALL = JDBCManager.getInstance().setTableName(SQL.SELECT_ALL, TABLE_ROOM_TYPE);
+        DELETE = JDBCManager.getInstance().setTableName(SQL.DELETE, TABLE_ROOM_TYPE);
+        SELECT_IMG = JDBCManager.getInstance().setTableName(SQL.SELECT_BY, TABLE_IMG);
     }
 
     @Override
@@ -37,7 +37,7 @@ public class RoomTypeDaoImpl implements RoomTypeDao {
 
     @Override
     public long create(RoomType obj) throws JDBCException {
-        return JDBCManager.updateRequest(SQL.ROOM_TYPE_INSERT,
+        return JDBCManager.getInstance().updateRequest(SQL.ROOM_TYPE_INSERT,
                 String.valueOf(obj.getCapacity()),
                 obj.getBedsType(),
                 String.valueOf(obj.getRoomClass().getValue()),
@@ -46,36 +46,36 @@ public class RoomTypeDaoImpl implements RoomTypeDao {
 
     @Override
     public Optional<RoomType> getById(long id) throws JDBCException {
-        return Optional.ofNullable(JDBCManager.selectOneRequest(this,
+        return Optional.ofNullable(JDBCManager.getInstance().selectOneRequest(this,
                 SELECT_BY.replace("param", PARAM_ID), String.valueOf(id)));
     }
 
     @Override
-    public List<RoomType> getRoomTypesByCapacity(int capacity) throws JDBCException {
-        return JDBCManager.selectRequest(this,
+    public List<RoomType> getByCapacity(int capacity) throws JDBCException {
+        return JDBCManager.getInstance().selectRequest(this,
                 SELECT_BY.replace("param", PARAM_CAPACITY), String.valueOf(capacity));
     }
 
     @Override
-    public List<RoomType> getRoomTypesByBedsTypes(String bedsTypes) throws JDBCException {
-        return JDBCManager.selectRequest(this,
-                SELECT_BY.replace("param", PARAM_BED_TYPE), bedsTypes);
+    public List<RoomType> getByBedsType(String bedsType) throws JDBCException {
+        return JDBCManager.getInstance().selectRequest(this,
+                SELECT_BY.replace("param", PARAM_BED_TYPE), bedsType);
     }
 
     @Override
-    public List<RoomType> getRoomTypesByClass(RoomType.RoomClass roomClass) throws JDBCException {
-        return JDBCManager.selectRequest(this,
+    public List<RoomType> getByClass(RoomType.RoomClass roomClass) throws JDBCException {
+        return JDBCManager.getInstance().selectRequest(this,
                 SELECT_BY.replace("param", PARAM_CLASS), String.valueOf(roomClass.getValue()));
     }
 
     @Override
     public List<RoomType> getAll() throws JDBCException {
-        return JDBCManager.selectRequest(this, SELECT_ALL);
+        return JDBCManager.getInstance().selectRequest(this, SELECT_ALL);
     }
 
     @Override
-    public void update(RoomType obj) throws JDBCException {
-        JDBCManager.updateRequest(SQL.ROOM_TYPE_UPDATE,
+    public long update(RoomType obj) throws JDBCException {
+        return JDBCManager.getInstance().updateRequest(SQL.ROOM_TYPE_UPDATE,
                 String.valueOf(obj.getCapacity()), obj.getBedsType(),
                 String.valueOf(obj.getRoomClass().getValue()),
                 obj.getDescription(),
@@ -84,6 +84,6 @@ public class RoomTypeDaoImpl implements RoomTypeDao {
 
     @Override
     public void delete(long id) throws JDBCException {
-        JDBCManager.updateRequest(DELETE, String.valueOf(id));
+        JDBCManager.getInstance().updateRequest(DELETE, String.valueOf(id));
     }
 }

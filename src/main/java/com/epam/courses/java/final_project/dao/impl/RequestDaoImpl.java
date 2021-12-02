@@ -21,9 +21,9 @@ public class RequestDaoImpl implements RequestDao {
     private static final String DELETE;
 
     static {
-        SELECT_BY = JDBCManager.setTableName(SQL.SELECT_BY, TABLE_REQUEST);
-        SELECT_ALL = JDBCManager.setTableName(SQL.SELECT_ALL, TABLE_REQUEST);
-        DELETE = JDBCManager.setTableName(SQL.DELETE, TABLE_REQUEST);
+        SELECT_BY = JDBCManager.getInstance().setTableName(SQL.SELECT_BY, TABLE_REQUEST);
+        SELECT_ALL = JDBCManager.getInstance().setTableName(SQL.SELECT_ALL, TABLE_REQUEST);
+        DELETE = JDBCManager.getInstance().setTableName(SQL.DELETE, TABLE_REQUEST);
     }
 
     @Override
@@ -38,7 +38,7 @@ public class RequestDaoImpl implements RequestDao {
                 rs.getInt(PARAM_CHILDREN_AMOUNT),
                 RoomType.RoomClass.getRoomClass(rs.getInt(PARAM_CLASS)),
                 Request.Status.getStatus(rs.getInt(PARAM_STATUS)),
-                rs.getInt(PARAM_PRICE)
+                rs.getDouble(PARAM_PRICE)
         );
     }
 
@@ -46,14 +46,14 @@ public class RequestDaoImpl implements RequestDao {
     public long create(Request obj) throws JDBCException {
         long id;
         if (obj.getRoomId() == 0) {
-            id = JDBCManager.updateRequest(SQL.REQUEST_INSERT,
+            id = JDBCManager.getInstance().updateRequest(SQL.REQUEST_INSERT,
                     String.valueOf(obj.getUserId()), null,
                     obj.getFrom().toString(), obj.getTo().toString(),
                     String.valueOf(obj.getAdultsAmount()), String.valueOf(obj.getChildrenAmount()),
                     String.valueOf(obj.getRc().getValue()), String.valueOf(obj.getStatus().getValue()),
                     String.valueOf(obj.getPrice()));
         } else {
-            id = JDBCManager.updateRequest(SQL.REQUEST_INSERT,
+            id = JDBCManager.getInstance().updateRequest(SQL.REQUEST_INSERT,
                     String.valueOf(obj.getUserId()), String.valueOf(obj.getRoomId()),
                     obj.getFrom().toString(), obj.getTo().toString(),
                     String.valueOf(obj.getAdultsAmount()), String.valueOf(obj.getChildrenAmount()),
@@ -66,36 +66,36 @@ public class RequestDaoImpl implements RequestDao {
 
     @Override
     public Optional<Request> getById(long id) throws JDBCException {
-        return Optional.ofNullable(JDBCManager.selectOneRequest(this,
+        return Optional.ofNullable(JDBCManager.getInstance().selectOneRequest(this,
                 SELECT_BY.replace("param", PARAM_ID), String.valueOf(id)));
     }
 
     @Override
     public List<Request> getUserRequests(Long user_id) throws JDBCException {
-        return JDBCManager.selectRequest(this,
+        return JDBCManager.getInstance().selectRequest(this,
                 SELECT_BY.replace("param", PARAM_USER_ID), String.valueOf(user_id));
     }
 
     @Override
     public List<Request> getRequestsByStatus(Request.Status status) throws JDBCException {
-        return JDBCManager.selectRequest(this,
+        return JDBCManager.getInstance().selectRequest(this,
                 SELECT_BY.replace("param", PARAM_STATUS), String.valueOf(status.getValue()));
     }
 
     @Override
-    public List<Request> getRequestsByDate(Date from, Date to) throws JDBCException {
-        return JDBCManager.selectRequest(this,
+    public List<Request> getByDate(Date from, Date to) throws JDBCException {
+        return JDBCManager.getInstance().selectRequest(this,
                 SQL.REQUESTED_ROOMS, to.toString(), from.toString());
     }
 
     @Override
     public List<Request> getAll() throws JDBCException {
-        return JDBCManager.selectRequest(this, SELECT_ALL);
+        return JDBCManager.getInstance().selectRequest(this, SELECT_ALL);
     }
 
     @Override
-    public void update(Request obj) throws JDBCException {
-        JDBCManager.updateRequest(SQL.REQUEST_UPDATE,
+    public long update(Request obj) throws JDBCException {
+        return JDBCManager.getInstance().updateRequest(SQL.REQUEST_UPDATE,
                 String.valueOf(obj.getUserId()), String.valueOf(obj.getRoomId()),
                 obj.getFrom().toString(), obj.getTo().toString(),
                 String.valueOf(obj.getAdultsAmount()), String.valueOf(obj.getChildrenAmount()),
@@ -105,6 +105,6 @@ public class RequestDaoImpl implements RequestDao {
 
     @Override
     public void delete(long id) throws JDBCException {
-        JDBCManager.updateRequest(DELETE, String.valueOf(id));
+        JDBCManager.getInstance().updateRequest(DELETE, String.valueOf(id));
     }
 }

@@ -1,5 +1,7 @@
 package com.epam.courses.java.final_project.model;
 
+import java.util.Objects;
+
 /**
  * The {@code Room} class represent corresponding entity from database.
  * {@code Room} have to belong to one of {@code RoomType}'s.
@@ -13,6 +15,8 @@ public class Room {
     private int floor;
     private long roomTypeId;
     private RoomType roomType;
+
+    public Room(){}
 
     public Room(long id, int roomNumber, int floor, long roomTypeId) {
         this.id = id;
@@ -69,5 +73,18 @@ public class Room {
                 ", floor=" + floor +
                 ", type=" + roomType +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Room room = (Room) o;
+        return id == room.id && roomNumber == room.roomNumber && floor == room.floor && roomTypeId == room.roomTypeId;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, roomNumber, floor, roomTypeId, roomType);
     }
 }
