@@ -28,7 +28,7 @@ public class RoomTypeDaoTest {
 
     @BeforeEach
     void setUp() {
-        rs = TestUtil.setUp();
+        rs = TestUtil.daoSetUp();
     }
 
     @AfterEach

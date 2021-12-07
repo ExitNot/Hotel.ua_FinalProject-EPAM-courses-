@@ -15,7 +15,7 @@ public class TestUtil {
 
     private static final Logger log = LogManager.getLogger(TestUtil.class);
 
-    public static ResultSet setUp() {
+    public static ResultSet daoSetUp() {
         ResultSet rs = null;
         try {
             Connection conn = mock(Connection.class);
@@ -29,5 +29,9 @@ public class TestUtil {
             log.error("Entity creation error", e);
         }
         return rs;
+    }
+
+    public static void serviceSetUp() {
+
     }
 }

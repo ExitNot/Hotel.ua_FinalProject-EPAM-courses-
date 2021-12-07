@@ -26,7 +26,7 @@ public class UserDaoTest {
 
     @BeforeEach
     void setUp() {
-        rs = TestUtil.setUp();
+        rs = TestUtil.daoSetUp();
     }
 
     @AfterEach

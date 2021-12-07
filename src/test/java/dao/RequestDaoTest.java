@@ -5,6 +5,7 @@ import com.epam.courses.java.final_project.dao.impl.jdbc.JDBCException;
 import com.epam.courses.java.final_project.dao.impl.jdbc.JDBCManager;
 import com.epam.courses.java.final_project.model.Request;
 import com.epam.courses.java.final_project.model.RoomType;
+import com.epam.courses.java.final_project.model.User;
 import com.epam.courses.java.final_project.util.Util;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -30,7 +31,7 @@ public class RequestDaoTest {
 
     @BeforeEach
     void setUp() {
-        rs = TestUtil.setUp();
+        rs = TestUtil.daoSetUp();
     }
 
     @AfterEach
@@ -57,7 +58,7 @@ public class RequestDaoTest {
                 Util.getToday(),
                 Util.getToday(),
                 1, 1, RoomType.RoomClass.Standard,
-                com.epam.courses.java.final_project.model.Request.Status.ManagerResponse, 0.0);
+                Request.Status.ManagerResponse, 0.0);
     }
 
     @Test
@@ -88,6 +89,23 @@ public class RequestDaoTest {
     }
 
     @Test
+    void createWithoutAssignedRoomTest() {
+        try {
+            when(rs.next()).thenReturn(true);
+            when(rs.getLong(1)).thenReturn(1L);
+            Request request = new Request(1L, Util.getToday(), Util.getToday(), 1, 1,
+                    Request.Status.ManagerResponse, 0.0);
+            request.setRc(RoomType.RoomClass.Standard);
+
+            long id = dao.create(request);
+
+            Assertions.assertEquals(1L, id);
+        } catch (SQLException | JDBCException e) {
+            log.error("Test error", e);
+        }
+    }
+
+    @Test
     void getByIdTest() {
         try {
             rsEntityCreationInit();
@@ -109,8 +127,8 @@ public class RequestDaoTest {
             when(rs.next()).thenReturn(true, true, false);
             when(rs.getLong(anyString())).thenReturn(1L, 2L);
             when(rs.getDate(anyString())).thenReturn(Util.getToday());
-            when(rs.getInt(anyString())).thenReturn(1, 1, 1, 1, 1, 1, 1, 1);
-            when(rs.getDouble(anyString())).thenReturn(0.0, 0.0);
+            when(rs.getInt(anyString())).thenReturn(1);
+            when(rs.getDouble(anyString())).thenReturn(0.0);
             List<Request> list = dao.getAll();
             List<Request> expectedList = List.of(
                     generateEntity(1L),
@@ -129,8 +147,8 @@ public class RequestDaoTest {
             when(rs.next()).thenReturn(true, true, false);
             when(rs.getLong(anyString())).thenReturn(1L, 2L);
             when(rs.getDate(anyString())).thenReturn(Util.getToday());
-            when(rs.getInt(anyString())).thenReturn(1, 1, 1, 1, 1, 1, 1, 1);
-            when(rs.getDouble(anyString())).thenReturn(0.0, 0.0);
+            when(rs.getInt(anyString())).thenReturn(1);
+            when(rs.getDouble(anyString())).thenReturn(0.0);
             List<Request> list = dao.getUserRequests(1L);
             List<Request> expectedList = List.of(
                     generateEntity(1L),
@@ -149,8 +167,8 @@ public class RequestDaoTest {
             when(rs.next()).thenReturn(true, true, false);
             when(rs.getLong(anyString())).thenReturn(1L, 2L);
             when(rs.getDate(anyString())).thenReturn(Util.getToday());
-            when(rs.getInt(anyString())).thenReturn(1, 1, 1, 1, 1, 1, 1, 1);
-            when(rs.getDouble(anyString())).thenReturn(0.0, 0.0);
+            when(rs.getInt(anyString())).thenReturn(1);
+            when(rs.getDouble(anyString())).thenReturn(0.0);
             List<Request> list = dao.getRequestsByStatus(Request.Status.ManagerResponse);
             List<Request> expectedList = List.of(
                     generateEntity(1L),
@@ -169,8 +187,8 @@ public class RequestDaoTest {
             when(rs.next()).thenReturn(true, true, false);
             when(rs.getLong(anyString())).thenReturn(1L, 2L);
             when(rs.getDate(anyString())).thenReturn(Util.getToday());
-            when(rs.getInt(anyString())).thenReturn(1, 1, 1, 1, 1, 1, 1, 1);
-            when(rs.getDouble(anyString())).thenReturn(0.0, 0.0);
+            when(rs.getInt(anyString())).thenReturn(1);
+            when(rs.getDouble(anyString())).thenReturn(0.0);
             List<Request> list = dao.getByDate(Util.getToday(), Util.getToday());
             List<Request> expectedList = List.of(
                     generateEntity(1L),

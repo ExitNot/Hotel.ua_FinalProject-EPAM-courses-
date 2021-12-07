@@ -22,13 +22,6 @@ public class Reservation {
     private String userEmail;
     private RoomType rt;
 
-    public Reservation(long userId, long roomId, Date from, Date to) {
-        this.userId = userId;
-        this.roomId = roomId;
-        this.from = from;
-        this.to = to;
-    }
-
     public Reservation(long userId, long roomId, Date from, Date to, int guestsAmount) {
         id = 0;
         this.userId = userId;

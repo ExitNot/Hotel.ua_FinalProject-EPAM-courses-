@@ -10,6 +10,7 @@ import org.apache.logging.log4j.Logger;
 
 import java.sql.Date;
 import java.util.Calendar;
+import java.util.Iterator;
 import java.util.List;
 
 import static com.epam.courses.java.final_project.util.constant.Constant.LOG_TRACE;
@@ -20,18 +21,22 @@ public class ReservationService {
 
     public static List<Reservation> getByDate(Date from, Date to) throws JDBCException {
         List<Reservation> out = DAOFactory.getInstance().getReservationDao().getByDate(from, to);
-        for (Reservation r : out){
-            if (!validateWaitingTime(r))
-                out.remove(r);
+        Iterator<Reservation> it = out.iterator();
+        while (it.hasNext()){
+            if (!validateWaitingTime(it.next())){
+                it.remove();
+            }
         }
         return out;
     }
 
     public static List<Reservation> getByUser(Long id) throws JDBCException {
         List<Reservation> out = DAOFactory.getInstance().getReservationDao().getUserReservations(id);
-        for (Reservation r : out){
-            if (!validateWaitingTime(r))
-                out.remove(r);
+        Iterator<Reservation> it = out.iterator();
+        while (it.hasNext()){
+            if (!validateWaitingTime(it.next())){
+                it.remove();
+            }
         }
         return out;
     }
@@ -39,10 +44,6 @@ public class ReservationService {
     public static void createByRequest(Request req) throws JDBCException {
         DAOFactory.getInstance().getReservationDao().create(new Reservation(req.getUserId(), req.getRoomId(),
                 req.getFrom(), req.getTo(), req.getGuestsAmount()));
-    }
-
-    public static void createByRoom(Long userId, Long roomId, Date from, Date to) throws JDBCException {
-        DAOFactory.getInstance().getReservationDao().create(new Reservation(userId, roomId, from, to));
     }
 
     private static boolean validateWaitingTime(Reservation res) throws JDBCException {

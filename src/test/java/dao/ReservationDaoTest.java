@@ -4,7 +4,6 @@ import com.epam.courses.java.final_project.dao.impl.ReservationDaoImpl;
 import com.epam.courses.java.final_project.dao.impl.jdbc.JDBCException;
 import com.epam.courses.java.final_project.dao.impl.jdbc.JDBCManager;
 import com.epam.courses.java.final_project.model.Reservation;
-import com.epam.courses.java.final_project.model.RoomType;
 import com.epam.courses.java.final_project.util.Util;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -30,7 +29,7 @@ public class ReservationDaoTest {
 
     @BeforeEach
     void setUp() {
-        rs = TestUtil.setUp();
+        rs = TestUtil.daoSetUp();
     }
 
     @AfterEach

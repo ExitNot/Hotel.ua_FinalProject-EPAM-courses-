@@ -1,5 +1,6 @@
 package com.epam.courses.java.final_project.model;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 import java.util.regex.Matcher;
@@ -149,7 +150,11 @@ public class RoomType {
     @Override
     public String toString() {
         return "RoomType{" +
-                "roomClass=" + roomClass.name() +
+                "id=" + id +
+                ", capacity=" + capacity +
+                ", bedsType='" + bedsType + '\'' +
+                ", roomClass=" + roomClass +
+                ", description='" + description + '\'' +
                 '}';
     }
 

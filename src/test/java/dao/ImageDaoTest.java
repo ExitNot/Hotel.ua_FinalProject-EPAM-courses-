@@ -4,8 +4,6 @@ import com.epam.courses.java.final_project.dao.impl.ImageDaoImpl;
 import com.epam.courses.java.final_project.dao.impl.jdbc.JDBCException;
 import com.epam.courses.java.final_project.dao.impl.jdbc.JDBCManager;
 import com.epam.courses.java.final_project.model.Image;
-import com.epam.courses.java.final_project.model.RoomType;
-import com.epam.courses.java.final_project.util.Util;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.junit.jupiter.api.AfterEach;
@@ -29,7 +27,7 @@ public class ImageDaoTest {
 
     @BeforeEach
     void setUp() {
-        rs = TestUtil.setUp();
+        rs = TestUtil.daoSetUp();
     }
 
     @AfterEach
