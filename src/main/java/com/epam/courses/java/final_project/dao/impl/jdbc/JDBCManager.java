@@ -28,7 +28,7 @@ public class JDBCManager {
         T out = null;
         try {
             ps = createStatement(sql, params);
-            log.trace(ps);
+//            log.trace(ps);
             rs = ps.executeQuery();
             if (rs.next())
                 out = dao.createEntity(rs);
@@ -46,7 +46,7 @@ public class JDBCManager {
         List<T> list = new ArrayList<>();
         try {
             ps = createStatement(sql, params);
-            log.trace(ps);
+//            log.trace(ps);
             rs = ps.executeQuery();
             while (rs.next()) {
                 list.add(dao.createEntity(rs));
@@ -65,7 +65,7 @@ public class JDBCManager {
         long newId = 0;
         try {
             ps = createStatement(sql, params);
-            log.trace(ps);
+//            log.trace(ps);
             ps.executeUpdate();
             rs = ps.getGeneratedKeys();
             if (rs.next())

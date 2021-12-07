@@ -15,17 +15,17 @@
 
     window.onload = function () {
         <c:if test="${not empty requestResponseEx}">
-        document.getElementById("error_modal_btn").click();
+            document.getElementById("error_modal_btn").click();
         </c:if>
     }
 
-    function choose(id, roomNumber) {
-        document.getElementById("hiddenRoomId").value = id;
-        document.getElementById("hiddenRoomNumber").value = roomNumber;
+    function choose(reqId, roomId, roomNumber) {
+        document.getElementById("hiddenRoomId" + reqId).value = roomId;
+        document.getElementById("hiddenRoomNumber" + reqId).value = roomNumber;
         var aTag = document.createElement("a");
         aTag.append(roomNumber);
-        document.getElementById("choose_room_btn").replaceWith(aTag);
-        $('#chooseRoomModal').modal('toggle');
+        document.getElementById("choose_room_btn" + reqId).replaceWith(aTag);
+        $('#chooseRoomModal' + reqId).modal('toggle');
     }
 
 </script>
@@ -51,45 +51,47 @@
                     </tr>
                     </thead>
                     <tbody>
-                    <tr class="text-center">
-                        <td>${request.userEmail}</td>
-                        <td>${request.from}</td>
-                        <td>${request.to}</td>
-                        <td>${request.guestsAmount}</td>
-                        <td>
-                            <c:choose>
-                                <c:when test="${not empty request.roomType}">
-                                    <a class="link-info" href="#"
-                                       onclick="document.getElementById('info_form${request.id}').submit();">
-                                            ${request.roomType.roomClass} with ${request.roomType.parsedBedsType}
-                                    </a>
-                                </c:when>
-                                <c:otherwise>
-                                    <a>
-                                            ${request.rc}
-                                    </a>
-                                </c:otherwise>
-                            </c:choose>
-                        </td>
-                        <td>
-                            <input class="form-control" type="number" name="price"
-                                   form="responseRequestForm" value="${request.price}">
-                        </td>
-                        <td>${request.statusName}</td>
-                        <td>
-                            <c:choose>
-                                <c:when test="${request.roomNumber == 0}">
-                                    <a href="#" id="choose_room_btn" class="link" data-toggle="modal"
-                                       data-target="#chooseRoomModal">
-                                        Choose
-                                    </a>
-                                </c:when>
-                                <c:otherwise>
-                                    ${request.roomNumber}
-                                </c:otherwise>
-                            </c:choose>
-                        </td>
-                    </tr>
+                    <c:forEach var="request" items="${requestBundle}">
+                        <tr class="text-center">
+                            <td>${request.userEmail}</td>
+                            <td>${request.from}</td>
+                            <td>${request.to}</td>
+                            <td>${request.guestsAmount}</td>
+                            <td>
+                                <c:choose>
+                                    <c:when test="${not empty request.roomType}">
+                                        <a class="link-info" href="#"
+                                           onclick="document.getElementById('info_form${request.id}').submit();">
+                                                ${request.roomType.roomClass} with ${request.roomType.parsedBedsType}
+                                        </a>
+                                    </c:when>
+                                    <c:otherwise>
+                                        <a>
+                                                ${request.rc}
+                                        </a>
+                                    </c:otherwise>
+                                </c:choose>
+                            </td>
+                            <td>
+                                <input class="form-control" type="number" name="price${request.id}"
+                                       form="responseRequestForm" value="${request.price}">
+                            </td>
+                            <td>${request.statusName}</td>
+                            <td>
+                                <c:choose>
+                                    <c:when test="${request.roomNumber == 0}">
+                                        <a href="#" id="choose_room_btn${request.id}" class="link" data-toggle="modal"
+                                           data-target="#chooseRoomModal${request.id}">
+                                            Choose
+                                        </a>
+                                    </c:when>
+                                    <c:otherwise>
+                                        ${request.roomNumber}
+                                    </c:otherwise>
+                                </c:choose>
+                            </td>
+                        </tr>
+                    </c:forEach>
                     </tbody>
                 </table>
                 <div class="row mt-3"
@@ -102,53 +104,58 @@
     </div>
 
     <form id="responseRequestForm" action="requestResponse.act" method="post">
-        <input type="hidden" name="requestId" value="${request.id}"/>
-        <input id="hiddenRoomId" type="hidden" name="chosenRoomId"/>
-        <input id="hiddenRoomNumber" type="hidden" name="chosenRoomNumber"/>
+<%--        <input type="hidden" name="requestBundle" value="${requestBundle}"/>--%>
+        <c:set var="requestBundle" value="${requestBundle}" scope="session"/>
+        <c:forEach items="${requestBundle}" var="request">
+            <input id="hiddenRoomId${request.id}" type="hidden" name="chosenRoomId${request.id}"/>
+            <input id="hiddenRoomNumber${request.id}" type="hidden" name="chosenRoomNumber${request.id}"/>
+        </c:forEach>
     </form>
 
-    <!-- choose room modal -->
-    <div class="modal fade" id="chooseRoomModal" tabindex="-1" role="dialog"
-         aria-labelledby="ModalCenterTitle" aria-hidden="false">
-        <div class="modal-dialog modal-xl" style="max-width: 80%;" role="form">
-            <div class="modal-content">
-                <div class="modal-body">
-                    <c:choose>
-                        <c:when test="${empty roomsList}">
-                            <h3>No such rooms available</h3>
-                        </c:when>
-                        <c:otherwise>
-                            <table class="table table-bordered text-center">
-                                <thead style="background-color: mediumslateblue; color: white">
-                                <tr>
-                                    <th class="col-1"><fmt:message key="room.label.roomNumber"/></th>
-                                    <th class="col-1"><fmt:message key="room.label.floor"/></th>
-                                    <th class="col-4"><fmt:message key="room.label.beds"/></th>
-                                    <th class="col-3"><fmt:message key="room.label.roomClass"/></th>
-                                    <th class="col-3">Choose</th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                <c:forEach var="room" items="${roomsList}">
-                                    <tr class="text-center">
-                                        <td>${room.roomNumber}</td>
-                                        <td>${room.floor}</td>
-                                        <td>${room.roomType.parsedBedsType}</td>
-                                        <td>${room.roomType.roomClass}</td>
-                                        <td>
-                                            <a href="#" class="btn-link border-0"
-                                               onclick="choose(${room.id}, ${room.roomNumber})">Choose</a>
-                                        </td>
+    <c:forEach var="request" items="${requestBundle}">
+        <!-- choose room modal -->
+        <div class="modal fade" id="chooseRoomModal${request.id}" tabindex="-1" role="dialog"
+             aria-labelledby="ModalCenterTitle" aria-hidden="false">
+            <div class="modal-dialog modal-xl" style="max-width: 80%;" role="form">
+                <div class="modal-content">
+                    <div class="modal-body">
+                        <c:choose>
+                            <c:when test="${empty request.roomList}">
+                                <h3>No such rooms available</h3>
+                            </c:when>
+                            <c:otherwise>
+                                <table class="table table-bordered text-center">
+                                    <thead style="background-color: mediumslateblue; color: white">
+                                    <tr>
+                                        <th class="col-1"><fmt:message key="room.label.roomNumber"/></th>
+                                        <th class="col-1"><fmt:message key="room.label.floor"/></th>
+                                        <th class="col-4"><fmt:message key="room.label.beds"/></th>
+                                        <th class="col-3"><fmt:message key="room.label.roomClass"/></th>
+                                        <th class="col-3">Choose</th>
                                     </tr>
-                                </c:forEach>
-                                </tbody>
-                            </table>
-                        </c:otherwise>
-                    </c:choose>
+                                    </thead>
+                                    <tbody>
+                                    <c:forEach var="room" items="${request.roomList}">
+                                        <tr class="text-center">
+                                            <td>${room.roomNumber}</td>
+                                            <td>${room.floor}</td>
+                                            <td>${room.roomType.parsedBedsType}</td>
+                                            <td>${room.roomType.roomClass}</td>
+                                            <td>
+                                                <a href="#" class="btn-link border-0"
+                                                   onclick="choose(${request.id}, ${room.id}, ${room.roomNumber})">Choose</a>
+                                            </td>
+                                        </tr>
+                                    </c:forEach>
+                                    </tbody>
+                                </table>
+                            </c:otherwise>
+                        </c:choose>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
+    </c:forEach>
 
     <a href="#" type="hidden" id="error_modal_btn" data-toggle="modal" data-target="#errorModal"></a>
 

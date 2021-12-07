@@ -1,6 +1,7 @@
 package com.epam.courses.java.final_project.model;
 
 import java.sql.Date;
+import java.util.List;
 import java.util.Locale;
 import java.util.Objects;
 
@@ -19,6 +20,7 @@ public class Request extends Reservation {
     int childrenAmount;
     Date managerAcceptance;
     RoomType.RoomClass rc;
+    List<Room> roomList;
 
     public Request(long userId, Date from, Date to, int adultsAmount, int childrenAmount, Status status, double price) {
         super(userId, 0, from, to, adultsAmount + childrenAmount);
@@ -106,6 +108,14 @@ public class Request extends Reservation {
         this.rc = rc;
     }
 
+    public List<Room> getRoomList() {
+        return roomList;
+    }
+
+    public void setRoomList(List<Room> roomList) {
+        this.roomList = roomList;
+    }
+
     public enum Status {
         ManagerResponse(1), CustomerAccept(2), Payment(3), Canceled(4);
 
@@ -140,6 +150,7 @@ public class Request extends Reservation {
                 ", roomId=" + roomId +
                 ", from=" + from +
                 ", to=" + to +
+                ", managerAcceptance=" + managerAcceptance +
                 ", adultsAmount=" + adultsAmount +
                 ", childrenAmount=" + childrenAmount +
                 ", email=" + getUserEmail() +

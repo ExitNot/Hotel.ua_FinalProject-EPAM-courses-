@@ -35,28 +35,33 @@ public class RequestCommand implements Command {
         List<Room> availableRooms = null;
 
         if (oRequest.isPresent()){
-            Request r = oRequest.get();
-            availableRooms = getAvailableRooms(r.getFrom().toString(), r.getTo().toString());
+            List<Request> requestsBundle = RequestService.getBundleRequest(oRequest.get().getUserId(),
+                    oRequest.get().getFrom(), oRequest.get().getTo());
 
-            if (req.getParameter(PARAM_ASSIGNED_ROOM_ID) != null){
-                assignedRoomId = Long.parseLong(req.getParameter(PARAM_ASSIGNED_ROOM_ID));
-                r.setRoomId(assignedRoomId);
-                RequestService.update(r);
+            for (Request r : requestsBundle){
+                availableRooms = getAvailableRooms(r.getFrom().toString(), r.getTo().toString());
+
+                if (req.getParameter(PARAM_ASSIGNED_ROOM_ID) != null){
+                    assignedRoomId = Long.parseLong(req.getParameter(PARAM_ASSIGNED_ROOM_ID));
+                    r.setRoomId(assignedRoomId);
+                    RequestService.update(r);
+                }
+
+                if (r.getRoomId() != 0)
+                    RoomService.getById(r.getRoomId()).ifPresent(room -> r.setRoomNumber(room.getRoomNumber()));
+                UserService.getById(r.getUserId()).ifPresent(user -> r.setUserEmail(user.getEmail()));
+
+                //        Insert RoomType
+                for (Room room : availableRooms){
+                    RoomTypeService.getById(room.getRoomTypeId()).ifPresent(room::setRoomType);
+                }
+
+                availableRooms.removeIf(a -> a.getRoomType().getCapacity() < r.getGuestsAmount());
+                r.setRoomList(availableRooms);
             }
 
-            if (r.getRoomId() != 0)
-                RoomService.getById(r.getRoomId()).ifPresent(room -> r.setRoomNumber(room.getRoomNumber()));
-            UserService.getById(r.getUserId()).ifPresent(user -> r.setUserEmail(user.getEmail()));
-
-            //        Insert RoomType
-            for (Room room : availableRooms){
-                RoomTypeService.getById(room.getRoomTypeId()).ifPresent(room::setRoomType);
-            }
-
-            availableRooms.removeIf(a -> a.getRoomType().getCapacity() < r.getGuestsAmount());
-
-            req.getSession().setAttribute(ATTRIBUTE_REQUEST, r);
-            req.getSession().setAttribute(ATTRIBUTE_ROOMS_LIST, availableRooms);
+            log.trace(requestsBundle.get(0).getRoomList());
+            req.getSession().setAttribute("requestBundle", requestsBundle);
         }
 
         return new Response(Response.Direction.Redirect, REQUEST_RESPONSE_JSP);
