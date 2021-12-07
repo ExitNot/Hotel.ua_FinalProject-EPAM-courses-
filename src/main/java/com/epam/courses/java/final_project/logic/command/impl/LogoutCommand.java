@@ -13,6 +13,7 @@ public class LogoutCommand implements Command {
 
     @Override
     public Response execute(HttpServletRequest req, HttpServletResponse resp) throws JDBCException {
+        req.getSession().removeAttribute(ATTRIBUTE_EMAIL);
         req.getSession().removeAttribute(ATTRIBUTE_ID);
         req.getSession().removeAttribute(ATTRIBUTE_ROLE);
         return new Response(Response.Direction.Redirect, INDEX_JSP);

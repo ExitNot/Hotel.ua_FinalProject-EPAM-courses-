@@ -28,9 +28,7 @@ public class RequestResponseCommand implements Command {
     @Override
     public Response execute(HttpServletRequest req, HttpServletResponse resp) throws JDBCException {
 
-        List<Request> requestsBundle = (List<Request>) req.getSession().getAttribute("requestBundle");  // RequestService.getBundleRequest(request.get().getId(), request.get().getFrom(), request.get().getTo())
-//        log.trace("requestsBundle =========================");
-//        log.trace(requestsBundle);
+        List<Request> requestsBundle = (List<Request>) req.getSession().getAttribute("requestBundle");
         for (Request r : requestsBundle){
             if (req.getParameter("price" + r.getId()).isEmpty()){
                 req.getSession().setAttribute("requestResponseEx", "Price field was empty");
@@ -58,16 +56,6 @@ public class RequestResponseCommand implements Command {
                 }
             }
         }
-//        req.getSession().setAttribute("requestBundle", requestsBundle);
-//            Optional<User> user = UserService.getById(r.getUserId());
-//            MailManager.getInstance().sendEmail(r.getUserEmail(),
-//                    MailManager.requestResponseMailTemplate(user.get().getName(), user.get().getSurname()));
-//        Optional<Request> request = RequestService.getById(Long.parseLong(req.getParameter(PARAM_REQUEST_ID)));
-//        if (request.isPresent()){
-//
-//        } else {
-//            log.error("Request was not found");
-//        }
 
         return new Response(Response.Direction.Redirect, REQUEST_LIST_ACT);
     }

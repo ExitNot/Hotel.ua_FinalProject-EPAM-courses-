@@ -144,12 +144,6 @@
                             <input type="password" class="form-control" id="pwd" name="pwd"
                                    placeholder="<fmt:message key="acc.label.pwd"/>">
                         </div>
-<%--                        <div class="form-check pl-1">--%>
-<%--                            <label class="form-check-label ml-4">--%>
-<%--                                <input type="checkbox" class="form-check-input col-md-1 w-25" id="dropdownCheck">--%>
-<%--                                <a class="col-md-2"><fmt:message key="acc.label.rememberMe"/></a>--%>
-<%--                            </label>--%>
-<%--                        </div>--%>
                     </form>
                 </div>
                 <div class="modal-footer">

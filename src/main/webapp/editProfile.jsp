@@ -13,9 +13,13 @@
 
 <script>
 
-    window.onclick = function () {
+    window.onload = function () {
         var current = document.getElementsByClassName("active");
         current[0].className = current[0].className.replace(" active", "");
+
+        <c:if test="${not empty userUpdateEx}">
+        document.getElementById("error_modal_btn").click();
+        </c:if>
     }
 
 </script>
@@ -57,7 +61,8 @@
                     </div>
                     <div class="row mt-3" style="background-color: mediumslateblue; margin-left: -20px; margin-right: -20px">
                         <div class="col">
-                            <a href="#" class="btn w-100" style="color: white">  <%-- todo finsh pwd change --%>
+                            <a href="#" class="btn w-100" data-toggle="modal" data-target="#pwdChangeModal"
+                               style="color: white">
                                 <fmt:message key="edit.button.changePwd"/>
                             </a>
                         </div>
@@ -77,8 +82,49 @@
     <div class="modal fade" id="pwdChangeModal" tabindex="-1" role="dialog" aria-labelledby="modalCenterTitle" aria-hidden="false">
         <div class="modal-dialog modal-dialog-centered modal-md" role="form">
             <div class="modal-content">
-                <div class="modal-body justify-content-center mt-3">
-                    <form action="pwdChange.act"></form>
+                <div class="modal-body justify-content-center mt-3 py-1">
+                    <form action="pwdUpdate.act" method="post" id="pwdUpdate">
+                        <div class="form-row">
+                            <label class="col">
+                                Old password:
+                                <input class="form-control" type="password" name="pwd"
+                                       placeholder="Old password" required><br/>
+                            </label>
+                        </div>
+                        <div class="form-row">
+                            <label class="col">
+                                New password:
+                                <input class="form-control" type="password" name="newPwd"
+                                       placeholder="New password" pattern="^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$" required><br/>
+                            </label>
+                        </div>
+                        <div class="form-row">
+                            <label class="col">
+                                Confirm new password:
+                                <input class="form-control" type="password" name="newPwdConfirmation" placeholder="Confirm password" required><br/>
+                            </label>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer mb-0 py-0"
+                     style="height: 40px; background-color: mediumslateblue; border-top: solid black;">
+                    <input class="btn-link border-0" type="submit" form="pwdUpdate" style="color: white"/>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <a href="#" type="hidden" id="error_modal_btn" data-toggle="modal" data-target="#errorModal"></a>
+
+    <!-- Error modal -->
+    <div class="modal fade" id="errorModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="false">
+        <div class="modal-dialog modal-dialog-centered modal-sm" role="form">
+            <div class="modal-content">
+                <div class="modal-header d-flex justify-content-center pb-0">
+                    <h5 class="mt-1" style="color: red">Error</h5>
+                </div>
+                <div class="modal-body justify-content-center">
+                        ${userUpdateEx}
                 </div>
             </div>
         </div>
