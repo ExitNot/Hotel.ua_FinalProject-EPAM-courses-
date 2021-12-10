@@ -18,3 +18,9 @@ Manager main task is monitoring new requests, choosing the most suitable rooms f
 and sending back a request to confirm the booking.
 
 After successful booking the system creates a bill that has to be paid up, otherwise, it would be canceled in 2 days.
+
+------------------------
+
+## My database
+
+![alt text](https://github.com/ExitNot/Hotel_FinalProject_EPAM_courses/db/db-image.png?raw=true)

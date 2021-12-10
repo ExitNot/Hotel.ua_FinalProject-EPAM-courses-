@@ -1,5 +1,10 @@
 package com.epam.courses.java.final_project.logic.command;
 
+/**
+ * Class represent 3 types of {@code command} {@code response}.
+ *
+ * @author Kostiantyn Kolchenko
+ */
 public class Response {
 
     Direction direction;

@@ -10,10 +10,12 @@ import static com.epam.courses.java.final_project.util.constant.Constant.LOG_TRA
 import java.util.HashMap;
 import java.util.Map;
 
-
 /**
- * (can be said "Invoker" of command pattern) or strategy pattern
- * */
+ * Class store all commands.
+ * (can be said "Invoker" from command pattern)
+ *
+ * @author Kostiantyn Kolchenko
+ */
 public class CommandContainer {
 
     private static final CommandContainer INSTANCE;
