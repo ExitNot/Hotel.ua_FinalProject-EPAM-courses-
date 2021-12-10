@@ -23,4 +23,4 @@ After successful booking the system creates a bill that has to be paid up, other
 
 ## My database
 
-![alt text](https://github.com/ExitNot/Hotel_FinalProject_EPAM_courses/db/db-image.png?raw=true)
+![alt text](https://github.com/ExitNot/Hotel_FinalProject_EPAM_courses/blob/master/db/db-image.png?raw=true)
