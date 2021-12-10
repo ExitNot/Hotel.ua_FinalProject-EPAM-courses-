@@ -44,11 +44,11 @@ public class UserServiceTest {
             when(rs.getLong(anyString())).thenReturn(1L);
             when(rs.getInt(anyString())).thenReturn(1);
             when(rs.getString(anyString())).thenReturn("user@mail.com", "pwd",
-                    "User", "Userov", "1234");
+                    "User", "Userov", "1234", null);
 
             Optional<User> oUser = UserService.getById(1L);
             User expected = new User(1L, "user@mail.com", "pwd",
-                    "User", "Userov", "1234", User.Role.Customer);
+                    "User", "Userov", "1234", null, User.Role.Customer);
 
             oUser.ifPresent(User -> Assertions.assertEquals(expected, User));
         } catch (SQLException e) {
@@ -66,11 +66,11 @@ public class UserServiceTest {
             when(rs.getLong(anyString())).thenReturn(1L);
             when(rs.getInt(anyString())).thenReturn(1);
             when(rs.getString(anyString())).thenReturn("user@mail.com", "pwd",
-                    "User", "Userov", "1234");
+                    "User", "Userov", "1234", null);
 
             Optional<User> oUser = UserService.getByEmail("user@mail.com");
             User expected = new User(1L, "user@mail.com", "pwd",
-                    "User", "Userov", "1234", User.Role.Customer);
+                    "User", "Userov", "1234", null, User.Role.Customer);
 
             oUser.ifPresent(User -> Assertions.assertEquals(expected, User));
         } catch (SQLException e) {

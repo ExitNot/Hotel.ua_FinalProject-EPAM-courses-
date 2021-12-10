@@ -102,12 +102,17 @@ public class RequestService {
 
         if (req.getManagerAcceptance() != null && (req.getStatus() != Request.Status.Canceled)) {
             c = Calendar.getInstance();
-            c.setTime(req.getManagerAcceptance());
-            c.add(Calendar.DATE, 2);
+            if (req.getStatus() != Request.Status.ManagerResponse){
+                c.setTime(req.getTo());
+            } else {
+                c.setTime(req.getManagerAcceptance());
+                c.add(Calendar.DATE, 2);
+            }
             Date deadline = new Date(c.getTimeInMillis());
 
             if (today.after(deadline)) {
                 req.setStatus(Request.Status.Canceled.getValue());
+                req.setManagerAcceptance(Util.getToday());
                 DAOFactory.getInstance().getRequestDao().update(req);
                 log.info("Request status was changed to \"canceled\"");
             }
@@ -115,7 +120,7 @@ public class RequestService {
         if (req.getManagerAcceptance() != null && req.getStatus().equals(Request.Status.Canceled)) {
             c = Calendar.getInstance();
             c.setTime(req.getManagerAcceptance());
-            c.add(Calendar.DATE, 4);
+            c.add(Calendar.DATE, 2);
             Date deadline = new Date(c.getTimeInMillis());
 
             if (today.after(deadline)) {

@@ -3,7 +3,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
-<c:if test="${not empty email}">
+<c:if test="${not empty role}">
     <c:redirect url="index.jsp"></c:redirect>
 </c:if>
 
@@ -68,6 +68,7 @@
                 </div>
                 <div class="modal-body justify-content-center">
                     ${signUpEx}
+<%--                    <c:remove var="signUpEx"/>--%>
                 </div>
             </div>
         </div>

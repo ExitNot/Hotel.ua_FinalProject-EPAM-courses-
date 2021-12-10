@@ -16,12 +16,22 @@
 
     <servlet>
         <servlet-name>Controller</servlet-name>
-        <servlet-class>com.epam.courses.java.final_project.logic.controller.Controller</servlet-class>
+        <servlet-class>com.epam.courses.java.final_project.logic.servlet.Controller</servlet-class>
+    </servlet>
+
+    <servlet>
+        <servlet-name>EmailVerificationServlet</servlet-name>
+        <servlet-class>com.epam.courses.java.final_project.logic.servlet.EmailVerificationServlet</servlet-class>
     </servlet>
 
     <servlet-mapping>
         <servlet-name>Controller</servlet-name>
         <url-pattern>*.act</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>EmailVerificationServlet</servlet-name>
+        <url-pattern>/emailVerify</url-pattern>
     </servlet-mapping>
 
     <filter>

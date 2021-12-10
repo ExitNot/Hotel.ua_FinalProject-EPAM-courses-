@@ -31,6 +31,7 @@ public class UserDaoImpl implements UserDao {
                 rs.getString(PARAM_NAME),
                 rs.getString(PARAM_SURNAME),
                 rs.getString(PARAM_PHONE_NUMBER),
+                rs.getString(PARAM_VERIFICATION),
                 User.Role.getRole(rs.getInt(PARAM_ROLE)));
     }
 
@@ -40,6 +41,7 @@ public class UserDaoImpl implements UserDao {
                 obj.getEmail(), obj.getPassword(),
                 obj.getName(), obj.getSurname(),
                 obj.getPhoneNumber(),
+                obj.getVerification(),
                 String.valueOf(obj.getRole().getValue()));
         obj.setId(id);
         return id;
@@ -69,7 +71,7 @@ public class UserDaoImpl implements UserDao {
     public long update(User obj) throws JDBCException {
         return JDBCManager.getInstance().updateRequest(SQL.USER_UPDATE,
                 obj.getEmail(), obj.getPassword(),
-                obj.getName(), obj.getSurname(), obj.getPhoneNumber(),
+                obj.getName(), obj.getSurname(), obj.getPhoneNumber(), obj.getVerification(),
                 String.valueOf(obj.getRole().getValue()), String.valueOf(obj.getId()));
     }
 

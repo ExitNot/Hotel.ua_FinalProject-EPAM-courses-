@@ -5,6 +5,7 @@ import com.epam.courses.java.final_project.logic.command.Command;
 import com.epam.courses.java.final_project.logic.command.Response;
 import com.epam.courses.java.final_project.model.User;
 import com.epam.courses.java.final_project.service.UserService;
+import com.epam.courses.java.final_project.util.MailManager;
 import com.epam.courses.java.final_project.util.PasswordCryptoPbkdf2;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -19,7 +20,7 @@ import java.util.Optional;
 
 public class SignInCommand implements Command {
 
-    private static final Logger log = LogManager.getLogger(LOG_TRACE);
+    private static final Logger log = LogManager.getLogger(SignInCommand.class);
 
     @Override
     public Response execute(HttpServletRequest req, HttpServletResponse resp) throws JDBCException {
@@ -27,18 +28,25 @@ public class SignInCommand implements Command {
         String email = req.getParameter(PARAM_EMAIL);
         String password = req.getParameter(PARAM_PWD);
 
-        if (req.getParameter(PARAM_ID) != null){  // RM because of filter
+        if (req.getParameter(PARAM_ID) != null) {
             return new Response(Response.Direction.Redirect, INDEX_JSP);
         }
 
+        log.error("error");
         Optional<User> user = UserService.getByEmail(email);
-        if (user.isEmpty()){
+        if (user.isEmpty()) {
             req.getSession().setAttribute(ATTRIBUTE_EMAIL, email);
             req.getSession().setAttribute(ATTRIBUTE_LOGIN_EX, errorMsg);
             return new Response(Response.Direction.Redirect, INDEX_JSP);
-        } else if (!PasswordCryptoPbkdf2.validatePwd(password, user.get().getPassword())){
+        } else if (!PasswordCryptoPbkdf2.validatePwd(password, user.get().getPassword())) {
             req.getSession().setAttribute(ATTRIBUTE_EMAIL, email);
             req.getSession().setAttribute(ATTRIBUTE_LOGIN_EX, errorMsg);
+            return new Response(Response.Direction.Redirect, INDEX_JSP);
+        } else if (user.get().getVerification() != null) {
+            req.getSession().setAttribute(ATTRIBUTE_EMAIL, email);
+            req.getSession().setAttribute(ATTRIBUTE_LOGIN_EX, "Please verify your email first");
+            MailManager.getInstance().sendEmailVerification(email, user.get().getName(),
+                    user.get().getSurname(), user.get().getVerification());
             return new Response(Response.Direction.Redirect, INDEX_JSP);
         }
 

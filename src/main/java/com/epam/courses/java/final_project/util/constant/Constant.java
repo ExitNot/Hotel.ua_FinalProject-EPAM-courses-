@@ -24,6 +24,7 @@ public class Constant {
     public static final String PARAM_NAME = "name";
     public static final String PARAM_SURNAME = "surname";
     public static final String PARAM_PHONE_NUMBER = "phone_number";
+    public static final String PARAM_VERIFICATION = "verification";
     public static final String PARAM_EMAIL = "email";
     public static final String PARAM_ROLE = "role";
 

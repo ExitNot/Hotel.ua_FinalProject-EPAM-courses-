@@ -5,6 +5,7 @@ import com.epam.courses.java.final_project.logic.command.Command;
 import com.epam.courses.java.final_project.logic.command.Response;
 import com.epam.courses.java.final_project.model.User;
 import com.epam.courses.java.final_project.service.UserService;
+import com.epam.courses.java.final_project.util.MailManager;
 import com.epam.courses.java.final_project.util.PasswordCryptoPbkdf2;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -12,8 +13,11 @@ import org.apache.logging.log4j.Logger;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import java.security.SecureRandom;
+
 import static com.epam.courses.java.final_project.util.constant.CommandConstant.*;
 import static com.epam.courses.java.final_project.util.constant.Constant.LOG_TRACE;
+import static com.epam.courses.java.final_project.util.constant.Constant.PARAM_VERIFICATION;
 
 public class SignUpCommand implements Command {
 
@@ -26,6 +30,7 @@ public class SignUpCommand implements Command {
             return new Response(Response.Direction.Forward, SIGN_UP_JSP);
         }
 
+        String verification = String.valueOf(new SecureRandom().nextInt(100000));
         String pwd = req.getParameter(PARAM_PWD);
         if (!pwd.equals(req.getParameter(PARAM_PWD + "Confirmation"))){
             req.getSession().setAttribute(ATTRIBUTE_SIGN_UP_EX, "Passwords were different");
@@ -37,14 +42,14 @@ public class SignUpCommand implements Command {
                 req.getParameter(PARAM_EMAIL),  pwd,
                 req.getParameter(PARAM_NAME),
                 req.getParameter(PARAM_SURNAME),
-                req.getParameter(PARAM_PHONE_NUM));
+                req.getParameter(PARAM_PHONE_NUM),
+                verification);
 
-        log.trace(user.toString());
         long id = UserService.create(user);
 
-        req.getSession().setAttribute(ATTRIBUTE_ID, id);
-        req.getSession().setAttribute(ATTRIBUTE_EMAIL, user.getEmail());
-        req.getSession().setAttribute(ATTRIBUTE_ROLE, user.getRole().name());
+        MailManager.getInstance().sendEmailVerification(user.getEmail(), user.getName(),
+                user.getSurname(), user.getVerification());
+        req.getSession().setAttribute("indexNotification", "Please verify your email");
         return new Response(Response.Direction.Redirect, INDEX_JSP);
     }
 

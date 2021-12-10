@@ -8,6 +8,9 @@
         <c:if test="${not empty loginEx}">
             document.getElementById("sign_in_btn").click();
         </c:if>
+        <c:if test="${not empty indexNotification}">
+            document.getElementById("notification_modal_btn").click();
+        </c:if>
     }
 </script>
 
@@ -51,5 +54,22 @@
             </div>
         </c:forEach>
 
+    </div>
+
+    <a href="#" type="hidden" id="notification_modal_btn" data-toggle="modal" data-target="#notificationModal"></a>
+
+    <!-- Error modal -->
+    <div class="modal fade" id="notificationModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="false">
+        <div class="modal-dialog modal-dialog-centered modal-sm" role="form">
+            <div class="modal-content">
+                <div class="modal-header d-flex justify-content-center pb-0">
+                    <h5 class="mt-1">Notification</h5>
+                </div>
+                <div class="modal-body justify-content-center">
+                        ${indexNotification}
+                    <c:remove var="indexNotification"/>
+                </div>
+            </div>
+        </div>
     </div>
 </t:wrapper>

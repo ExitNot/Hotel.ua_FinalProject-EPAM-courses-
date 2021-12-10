@@ -74,11 +74,11 @@ public class AccessFilter implements Filter {
 
     @Override
     public void init(FilterConfig filterConfig) {
-        log.info("initialization");
+        log.info("Filter ini");
     }
 
     @Override
     public void destroy() {
-        log.info("filter destroyed");
+        log.info("Filter destroyed");
     }
 }

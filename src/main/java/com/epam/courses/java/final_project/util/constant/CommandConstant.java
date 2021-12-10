@@ -38,7 +38,7 @@ public class CommandConstant {
     public static final String PARAM_RESERVATION_ID = "reservationId";
     public static final String PARAM_ROOM_TYPE_ID = "typeId";
     public static final String PARAM_PWD = "pwd";  // User
-    public static final String PARAM_NEW_PWD = "newPwd";  // User
+    public static final String PARAM_NEW_PWD = "newPwd";
     public static final String PARAM_PHONE_NUM = "phoneNumber";
     public static final String PARAM_NAME = "name";
     public static final String PARAM_SURNAME = "surname";
@@ -72,6 +72,8 @@ public class CommandConstant {
     public static final String ATTRIBUTE_FLOOR = "floor";
     public static final String ATTRIBUTE_FROM = "dateFrom";
     public static final String ATTRIBUTE_TO = "dateTo";
+    public static final String ATTRIBUTE_INDEX_NOTIFICATION = "indexNotification";
+    public static final String ATTRIBUTE_EX = "exception";  // exception
     public static final String ATTRIBUTE_LOGIN_EX = "loginEx";  // exception
     public static final String ATTRIBUTE_USER_UPDATE_EX = "userUpdateEx";  // exception
     public static final String ATTRIBUTE_SIGN_UP_EX = "signUpEx";  // exception

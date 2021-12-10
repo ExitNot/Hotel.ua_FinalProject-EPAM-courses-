@@ -6,9 +6,12 @@ import com.epam.courses.java.final_project.logic.command.Response;
 import com.epam.courses.java.final_project.model.Request;
 import com.epam.courses.java.final_project.model.Room;
 import com.epam.courses.java.final_project.model.RoomType;
+import com.epam.courses.java.final_project.model.User;
 import com.epam.courses.java.final_project.service.RequestService;
 import com.epam.courses.java.final_project.service.RoomService;
 import com.epam.courses.java.final_project.service.RoomTypeService;
+import com.epam.courses.java.final_project.service.UserService;
+import com.epam.courses.java.final_project.util.MailManager;
 import com.epam.courses.java.final_project.util.Util;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -96,6 +99,9 @@ public class CreateRequestCommand implements Command {
             }
         }
 
+        Optional<User> oUser = UserService.getById(Long.parseLong((String) req.getSession().getAttribute(ATTRIBUTE_ID)));
+        oUser.ifPresent(user -> MailManager.getInstance().sendEmail(user.getEmail(),
+                MailManager.creatingRequestMailTemplate(user.getName(), user.getSurname())));
         return new Response(Response.Direction.Redirect, MY_REQUESTS_ACT);
     }
 

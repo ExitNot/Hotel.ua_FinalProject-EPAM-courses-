@@ -1,4 +1,4 @@
-package com.epam.courses.java.final_project.logic.controller;
+package com.epam.courses.java.final_project.logic.servlet;
 
 import com.epam.courses.java.final_project.dao.impl.jdbc.JDBCException;
 import com.epam.courses.java.final_project.logic.command.Command;

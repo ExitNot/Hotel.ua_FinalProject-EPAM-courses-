@@ -29,7 +29,6 @@ public class RequestListCommand implements Command {
         List<Request> requests;
         Request prev = null;
 
-//        todo add sorting by date
         if (req.getParameter(PARAM_SEARCH_BTN) != null){
             if (req.getParameter(PARAM_WAITING_FOR_RESPONSE) != null){
                 req.getSession().setAttribute("waitingForResponse", true);

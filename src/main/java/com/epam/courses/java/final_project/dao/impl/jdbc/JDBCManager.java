@@ -13,7 +13,7 @@ public class JDBCManager {
 
     private Connection conn;
     private static final Logger log = LogManager.getLogger(LOG_TRACE);
-    private Connection testConn;
+    private Connection testConn = null;
     private static final JDBCManager INSTANCE = new JDBCManager();
 
     private JDBCManager(){}
@@ -65,7 +65,7 @@ public class JDBCManager {
         long newId = 0;
         try {
             ps = createStatement(sql, params);
-//            log.trace(ps);
+            log.trace(ps);
             ps.executeUpdate();
             rs = ps.getGeneratedKeys();
             if (rs.next())
@@ -80,8 +80,10 @@ public class JDBCManager {
         return newId;
     }
 
-    private PreparedStatement createStatement(String sql, String... params) throws SQLException {
+    private PreparedStatement createStatement(String sql, String... params) throws SQLException, JDBCException {
         conn = getConnection();
+        if (conn == null)
+            throw new JDBCException("Failed to create connection");
         PreparedStatement ps = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
         setStatementParams(ps, params);
         return ps;

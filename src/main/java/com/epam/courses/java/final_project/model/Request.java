@@ -10,6 +10,15 @@ import java.util.Objects;
  * Users create requests for reservations and this request pass through 3 steps. Status field represent this steps.
  * <p>
  * ~ {@code ManagerResponse} - request is waiting for {@code manager} response
+ * <p>
+ * ~ {@code CustomerAccept} - request is waiting for {@code user} acceptance.
+ * (after acceptance can not be canceled by user)
+ * <p>
+ * ~ {@code Payment} - request is waiting for {@code user} payment
+ * <p>
+ * ~ {@code Canceled} - Canceled reservation is not active anymore. It would be deleted in a few days.
+ * Request become canceled if user have not accepted and pay for it within 2 days after manager response.
+ *
  * @author Kostiantyn Kolchenko
  */
 public class Request extends Reservation {

@@ -32,7 +32,8 @@ CREATE TABLE users (id INT PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
                     surname VARCHAR NOT NULL,
                     phone_number VARCHAR(15) UNIQUE NOT NULL,
                     email VARCHAR(30) UNIQUE NOT NULL,
-                    role INT NOT NULL); -- customer(1) or manager(2)
+                    role INT NOT NULL,
+                    verification VARCHAR(5) NULL); -- customer(1) or manager(2)
 
 CREATE TABLE room_types (id INT PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
                          capacity INT NOT NULL,

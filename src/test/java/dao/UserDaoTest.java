@@ -48,7 +48,7 @@ public class UserDaoTest {
     private User generateEntity(long id) {
         return new User(
                 id, "user@gmail.com", "pwd",
-                "User", "Userov", "1234", User.Role.Customer);
+                "User", "Userov", "1234", null, User.Role.Customer);
     }
 
     @Test
@@ -114,8 +114,8 @@ public class UserDaoTest {
             when(rs.next()).thenReturn(true, true, false);
             when(rs.getLong(anyString())).thenReturn(1L, 2L);
             when(rs.getInt(anyString())).thenReturn(User.Role.Customer.getValue(), User.Role.Customer.getValue());
-            when(rs.getString(anyString())).thenReturn("user@gmail.com", "pwd", "User", "Userov", "1234",
-                    "user@gmail.com", "pwd", "User", "Userov", "1234");
+            when(rs.getString(anyString())).thenReturn("user@gmail.com", "pwd", "User", "Userov", "1234", null,
+                    "user@gmail.com", "pwd", "User", "Userov", "1234", null);
             List<User> list = dao.getAll();
             List<User> expectedList = List.of(
                     generateEntity(1L),

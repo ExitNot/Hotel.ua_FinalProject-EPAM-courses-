@@ -21,6 +21,7 @@ public class User {
     String name;
     String surname;
     String phoneNumber;
+    String verification;
     Role role;
 
     public User() {
@@ -28,22 +29,24 @@ public class User {
     }
 
     // Special constructor for creating entity from db
-    public User(long id, String email, String password, String name, String surname, String phoneNumber, Role role) {
+    public User(long id, String email, String password, String name, String surname, String phoneNumber, String verification, Role role) {
         this.id = id;
         this.email = email;
         this.password = password;
         this.name = name;
         this.surname = surname;
         this.phoneNumber = phoneNumber;
+        this.verification = verification;
         this.role = role;
     }
 
-    public User(String email, String password, String name, String surname, String phoneNumber) {
+    public User(String email, String password, String name, String surname, String phoneNumber, String verification) {
         this.email = email;
         this.password = password;
         this.name = name;
         this.surname = surname;
         this.phoneNumber = phoneNumber;
+        this.verification = verification;
         role = Role.Customer;
     }
 
@@ -85,6 +88,14 @@ public class User {
 
     public void setPhoneNumber(String phoneNumber) {
         this.phoneNumber = phoneNumber;
+    }
+
+    public String getVerification() {
+        return verification;
+    }
+
+    public void setVerification(String verification) {
+        this.verification = verification;
     }
 
     public String getEmail() {
