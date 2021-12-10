@@ -23,8 +23,9 @@ import java.util.List;
  */
 public class JDBCManager {
 
-    private Connection conn;
     private static final Logger log = LogManager.getLogger(LOG_INFO);
+
+    private Connection conn;
     private Connection testConn = null;
     private static final JDBCManager INSTANCE = new JDBCManager();
 

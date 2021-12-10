@@ -27,7 +27,7 @@ public class RequestServiceTest {
 
     private static Date from;
     private static Date to;
-    private static Date twoDaysAgo;
+    private static Date fourDaysAgo;
     ResultSet rs;
 
     @BeforeAll
@@ -42,7 +42,7 @@ public class RequestServiceTest {
         c.roll(Calendar.DAY_OF_YEAR, false);
         c.roll(Calendar.DAY_OF_YEAR, false);
         c.roll(Calendar.DAY_OF_YEAR, false);
-        twoDaysAgo = new Date(c.getTimeInMillis());
+        fourDaysAgo = new Date(c.getTimeInMillis());
     }
 
     private void baseListRsSetUp(){
@@ -61,7 +61,7 @@ public class RequestServiceTest {
         try {
             when(rs.next()).thenReturn(true, true, false, true);
             when(rs.getLong(anyString())).thenReturn(1L, 1L, 1L, 2L, 1L, 1L, 2L);
-            when(rs.getDate(anyString())).thenReturn(from, to, from, from, to, twoDaysAgo);
+            when(rs.getDate(anyString())).thenReturn(from, to, from, from, to, fourDaysAgo);
             when(rs.getInt(anyString())).thenReturn(1, 1, 1, 1, 1, 1, 1, 3);
             when(rs.getDouble(anyString())).thenReturn(0.0);
         } catch (SQLException e) {
@@ -106,7 +106,9 @@ public class RequestServiceTest {
             List<Request> list = RequestService.getByDate(from, to);
             List<Request> expectedList = List.of(
                     new Request(1L, 1L, 1L, from, to, from, 1, 1,
-                            RoomType.RoomClass.Standard, Request.Status.ManagerResponse, 0.0)
+                            RoomType.RoomClass.Standard, Request.Status.ManagerResponse, 0.0),
+                    new Request(2L, 1L, 1L, from, to, from, 1, 1,
+                    RoomType.RoomClass.Standard, Request.Status.Canceled, 0.0)
             );
 
             Assertions.assertEquals(expectedList, list);
@@ -144,7 +146,9 @@ public class RequestServiceTest {
             List<Request> list = RequestService.getByUserId(1L);
             List<Request> expectedList = List.of(
                     new Request(1L, 1L, 1L, from, to, from, 1, 1,
-                            RoomType.RoomClass.Standard, Request.Status.ManagerResponse, 0.0)
+                            RoomType.RoomClass.Standard, Request.Status.ManagerResponse, 0.0),
+                    new Request(2L, 1L, 1L, from, to, from, 1, 1,
+                            RoomType.RoomClass.Standard, Request.Status.Canceled, 0.0)
             );
 
             Assertions.assertEquals(expectedList, list);
@@ -220,7 +224,9 @@ public class RequestServiceTest {
             List<Request> list = RequestService.getAll();
             List<Request> expectedList = List.of(
                     new Request(1L, 1L, 1L, from, to, from, 1, 1,
-                            RoomType.RoomClass.Standard, Request.Status.ManagerResponse, 0.0)
+                            RoomType.RoomClass.Standard, Request.Status.ManagerResponse, 0.0),
+                    new Request(2L, 1L, 1L, from, to, from, 1, 1,
+                            RoomType.RoomClass.Standard, Request.Status.Canceled, 0.0)
             );
 
             Assertions.assertEquals(expectedList, list);
@@ -251,7 +257,7 @@ public class RequestServiceTest {
         try {
             when(rs.next()).thenReturn(true, true);
             when(rs.getLong(anyString())).thenReturn(1L, 1L, 1L, 1L);
-            when(rs.getDate(anyString())).thenReturn(from, to, twoDaysAgo);
+            when(rs.getDate(anyString())).thenReturn(from, to, fourDaysAgo);
             when(rs.getInt(anyString())).thenReturn(1, 1, 1, 3);
             when(rs.getDouble(anyString())).thenReturn(0.0);
         } catch (SQLException e) {
@@ -261,9 +267,10 @@ public class RequestServiceTest {
         try {
             Optional<Request> oRequest = RequestService.getById(1L);
 
-            if (oRequest.isPresent()){  // ifPresent not works here
-                Assertions.fail();
-            }
+            oRequest.ifPresent(request -> Assertions.assertSame(Request.Status.Canceled, request.getStatus()));
+//            if (oRequest.isPresent()){  // ifPresent not works here
+//                Assertions.assertTrue();
+//            }
         } catch (JDBCException e) {
             log.error(e);
             Assertions.fail();

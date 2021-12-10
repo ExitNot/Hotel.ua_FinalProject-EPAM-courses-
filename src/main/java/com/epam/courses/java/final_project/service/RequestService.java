@@ -75,7 +75,10 @@ public class RequestService {
         List<Request> out = DAOFactory.getInstance().getRequestDao().getRequestsByStatus(status);
         Iterator<Request> it = out.iterator();
         while (it.hasNext()) {
-            if (!validateWaitingTime(it.next()))
+            Request r = it.next();
+            if (!validateWaitingTime(r))
+                it.remove();
+            if (r.getStatus() != status)
                 it.remove();
         }
         return out;
@@ -109,7 +112,7 @@ public class RequestService {
 
         if (req.getManagerAcceptance() != null && (req.getStatus() != Request.Status.Canceled)) {
             c = Calendar.getInstance();
-            if (req.getStatus() != Request.Status.ManagerResponse) {
+            if (req.getStatus() == Request.Status.ManagerResponse) {
                 c.setTime(req.getTo());
             } else {
                 c.setTime(req.getManagerAcceptance());

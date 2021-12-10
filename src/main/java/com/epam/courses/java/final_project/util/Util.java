@@ -14,6 +14,7 @@ public class Util {
 
     /**
      * Function to transform Date string from web page(js) to sql format {@code Date} string.
+     * [mm/dd/yyyy] -> [yyyy-mm-dd]
      *
      * @param oldDate date string to transform
      * @return today's date

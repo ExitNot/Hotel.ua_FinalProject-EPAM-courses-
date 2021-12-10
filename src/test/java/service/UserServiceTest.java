@@ -18,6 +18,7 @@ import java.util.List;
 import java.util.Optional;
 
 import static com.epam.courses.java.final_project.util.constant.Constant.LOG_TRACE;
+import static org.mockito.ArgumentMatchers.anyInt;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.when;
 
@@ -73,6 +74,24 @@ public class UserServiceTest {
                     "User", "Userov", "1234", null, User.Role.Customer);
 
             oUser.ifPresent(User -> Assertions.assertEquals(expected, User));
+        } catch (SQLException e) {
+            log.error("Failed ResultSet mocking", e);
+        } catch (JDBCException e) {
+            log.error(e);
+            Assertions.fail();
+        }
+    }
+
+    @Test
+    void createTest() {
+        try {
+            when(rs.next()).thenReturn(true);
+            when(rs.getLong(anyInt())).thenReturn(1L);
+
+            long id = UserService.create(new User(0, "user@mail.com", "pwd",
+                    "User", "Userov", "1234", null, User.Role.Customer));
+
+            Assertions.assertEquals(1L, id);
         } catch (SQLException e) {
             log.error("Failed ResultSet mocking", e);
         } catch (JDBCException e) {
