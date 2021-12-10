@@ -7,7 +7,7 @@ import java.util.Objects;
  * {@code Room} have to belong to one of {@code RoomType}'s.
  *
  * @author Kostiantyn Kolchenko
- * */
+ */
 public class Room {
 
     private long id;

@@ -8,7 +8,7 @@ import java.util.Objects;
  * {@code Reservation} - means already paid {@code Request}
  *
  * @author Kostiantyn Kolchenko
- * */
+ */
 public class Reservation {
 
     long id;

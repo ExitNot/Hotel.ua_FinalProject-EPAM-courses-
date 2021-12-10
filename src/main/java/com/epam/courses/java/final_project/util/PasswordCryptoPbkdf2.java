@@ -12,6 +12,15 @@ import java.security.spec.InvalidKeySpecException;
 
 import static com.epam.courses.java.final_project.util.constant.Constant.LOG_TRACE;
 
+/**
+ * Class main goal is to hash and validate passwords.
+ * It uses Password-Based Key Derivation Function 2 with HMAC for SHA256 algorithm using 3 iterations.
+ * Password hash(with salt) is 81 characters long.
+ *
+ * @author Kostiantyn Kolchenko
+ * @see PBEKeySpec
+ * @see SecretKeyFactory
+ */
 public class PasswordCryptoPbkdf2 {
 
     private static final int ITERATIONS = 3;

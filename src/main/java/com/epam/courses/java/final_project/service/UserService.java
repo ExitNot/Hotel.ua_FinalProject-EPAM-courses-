@@ -2,10 +2,18 @@ package com.epam.courses.java.final_project.service;
 
 import com.epam.courses.java.final_project.dao.DAOFactory;
 import com.epam.courses.java.final_project.dao.impl.jdbc.JDBCException;
+import com.epam.courses.java.final_project.model.Room;
 import com.epam.courses.java.final_project.model.User;
 
 import java.util.Optional;
 
+/**
+ * Service class that provide access to {@code RoomDao}.
+ *
+ * @author Kostiantyn Kolchenko
+ * @see DAOFactory
+ * @see Room
+ */
 public class UserService {
 
     public static Optional<User> getById(long id) throws JDBCException {

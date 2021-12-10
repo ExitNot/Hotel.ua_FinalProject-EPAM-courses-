@@ -7,6 +7,13 @@ import com.epam.courses.java.final_project.model.Room;
 import java.util.List;
 import java.util.Optional;
 
+/**
+ * Service class that provide access to {@code RoomDao}.
+ *
+ * @author Kostiantyn Kolchenko
+ * @see DAOFactory
+ * @see Room
+ */
 public class RoomService {
 
     public static List<Room> getAll() throws JDBCException {

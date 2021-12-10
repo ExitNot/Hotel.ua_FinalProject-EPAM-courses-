@@ -13,11 +13,18 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Optional;
 
-import static com.epam.courses.java.final_project.util.constant.Constant.LOG_TRACE;
+import static com.epam.courses.java.final_project.util.constant.Constant.LOG_INFO;
 
+/**
+ * Service class that provide access to {@code RequestDao}, also filter response by waiting time.
+ *
+ * @author Kostiantyn Kolchenko
+ * @see DAOFactory
+ * @see Request
+ */
 public class RequestService {
 
-    private static final Logger log = LogManager.getLogger(LOG_TRACE);
+    private static final Logger log = LogManager.getLogger(LOG_INFO);
 
     public static Optional<Request> getById(Long id) throws JDBCException {
         Optional<Request> req = DAOFactory.getInstance().getRequestDao().getById(id);
@@ -54,7 +61,7 @@ public class RequestService {
         Iterator<Request> it = out.iterator();
         while (it.hasNext()) {
             Request r = it.next();
-            if (!r.getFrom().equals(from) || !r.getTo().equals(to) || r.getStatus() != Request.Status.ManagerResponse){
+            if (!r.getFrom().equals(from) || !r.getTo().equals(to) || r.getStatus() != Request.Status.ManagerResponse) {
                 it.remove();
                 log.trace("removing " + r);
             }
@@ -102,7 +109,7 @@ public class RequestService {
 
         if (req.getManagerAcceptance() != null && (req.getStatus() != Request.Status.Canceled)) {
             c = Calendar.getInstance();
-            if (req.getStatus() != Request.Status.ManagerResponse){
+            if (req.getStatus() != Request.Status.ManagerResponse) {
                 c.setTime(req.getTo());
             } else {
                 c.setTime(req.getManagerAcceptance());

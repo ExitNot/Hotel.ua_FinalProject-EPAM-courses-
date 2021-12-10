@@ -12,6 +12,11 @@ import java.util.Properties;
 
 import static com.epam.courses.java.final_project.util.constant.Constant.LOG_ERROR;
 
+/**
+ * Class provide functionality for sending emails.
+ *
+ * @author Kostiantyn Kolchenko
+ */
 public class MailManager {
 
     private static final MailManager INSTANCE;

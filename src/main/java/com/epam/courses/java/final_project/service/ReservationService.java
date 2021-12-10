@@ -15,6 +15,13 @@ import java.util.List;
 
 import static com.epam.courses.java.final_project.util.constant.Constant.LOG_TRACE;
 
+/**
+ * Service class that provide access to {@code ReservationDao}, also filter response by waiting time.
+ *
+ * @author Kostiantyn Kolchenko
+ * @see DAOFactory
+ * @see Reservation
+ */
 public class ReservationService {
 
     private static final Logger log = LogManager.getLogger(LOG_TRACE);
@@ -55,7 +62,7 @@ public class ReservationService {
 
         if (today.after(deadline)) {
             DAOFactory.getInstance().getReservationDao().delete(res.getId());
-            log.info("Request(" + res.getId() + ") was deleted, because was expired");
+            log.info("Request(" + res.getId() + ") was deleted, because it was expired");
             return false;
         }
         return true;
