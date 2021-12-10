@@ -1,5 +1,6 @@
 package com.epam.courses.java.final_project.util;
 
+import com.epam.courses.java.final_project.model.Reservation;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -8,6 +9,7 @@ import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 import java.io.IOException;
 import java.io.InputStream;
+import java.sql.Date;
 import java.util.Properties;
 
 import static com.epam.courses.java.final_project.util.constant.Constant.LOG_ERROR;
@@ -24,7 +26,7 @@ public class MailManager {
     private static Session session;
     private static Properties prop;
 
-    private final String footer = "\nPlease, do not respond for this email.\n\n" +
+    private final String footer = "\n\nPlease, do not respond for this email.\n\n" +
             " - Sincerely yours Unnamed Hotel.";
 
     static {
@@ -94,18 +96,28 @@ public class MailManager {
         }
     }
 
+    public static String paymentMailTemplate(String name, String surname, Date from, Date to) {
+        return "Dear " + surname + " " + name +
+                "\nThank you for payment for your reservation on " +
+                from + " - " + to + " dates.\n" +
+                "Your reservation was successfully created, you can found it on \"My reservations\" page" +
+                getInstance().footer;
+    }
+
     public static String requestResponseMailTemplate(String name, String surname) {
         return "Dear " + surname + " " + name +
                 "\nYour request was accepted by our manager. " +
                 "Please check \"My requests\" page.\n" +
                 "If this room type and price are suitable " +
-                "for you, please, accept and pay for it within 2 days." + getInstance().footer;
+                "for you, please, accept and pay for it within 2 days." +
+                getInstance().footer;
     }
 
     public static String creatingRequestMailTemplate(String name, String surname) {
         return "Dear " + surname + " " + name +
                 "\nYour request for reservation was created. " +
                 "You can find it on \"My requests\" page.\n" +
-                "Our manager will response for your request in nearest time." + getInstance().footer;
+                "Our manager will response for your request in nearest time." +
+                getInstance().footer;
     }
 }

@@ -34,7 +34,7 @@ public class Controller extends HttpServlet {
                         reqName, () -> req.getServletPath().substring(1).replace(".act", "")
                 )
         );
-        log.trace("get command: " + command.getCommand());
+        log.info("get command => " + command.getCommand());
 
         try {
             responseHandler(command.execute(req, resp), req, resp);
@@ -53,7 +53,7 @@ public class Controller extends HttpServlet {
                         reqName, () -> path.substring(1).replace(".act", "")
                 )
         );
-        log.trace("post command: " + command.getCommand());
+        log.info("post command => " + command.getCommand());
 
         try {
             responseHandler(command.execute(req, resp), req, resp);
@@ -65,7 +65,6 @@ public class Controller extends HttpServlet {
 
     private void responseHandler(Response response, HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException {
-        log.trace(response.toString());
         if (response.getDirection().equals(Response.Direction.Forward)){
             req.getRequestDispatcher(response.getResponse()).forward(req, resp);
         } else if (response.getDirection().equals(Response.Direction.Redirect)) {
