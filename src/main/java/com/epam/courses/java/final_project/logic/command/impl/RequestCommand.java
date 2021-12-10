@@ -51,7 +51,6 @@ public class RequestCommand implements Command {
                     RoomService.getById(r.getRoomId()).ifPresent(room -> r.setRoomNumber(room.getRoomNumber()));
                 UserService.getById(r.getUserId()).ifPresent(user -> r.setUserEmail(user.getEmail()));
 
-                //        Insert RoomType
                 for (Room room : availableRooms){
                     RoomTypeService.getById(room.getRoomTypeId()).ifPresent(room::setRoomType);
                 }

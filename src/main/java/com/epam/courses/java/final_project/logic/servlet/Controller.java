@@ -17,6 +17,11 @@ import java.util.Objects;
 
 import static com.epam.courses.java.final_project.util.constant.Constant.LOG_TRACE;
 
+/**
+ * Main Servlet that call execute method of needed {@code Command}. (Command design pattern)
+ *
+ * @author Kostiantyn Kolchenko
+ */
 public class Controller extends HttpServlet {
 
     private static final Logger log = LogManager.getLogger(LOG_TRACE);

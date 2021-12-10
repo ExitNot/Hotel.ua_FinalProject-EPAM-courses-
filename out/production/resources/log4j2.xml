@@ -12,16 +12,17 @@
         </RollingFile>
     </Appenders>
     <Loggers>
-        <Root level="debug">
-            <AppenderRef ref="logFile"/>
+        <Root level="warn">
+<!--            <AppenderRef ref="logFile"/>-->
         </Root>
         <Logger name="trace" level="trace">
-            <AppenderRef ref="logFile"/>
-<!--            <AppenderRef ref="Console"/>-->
+            <AppenderRef ref="Console"/>
+        </Logger>
+        <Logger name="info" level="info">
+            <AppenderRef ref="Console"/>
         </Logger>
         <Logger name="error" level="error">
             <AppenderRef ref="logFile"/>
-            <AppenderRef ref="Console"/>
         </Logger>
     </Loggers>
 </Configuration>

@@ -20,9 +20,7 @@ public class CancelRequestCommand implements Command {
     public Response execute(HttpServletRequest req, HttpServletResponse resp) throws JDBCException {
         Optional<Request> oRequest = RequestService.getById(Long.parseLong(req.getParameter(PARAM_REQUEST_ID)));
         if (oRequest.isPresent()) {
-            Request r = oRequest.get();
-            r.setManagerAcceptance(Util.getToday());
-            r.setStatus(Request.Status.Canceled.getValue());
+            RequestService.delete(oRequest.get().getId());
         }
         return new Response(Response.Direction.Redirect, MY_REQUESTS_ACT);
     }

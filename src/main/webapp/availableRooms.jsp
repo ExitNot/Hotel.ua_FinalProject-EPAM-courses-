@@ -106,7 +106,7 @@
                         <a href="./availableRooms.act" style="color: black"
                            onclick="<c:remove var="capacity"/><c:remove var="floor"/><c:remove var="roomClass"/>"
                            data-bs-toggle="tooltip" data-bs-placement="bottom" title="Remove filters">
-                            <i class="fas fa-user-slash fa-lg float-right"></i>
+                            <i class="fas fa-trash-alt fa-lg float-right"></i>
                         </a>
                     </div>
                     <div class="col-2">

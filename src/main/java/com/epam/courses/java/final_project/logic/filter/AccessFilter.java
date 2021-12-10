@@ -14,6 +14,11 @@ import java.util.Map;
 import static com.epam.courses.java.final_project.util.constant.CommandConstant.*;
 import static com.epam.courses.java.final_project.util.constant.Constant.LOG_TRACE;
 
+/**
+ * Filter that check availability of such requested command to this current user.
+ *
+ * @author Kostiantyn Kolchenko
+ */
 public class AccessFilter implements Filter {
 
     private final Logger log = LogManager.getLogger(LOG_TRACE);

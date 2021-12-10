@@ -22,9 +22,24 @@
     function choose(reqId, roomId, roomNumber) {
         document.getElementById("hiddenRoomId" + reqId).value = roomId;
         document.getElementById("hiddenRoomNumber" + reqId).value = roomNumber;
+
+        var td = document.getElementById("choose_td" + reqId);
+        td.removeChild(document.getElementById("choose_room_btn" + reqId));
         var aTag = document.createElement("a");
+        aTag.setAttribute("href", "#");
+        aTag.setAttribute("id", "choose_room_btn" + reqId);
+        aTag.setAttribute("class", "link");
+        aTag.setAttribute("data-toggle", "modal");
+        aTag.setAttribute("data-target", "#chooseRoomModal" + reqId);
         aTag.append(roomNumber);
-        document.getElementById("choose_room_btn" + reqId).replaceWith(aTag);
+        td.appendChild(aTag)
+
+        <%--var aTag = document.createElement("a");--%>
+        <%--aTag.setAttribute("href", "#");--%>
+        <%--aTag.setAttribute("class", "btn-link border-0");--%>
+        <%--aTag.setAttribute("onclick", "choose(${request.id}, ${room.id}, ${room.roomNumber})");--%>
+        <%--aTag.append(roomNumber);--%>
+        <%--document.getElementById("choose_room_btn" + reqId).replaceWith(aTag);--%>
         $('#chooseRoomModal' + reqId).modal('toggle');
     }
 
@@ -77,7 +92,7 @@
                                        form="responseRequestForm" value="${request.price}">
                             </td>
                             <td>${request.statusName}</td>
-                            <td>
+                            <td id="choose_td${request.id}">
                                 <c:choose>
                                     <c:when test="${request.roomNumber == 0}">
                                         <a href="#" id="choose_room_btn${request.id}" class="link" data-toggle="modal"
@@ -104,7 +119,6 @@
     </div>
 
     <form id="responseRequestForm" action="requestResponse.act" method="post">
-<%--        <input type="hidden" name="requestBundle" value="${requestBundle}"/>--%>
         <c:set var="requestBundle" value="${requestBundle}" scope="session"/>
         <c:forEach items="${requestBundle}" var="request">
             <input id="hiddenRoomId${request.id}" type="hidden" name="chosenRoomId${request.id}"/>

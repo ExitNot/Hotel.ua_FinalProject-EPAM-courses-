@@ -15,8 +15,7 @@ import org.apache.logging.log4j.Logger;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 import static com.epam.courses.java.final_project.util.constant.CommandConstant.*;
 import static com.epam.courses.java.final_project.util.constant.Constant.LOG_TRACE;
@@ -27,8 +26,9 @@ public class RequestResponseCommand implements Command {
 
     @Override
     public Response execute(HttpServletRequest req, HttpServletResponse resp) throws JDBCException {
-
         List<Request> requestsBundle = (List<Request>) req.getSession().getAttribute("requestBundle");
+        List<Long> chosenRooms = new ArrayList<>();
+
         for (Request r : requestsBundle){
             if (req.getParameter("price" + r.getId()).isEmpty()){
                 req.getSession().setAttribute("requestResponseEx", "Price field was empty");
@@ -40,11 +40,20 @@ public class RequestResponseCommand implements Command {
                     req.getSession().setAttribute("requestResponseEx", "Room was not chosen");
                     return new Response(Response.Direction.Forward, "requestResponse.jsp");
                 }
+                chosenRooms.add(Long.parseLong(req.getParameter("chosenRoomId" + r.getId())));
                 r.setRoomId(Long.parseLong(req.getParameter("chosenRoomId" + r.getId())));
                 r.setRoomNumber(Integer.parseInt(req.getParameter("chosenRoomNumber" + r.getId())));
             }
             r.setManagerAcceptance(Util.getToday());
             r.setStatus(2);
+        }
+
+        if (chosenRooms.size() > (new HashSet<Long>(chosenRooms)).size()){
+            req.getSession().setAttribute("requestResponseEx", "Same rooms was chosen");
+            return new Response(Response.Direction.Forward, "requestResponse.jsp");
+        }
+
+        for (Request r : requestsBundle){
             RequestService.update(r);
 
             for (Request i : RequestService.getAll()){
@@ -57,6 +66,10 @@ public class RequestResponseCommand implements Command {
             }
         }
 
+        Optional<User> oUser = UserService.getById(requestsBundle.get(0).getUserId());
+        oUser.ifPresent(user -> MailManager.getInstance().sendEmail(
+                user.getEmail(), MailManager.requestResponseMailTemplate(user.getName(), user.getSurname())
+        ));
         return new Response(Response.Direction.Redirect, REQUEST_LIST_ACT);
     }
 
