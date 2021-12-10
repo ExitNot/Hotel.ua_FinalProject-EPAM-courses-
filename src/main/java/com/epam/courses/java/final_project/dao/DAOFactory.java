@@ -2,14 +2,20 @@ package com.epam.courses.java.final_project.dao;
 
 import com.epam.courses.java.final_project.dao.impl.*;
 
+/**
+ * Factory of data access objects. Factory method is applied here giving ability to
+ * use another database dao implementation in future
+ *
+ * @author Kostiantyn Kolchenko
+ */
 public class DAOFactory {
 
-    private UserDao userDao;
-    private RoomDao roomDao;
-    private ReservationDao reservationDao;
-    private RequestDao requestDao;
-    private RoomTypeDao roomTypeDao;
-    private ImageDao imageDao;
+    private final UserDao userDao;
+    private final RoomDao roomDao;
+    private final ReservationDao reservationDao;
+    private final RequestDao requestDao;
+    private final RoomTypeDao roomTypeDao;
+    private final ImageDao imageDao;
     private static final DAOFactory INSTANCE = new DAOFactory();
 
     public DAOFactory() {
@@ -21,7 +27,7 @@ public class DAOFactory {
         imageDao = new ImageDaoImpl();
     }
 
-    public static DAOFactory getInstance(){
+    public static DAOFactory getInstance() {
         return INSTANCE;
     }
 

@@ -1,7 +1,9 @@
 package com.epam.courses.java.final_project.dao.impl.jdbc;
 
 import com.epam.courses.java.final_project.dao.AbstractDao;
+
 import static com.epam.courses.java.final_project.util.constant.Constant.*;
+
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -9,16 +11,27 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Class created for act with database. Send sql requests and return response.
+ * This manager would create and close connection and also parse ResultSet
+ * using corresponding dao to appropriate entity type.
+ *
+ * @author Kostiantyn Kolchenko
+ * @see TCConnectionPool
+ * @see PreparedStatement
+ * @see ResultSet
+ */
 public class JDBCManager {
 
     private Connection conn;
-    private static final Logger log = LogManager.getLogger(LOG_TRACE);
+    private static final Logger log = LogManager.getLogger(LOG_INFO);
     private Connection testConn = null;
     private static final JDBCManager INSTANCE = new JDBCManager();
 
-    private JDBCManager(){}
+    private JDBCManager() {
+    }
 
-    public static JDBCManager getInstance(){
+    public static JDBCManager getInstance() {
         return INSTANCE;
     }
 
@@ -28,7 +41,6 @@ public class JDBCManager {
         T out = null;
         try {
             ps = createStatement(sql, params);
-//            log.trace(ps);
             rs = ps.executeQuery();
             if (rs.next())
                 out = dao.createEntity(rs);
@@ -46,7 +58,6 @@ public class JDBCManager {
         List<T> list = new ArrayList<>();
         try {
             ps = createStatement(sql, params);
-//            log.trace(ps);
             rs = ps.executeQuery();
             while (rs.next()) {
                 list.add(dao.createEntity(rs));
@@ -65,7 +76,6 @@ public class JDBCManager {
         long newId = 0;
         try {
             ps = createStatement(sql, params);
-            log.trace(ps);
             ps.executeUpdate();
             rs = ps.getGeneratedKeys();
             if (rs.next())
@@ -90,8 +100,8 @@ public class JDBCManager {
     }
 
     private void setStatementParams(PreparedStatement ps, String... params) throws SQLException {
-        for (int i = 0; i < params.length; i++){
-            if (params[i] == null){
+        for (int i = 0; i < params.length; i++) {
+            if (params[i] == null) {
                 ps.setNull(i + 1, 0);
             } else if (params[i].matches("\\d{4}-\\d{2}-\\d{2}"))
                 ps.setDate(i + 1, Date.valueOf(params[i]));
@@ -129,10 +139,12 @@ public class JDBCManager {
     }
 
     public void setTestConn(Connection conn) {
+        log.info("Testing connection applied");
         testConn = conn;
     }
 
     public void deleteTestConn() {
+        log.info("Testing connection deleted");
         testConn = null;
     }
 }

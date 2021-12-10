@@ -13,6 +13,11 @@ import java.sql.SQLException;
 import java.util.List;
 import java.util.Optional;
 
+/**
+ * Reservation DAO implementation for PostgreSQL db.
+ *
+ * @author Kostiantyn Kolchenko
+ */
 public class ReservationDaoImpl implements ReservationDao {
 
     private static final String SELECT_BY;

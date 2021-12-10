@@ -14,6 +14,11 @@ import java.util.Optional;
 
 import static com.epam.courses.java.final_project.util.constant.Constant.*;
 
+/**
+ * Request DAO implementation for PostgreSQL db.
+ *
+ * @author Kostiantyn Kolchenko
+ */
 public class RequestDaoImpl implements RequestDao {
 
     private static final String SELECT_BY;

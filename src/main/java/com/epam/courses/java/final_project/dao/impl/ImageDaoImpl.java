@@ -13,6 +13,11 @@ import java.util.Optional;
 import static com.epam.courses.java.final_project.util.constant.Constant.*;
 import static com.epam.courses.java.final_project.util.constant.Constant.TABLE_IMG;
 
+/**
+ * Image DAO implementation for PostgreSQL db.
+ *
+ * @author Kostiantyn Kolchenko
+ */
 public class ImageDaoImpl implements ImageDao {
 
     private static final String SELECT_BY;

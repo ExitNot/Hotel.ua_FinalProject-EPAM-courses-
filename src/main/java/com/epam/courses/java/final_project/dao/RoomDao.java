@@ -7,10 +7,11 @@ import java.util.List;
 import java.util.Optional;
 
 /**
- * DAO interface for Room.
+ * DAO interface for {@code Room}.
  *
+ * @see Room
  * @author Kostiantyn Kolchenko
- * */
+ **/
 public interface RoomDao extends AbstractDao<Room> {
 
     Optional<Room> getByRoomNum(int roomNum) throws JDBCException;

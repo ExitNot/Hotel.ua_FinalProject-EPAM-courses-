@@ -7,11 +7,12 @@ import java.util.List;
 import java.util.Optional;
 
 /**
- * DAO interface for User.
+ * DAO interface for {@code User}.
  *
  * @author Kostiantyn Kolchenko
- * */
-public interface UserDao extends AbstractDao<User>{
+ * @see User
+ */
+public interface UserDao extends AbstractDao<User> {
 
     Optional<User> getByEmail(String email) throws JDBCException;
 

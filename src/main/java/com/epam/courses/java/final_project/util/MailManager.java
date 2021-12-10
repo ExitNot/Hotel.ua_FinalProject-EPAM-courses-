@@ -6,18 +6,16 @@ import org.apache.logging.log4j.Logger;
 import javax.mail.*;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
-import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.Arrays;
 import java.util.Properties;
 
-import static com.epam.courses.java.final_project.util.constant.Constant.LOG_TRACE;
+import static com.epam.courses.java.final_project.util.constant.Constant.LOG_ERROR;
 
 public class MailManager {
 
     private static final MailManager INSTANCE;
-    private static final Logger log = LogManager.getLogger(LOG_TRACE);
+    private static final Logger log = LogManager.getLogger(LOG_ERROR);
     private static Session session;
     private static Properties prop;
 

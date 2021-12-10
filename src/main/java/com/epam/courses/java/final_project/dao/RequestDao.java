@@ -7,10 +7,11 @@ import java.sql.Date;
 import java.util.List;
 
 /**
- * DAO interface for Request.
+ * DAO interface for {@code Request}.
  *
  * @author Kostiantyn Kolchenko
- * */
+ * @see Request
+ */
 public interface RequestDao extends AbstractDao<Request> {
 
     List<Request> getUserRequests(Long user_id) throws JDBCException;

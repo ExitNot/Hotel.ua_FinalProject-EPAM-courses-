@@ -6,7 +6,13 @@ import com.epam.courses.java.final_project.model.RoomType;
 
 import java.util.List;
 
-public interface RoomTypeDao extends AbstractDao<RoomType>{
+/**
+ * DAO interface for {@code RoomType}
+ *
+ * @author Kostiantyn Kolchenko
+ * @see RoomType
+ */
+public interface RoomTypeDao extends AbstractDao<RoomType> {
 
     List<RoomType> getByCapacity(int capacity) throws JDBCException;
 

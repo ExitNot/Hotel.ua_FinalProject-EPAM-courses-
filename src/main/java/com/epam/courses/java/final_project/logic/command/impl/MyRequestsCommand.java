@@ -19,7 +19,7 @@ import java.util.Optional;
 import static com.epam.courses.java.final_project.util.constant.CommandConstant.*;
 import static com.epam.courses.java.final_project.util.constant.CommandConstant.ATTRIBUTE_REQUEST_LIST;
 
-public class MyRequestsCommand implements Command {  // todo replace to RequestListCommand
+public class MyRequestsCommand implements Command {
 
     @Override
     public Response execute(HttpServletRequest req, HttpServletResponse resp) throws JDBCException {

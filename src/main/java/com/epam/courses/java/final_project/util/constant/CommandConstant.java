@@ -30,6 +30,7 @@ public class CommandConstant {
     public static final String USER_UPDATE = "userUpdate";
 
 //    Parameters
+    public static final String PARAM_ID = "id";
     public static final String PARAM_USER_ID = "userId";
     public static final String PARAM_ROOM_ID = "roomId";
     public static final String PARAM_ASSIGNED_ROOM_ID = "assignedRoomId";

@@ -12,6 +12,13 @@ import java.sql.SQLException;
 
 import static com.epam.courses.java.final_project.util.constant.Constant.LOG_TRACE;
 
+/**
+ * TomCat connection pool. Created for more comfortable work with db by multiple users using connections pooling.
+ * Connections are not closing automatically! Resource for this context is stored in META-INF/context.xml
+ *
+ * @author Kostiantyn Kolchenko
+ * @see Connection
+ */
 public class TCConnectionPool {
 
     private static final Logger log = LogManager.getLogger(LOG_TRACE);
@@ -19,7 +26,7 @@ public class TCConnectionPool {
     private DataSource ds;
 
     private TCConnectionPool() {
-        InitialContext ctx = null;
+        InitialContext ctx;
         try {
             ctx = new InitialContext();
             Context envCtx = (Context) ctx.lookup("java:comp/env/");

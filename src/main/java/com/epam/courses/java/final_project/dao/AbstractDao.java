@@ -11,7 +11,7 @@ import java.util.Optional;
  * Interface defines an abstract API that performs CRUD operations for any entity type.
  *
  * @author Kostiantyn Kolchenko
- * */
+ */
 public interface AbstractDao<T> {
 
     long create(T obj) throws JDBCException;

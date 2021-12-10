@@ -12,6 +12,11 @@ import java.util.Optional;
 
 import static com.epam.courses.java.final_project.util.constant.Constant.*;
 
+/**
+ * RoomType DAO implementation for PostgreSQL db.
+ *
+ * @author Kostiantyn Kolchenko
+ */
 public class RoomTypeDaoImpl implements RoomTypeDao {
 
     private static final String SELECT_BY;

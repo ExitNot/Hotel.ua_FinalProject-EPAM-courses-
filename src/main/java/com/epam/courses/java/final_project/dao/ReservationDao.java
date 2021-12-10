@@ -7,11 +7,12 @@ import java.sql.Date;
 import java.util.List;
 
 /**
- * DAO interface for Reservation.
+ * DAO interface for {@code Reservation}.
  *
  * @author Kostiantyn Kolchenko
- * */
-public interface ReservationDao extends AbstractDao<Reservation>{
+ * @see Reservation
+ */
+public interface ReservationDao extends AbstractDao<Reservation> {
 
     List<Reservation> getUserReservations(long userId) throws JDBCException;
 

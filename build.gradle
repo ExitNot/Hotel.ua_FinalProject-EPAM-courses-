@@ -16,13 +16,8 @@ dependencies {
     implementation 'javax.servlet:javax.servlet-api:4.0.1'  // Servlet API
     implementation 'javax.servlet:jstl:1.2'  // JSTL (standard tag lib)
     implementation group: 'javax.mail', name: 'mail', version: '1.4.7'  // email API
-//    implementation group: 'javax.activation', name: 'activation', version: '1.1.1'
 
     // == Testing ==
-//    testImplementation 'junit:junit:4.13'
-//    testImplementation "org.powermock:powermock-core:1.7.3"
-//    testImplementation "org.powermock:powermock-module-junit4:1.7.3"
-//    testImplementation "org.powermock:powermock-api-mockito2:1.7.3"
     testImplementation group: 'org.mockito', name: 'mockito-core', version: '3.4.0'
     testImplementation 'org.junit.jupiter:junit-jupiter-api:5.7.0'
     testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.7.0'

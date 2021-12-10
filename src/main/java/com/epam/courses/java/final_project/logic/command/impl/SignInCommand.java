@@ -11,8 +11,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import static com.epam.courses.java.final_project.util.constant.CommandConstant.*;
-import static com.epam.courses.java.final_project.util.constant.Constant.LOG_TRACE;
-import static com.epam.courses.java.final_project.util.constant.Constant.PARAM_ID;
+import static com.epam.courses.java.final_project.util.constant.Constant.LOG_INFO;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -20,7 +19,7 @@ import java.util.Optional;
 
 public class SignInCommand implements Command {
 
-    private static final Logger log = LogManager.getLogger(SignInCommand.class);
+    private static final Logger log = LogManager.getLogger(LOG_INFO);
 
     @Override
     public Response execute(HttpServletRequest req, HttpServletResponse resp) throws JDBCException {
@@ -32,7 +31,6 @@ public class SignInCommand implements Command {
             return new Response(Response.Direction.Redirect, INDEX_JSP);
         }
 
-        log.error("error");
         Optional<User> user = UserService.getByEmail(email);
         if (user.isEmpty()) {
             req.getSession().setAttribute(ATTRIBUTE_EMAIL, email);

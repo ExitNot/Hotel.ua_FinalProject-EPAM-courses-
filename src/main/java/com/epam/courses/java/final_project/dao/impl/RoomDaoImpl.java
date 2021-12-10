@@ -12,6 +12,11 @@ import java.sql.SQLException;
 import java.util.List;
 import java.util.Optional;
 
+/**
+ * Room DAO implementation for PostgreSQL db.
+ *
+ * @author Kostiantyn Kolchenko
+ */
 public class RoomDaoImpl implements RoomDao {
 
     private static final String SELECT_BY;

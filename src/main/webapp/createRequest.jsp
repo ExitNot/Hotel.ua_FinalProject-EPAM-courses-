@@ -109,7 +109,7 @@
             <label for="amountOfChildrenInRoom">children:</label>
             <input class="form-control col-3" type="number" name="amountOfChildrenIn_room" placeholder="child"
                    min="0" max="5" value="0" onChange="guests_value()" id="amountOfChildrenInRoom"/>
-            <select class="col-2 h-75 mt-2 ml-2" name="roomClass">
+            <select class="col-2 h-75 mt-2 ml-2 pl-0" name="roomClass">
                 <option value="1">standard</option>
                 <option value="2">upgraded</option>
                 <option value="3">deluxe</option>

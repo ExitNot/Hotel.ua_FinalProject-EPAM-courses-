@@ -4,6 +4,7 @@ import com.epam.courses.java.final_project.dao.UserDao;
 import com.epam.courses.java.final_project.model.User;
 import com.epam.courses.java.final_project.dao.impl.jdbc.JDBCException;
 import com.epam.courses.java.final_project.dao.impl.jdbc.JDBCManager;
+
 import static com.epam.courses.java.final_project.util.constant.Constant.*;
 
 import java.sql.ResultSet;
@@ -11,6 +12,11 @@ import java.sql.SQLException;
 import java.util.List;
 import java.util.Optional;
 
+/**
+ * User DAO implementation for PostgreSQL db.
+ *
+ * @author Kostiantyn Kolchenko
+ */
 public class UserDaoImpl implements UserDao {
 
     private static final String SELECT_BY;
@@ -49,12 +55,12 @@ public class UserDaoImpl implements UserDao {
 
     @Override
     public Optional<User> getById(long id) throws JDBCException {
-        return Optional.ofNullable(JDBCManager.getInstance().selectOneRequest(this, SELECT_BY.replace("param",  PARAM_ID), String.valueOf(id)));
+        return Optional.ofNullable(JDBCManager.getInstance().selectOneRequest(this, SELECT_BY.replace("param", PARAM_ID), String.valueOf(id)));
     }
 
     @Override
     public Optional<User> getByEmail(String email) throws JDBCException {
-        return Optional.ofNullable(JDBCManager.getInstance().selectOneRequest(this, SELECT_BY.replace("param",  PARAM_EMAIL), email));
+        return Optional.ofNullable(JDBCManager.getInstance().selectOneRequest(this, SELECT_BY.replace("param", PARAM_EMAIL), email));
     }
 
     @Override

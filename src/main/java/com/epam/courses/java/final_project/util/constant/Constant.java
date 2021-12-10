@@ -49,6 +49,7 @@ public class Constant {
 
 //    Loggers
     public static final String LOG_TRACE = "trace";
+    public static final String LOG_INFO = "info";
     public static final String LOG_ERROR = "error";
 
 //    Commands
