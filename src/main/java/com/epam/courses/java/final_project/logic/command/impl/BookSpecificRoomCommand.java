@@ -31,7 +31,8 @@ public class BookSpecificRoomCommand implements Command {
 
         Optional<User> oUser = UserService.getById(Long.parseLong(req.getParameter(ATTRIBUTE_ID)));
         oUser.ifPresent(user -> MailManager.getInstance().sendEmail(
-                user.getEmail(), MailManager.creatingRequestMailTemplate(user.getName(), user.getSurname()))
+                user.getEmail(), MailManager.creatingRequestMailTemplate(user.getName(), user.getSurname(),
+                        req.getSession().getAttribute(ATTRIBUTE_LANG).toString()))
         );
         return new Response(Response.Direction.Redirect, PROFILE_ACT);
     }
