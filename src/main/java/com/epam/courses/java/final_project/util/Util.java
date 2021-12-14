@@ -2,6 +2,7 @@ package com.epam.courses.java.final_project.util;
 
 import com.epam.courses.java.final_project.model.RoomType;
 
+import javax.servlet.ServletContext;
 import java.sql.Date;
 import java.util.Calendar;
 
@@ -11,6 +12,8 @@ import java.util.Calendar;
  * @author Kostiantyn Kolchenko
  */
 public class Util {
+
+    public static ServletContext CTX = null;
 
     /**
      * Function to transform Date string from web page(js) to sql format {@code Date} string.

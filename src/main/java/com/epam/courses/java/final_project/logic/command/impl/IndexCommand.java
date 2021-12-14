@@ -23,11 +23,17 @@ public class IndexCommand implements Command {
     @Override
     public Response execute(HttpServletRequest req, HttpServletResponse resp) throws JDBCException {
         List<RoomType> roomTypes = RoomTypeService.getAll();
+        String lang = null;
+        if (req.getParameter(ATTRIBUTE_LANG) != null)
+            lang = req.getParameter(ATTRIBUTE_LANG);
+        else if (req.getSession().getAttribute(ATTRIBUTE_LANG) != null)
+            lang = req.getSession().getAttribute(ATTRIBUTE_LANG).toString();
+
         for (RoomType i : roomTypes){
             i.setImgPaths(RoomTypeService.getImg(i.getId()));
+            i.setLang(lang);
         }
 
-//        log.trace(roomTypes);
         req.getSession().setAttribute(ATTRIBUTE_ROOM_TYPES_LIST, roomTypes);
         return new Response(Response.Direction.Forward, INDEX_JSP);
     }

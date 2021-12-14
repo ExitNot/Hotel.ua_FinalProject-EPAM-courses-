@@ -79,16 +79,16 @@ VALUES
 INSERT INTO room_types  -- temporary values for dev process --
     (capacity,    beds_types, class, description)
 VALUES
-    (2,           '1D',       1,     'These spacious rooms, decorated in earthy tones, provide unique sea views from both the balcony and terrace offering you a pleasant and relaxing stay! AMENITIES Daily cleaning | Turndown-service on request | Wake-up call | Porter Service  | Bathrooms with shower / bathtub | Daily towel change on request | Individually controlled air conditioning | Mini fridge | Pool towels service* | Sleeping pillows choice* | Bath products | Iron & Ironing board on request | In room tea/coffee making facilities on request | In room Espresso coffee machine on request* | Room Service (07:00-19:00 hrs)* | Cable - Satellite TV with international channels | Telephone* | Hair dryer | Baby cot | Safe* | Fire detection system'),
-    (2,           '1T',       1,     'sample description'),
-    (3,           '1T, 1S',   2,     'sample description'),
-    (2,           '1T',       2,     'sample description'),
-    (2,           '1T',       2,     'sample description'),
-    (3,           '1D, 1S',   4,     'sample description'),
-    (4,           '1T, 2S',   4,     'sample description'),
-    (2,           '1D',       3,     'sample description'),
-    (2,           '1D',       3,     'sample description'),
-    (4,           '1D, 1T',   4,     'sample description');
+    (2,           '1D',       1,     'desc_01'),
+    (2,           '1T',       1,     'desc_02'),
+    (3,           '1T, 1S',   2,     'desc_03'),
+    (2,           '1T',       2,     'desc_04'),
+    (3,           '1T, 1S',   2,     'desc_04'),
+    (3,           '1D, 1S',   3,     'desc_05'),
+    (4,           '1T, 2S',   3,     'desc_05'),
+    (2,           '1D',       4,     'desc_06'),
+    (2,           '1D',       4,     'desc_06'),
+    (4,           '1D, 1T',   3,     'desc_05');
 
 INSERT INTO rooms  -- temporary values for dev process --
     (room_number, floor, room_type_id)

@@ -1,14 +1,23 @@
 package com.epam.courses.java.final_project.model;
 
+import com.epam.courses.java.final_project.util.Util;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import java.util.Arrays;
-import java.util.List;
-import java.util.Locale;
-import java.util.Objects;
+import javax.naming.InitialContext;
+import javax.servlet.ServletContext;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import static com.epam.courses.java.final_project.util.constant.Constant.LOG_TRACE;
 
@@ -39,24 +48,27 @@ public class RoomType {
     private int capacity;
     private String bedsType;  // S - single, D - double. String in form ("1D, 2S") etc...
     private RoomClass roomClass;
-    private String description;
+    private String descriptionPath;
+    private HashMap<String, String> descriptions;  // <lang -> description>
     private String[] amenities;
     private List<Image> imgPaths;
+    private String lang = "en";
 
     public RoomType(long id, int capacity, String bedsType, RoomClass roomClass, String description) {
+        descriptions = new HashMap<>();
         this.id = id;
         this.capacity = capacity;
         this.bedsType = bedsType;
         this.roomClass = roomClass;
-        int amenIndex = description.indexOf("AMENITIES");
-        if (amenIndex == -1) {
-            this.description = description;
-            amenities = null;
-        } else {
-            this.description = description.substring(0, amenIndex);
-            amenities = description.substring(amenIndex + 10).split(" \\| ");
+        descriptionPath = description;
+        for (String lang : List.of("en", "ru")) {
+            String text = new BufferedReader(
+                    new InputStreamReader(
+                            Util.CTX.getResourceAsStream("/description/desc_01_" + lang + ".txt"), StandardCharsets.UTF_8))
+                    .lines()
+                    .collect(Collectors.joining("\n"));
+            descriptions.put(lang, text);
         }
-
     }
 
     public long getId() {
@@ -83,7 +95,7 @@ public class RoomType {
      * Beds type parser, that was described in class documentation.
      * Parse string of type [1S, 1T] into [1 single bed and 1 twin beds]
      * if EN localisation
-     * */
+     */
     public String getParsedBedsType() {
         StringBuilder sb = new StringBuilder();
         Matcher match = Pattern.compile("\\d[SDT]").matcher(bedsType);
@@ -120,7 +132,7 @@ public class RoomType {
      * Beds type parser, that was described in class documentation.
      * Parse string of type [1S, 1T] into [1 single bed and 1 twin beds]
      * if RU localisation (separate function because of jsp usage)
-     * */
+     */
     public String getParsedBedsTypeRU() {
         StringBuilder sb = new StringBuilder();
         Matcher match = Pattern.compile("\\d[SDT]").matcher(bedsType);
@@ -179,21 +191,54 @@ public class RoomType {
         this.imgPaths = imgPaths;
     }
 
-    public String getDescription() {
-        return description;
+    public String getLang() {
+        return lang;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
+    public void setLang(String lang) {
+        if (lang == null)
+            return;
+        this.lang = lang.substring(0, 2);
+    }
+
+    public String getDescriptionOnLang() {
+        if (descriptionPath.equals("none"))
+            return "";
+        generateAmenities(lang);
+        return descriptions.get(lang);
+    }
+
+    public String getDescription() {
+        return descriptionPath;
+    }
+
+    public void setDescription(String descriptionPath) {
+        this.descriptionPath = descriptionPath;
     }
 
     public String[] getAmenities() {
         return amenities;
     }
 
-    public void setAmenities(String[] amenities) {
-        this.amenities = amenities;
+    private void generateAmenities(String lang) {
+        String src = descriptions.get(lang);
+        int amenIndex = src.indexOf("AMENITIES");
+
+        if (amenIndex == -1) {
+            amenities = null;
+        } else {
+            descriptions.put(lang, src.substring(0, amenIndex));
+            amenities = src.substring(amenIndex + 10).split(" \\| ");
+        }
     }
+
+    //    public String[] getAmenities() {
+//        return amenities;
+//    }
+//
+//    public void setAmenities(String[] amenities) {
+//        this.amenities = amenities;
+//    }
 
     @Override
     public String toString() {
@@ -202,7 +247,7 @@ public class RoomType {
                 ", capacity=" + capacity +
                 ", bedsType='" + bedsType + '\'' +
                 ", roomClass=" + roomClass +
-                ", description='" + description + '\'' +
+                ", description='" + descriptionPath + '\'' +
                 '}';
     }
 
@@ -221,7 +266,7 @@ public class RoomType {
 
     /**
      * Enum for room class. Have special getter for getting corresponding value from db.
-     * */
+     */
     public enum RoomClass {
         Standard(1), Upgraded(2), Deluxe(3), Suite(4);
 

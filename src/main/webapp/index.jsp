@@ -37,7 +37,7 @@
                                 <fmt:message key="room.class.label.${type.roomClass.lcName}"/> <fmt:message key="room.label.room"/>(<c:choose><c:when test="${language == 'ru'}">${type.parsedBedsTypeRU}</c:when><c:otherwise>${type.parsedBedsType}</c:otherwise></c:choose>)
                             </div>
                             <hr class="mt-1"/>
-                            <p class="card-text">${type.description}</p>
+                            <p class="card-text">${type.descriptionOnLang}</p>
                         </div>
                         <div class="card-footer mb-0 py-0" style="height: 40px; background-color: mediumslateblue; border-top: solid black;">
                             <form id="info_form${type.id}" action="roomType.act" method="get" style="margin-bottom: 0">

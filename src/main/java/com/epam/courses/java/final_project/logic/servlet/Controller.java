@@ -15,6 +15,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.Objects;
 
+import static com.epam.courses.java.final_project.util.constant.Constant.LOG_INFO;
 import static com.epam.courses.java.final_project.util.constant.Constant.LOG_TRACE;
 
 /**
@@ -24,7 +25,7 @@ import static com.epam.courses.java.final_project.util.constant.Constant.LOG_TRA
  */
 public class Controller extends HttpServlet {
 
-    private static final Logger log = LogManager.getLogger(LOG_TRACE);
+    private static final Logger log = LogManager.getLogger(LOG_INFO);
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -65,6 +66,7 @@ public class Controller extends HttpServlet {
 
     private void responseHandler(Response response, HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException {
+        log.info(response);
         if (response.getDirection().equals(Response.Direction.Forward)){
             req.getRequestDispatcher(response.getResponse()).forward(req, resp);
         } else if (response.getDirection().equals(Response.Direction.Redirect)) {

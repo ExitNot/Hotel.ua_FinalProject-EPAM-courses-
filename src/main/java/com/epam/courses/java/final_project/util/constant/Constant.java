@@ -1,5 +1,7 @@
 package com.epam.courses.java.final_project.util.constant;
 
+import javax.servlet.ServletContext;
+
 public class Constant {
 
 //    SQL

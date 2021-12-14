@@ -23,11 +23,14 @@ public class RoomTypeCommand implements Command {
     @Override
     public Response execute(HttpServletRequest req, HttpServletResponse resp) throws JDBCException {
         long typeId = Long.parseLong(req.getParameter(PARAM_ROOM_TYPE_ID));
+        String lang = req.getSession().getAttribute(ATTRIBUTE_LANG).toString();
 
         Optional<RoomType> rt = RoomTypeService.getById(typeId);
 
-        if (rt.isPresent())
+        if (rt.isPresent()) {
             rt.get().setImgPaths(RoomTypeService.getImg(rt.get().getId()));
+            rt.get().setLang(lang);
+        }
 
         rt.ifPresent(roomType -> req.getSession().setAttribute(ATTRIBUTE_ROOM_TYPE, roomType));
         return new Response(Response.Direction.Redirect, ROOM_TYPE_JSP);

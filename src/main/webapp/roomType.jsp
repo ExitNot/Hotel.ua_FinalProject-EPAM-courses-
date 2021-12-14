@@ -40,7 +40,7 @@
 
     <c:choose>
         <c:when test="${empty roomType}">
-            <c:redirect url="index.jsp"/>
+            <c:redirect url="./index.act"/>
         </c:when>
         <c:otherwise>
             <div class="container px-0 pt-4">
@@ -55,7 +55,7 @@
                         <div class="row">
                             <div class="col-5">
                                 <div class="row mb-5 ml-3">
-                                    <p class="card-text">${roomType.description}</p>
+                                    <p class="card-text">${roomType.descriptionOnLang}</p>
                                 </div>
                                 <div class="row mt-2 d-flex justify-content-center">
                                     <i class="fas fa-bed mr-2"></i>

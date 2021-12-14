@@ -1,6 +1,7 @@
 package com.epam.courses.java.final_project.logic.filter;
 
 import com.epam.courses.java.final_project.model.User.Role;
+import com.epam.courses.java.final_project.util.Util;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -57,8 +58,10 @@ public class AccessFilter implements Filter {
         Role commandRole = accessLevel.get(reqName);
         log.trace("command: " + reqName + "(" + commandRole + ")");
 
-        Object obj = req.getSession().getAttribute(ATTRIBUTE_ROLE);
+        if (Util.CTX == null)
+            Util.CTX = request.getServletContext();
 
+        Object obj = req.getSession().getAttribute(ATTRIBUTE_ROLE);
         if (commandRole == null){
             chain.doFilter(request, response);
         } else {
