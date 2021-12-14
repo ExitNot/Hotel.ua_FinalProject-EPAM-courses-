@@ -67,11 +67,11 @@ public class Controller extends HttpServlet {
     private void responseHandler(Response response, HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException {
         log.info(response);
-        if (response.getDirection().equals(Response.Direction.Forward)){
+        if (response.getDirection().equals(Response.Direction.Forward)) {
             req.getRequestDispatcher(response.getResponse()).forward(req, resp);
         } else if (response.getDirection().equals(Response.Direction.Redirect)) {
             resp.sendRedirect(response.getResponse());
-        } else{
+        } else {
             resp.sendError(response.getErrCode(), response.getResponse());
         }
     }

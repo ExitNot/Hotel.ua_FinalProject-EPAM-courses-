@@ -56,7 +56,7 @@ public class SignUpCommand implements Command {
         long id = UserService.create(user);
 
         MailManager.getInstance().sendEmailVerification(user.getEmail(), user.getName(),
-                user.getSurname(), user.getVerification());
+                user.getSurname(), user.getVerification(), req.getSession().getAttribute(ATTRIBUTE_LANG).toString());
         if (lang.equals("ru"))
             req.getSession().setAttribute(ATTRIBUTE_INDEX_NOTIFICATION, "\u041F\u043E\u0436\u0430\u043B\u0443\u0439\u0441\u0442\u0430 \u043F\u043E\u0434\u0442\u0432\u0435\u0440\u0434\u0438\u0442\u0435 \u0441\u0432\u043E\u0439 email");
         else

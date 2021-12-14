@@ -47,7 +47,8 @@
                 <div class="card">
                     <div class="card-header">
                         <div class="d-flex justify-content-center">
-                            <h5 class="mt-1"><fmt:message key="room.class.label.${roomType.roomClass.lcName}"/> <fmt:message key="room.label.room"/></h5>
+                            <h5 class="mt-1"><fmt:message key="room.class.label.${roomType.roomClass.lcName}"/>
+                                <fmt:message key="room.label.room"/></h5>
                         </div>
 
                     </div>
@@ -59,8 +60,10 @@
                                 </div>
                                 <div class="row mt-2 d-flex justify-content-center">
                                     <i class="fas fa-bed mr-2"></i>
-                                    <p><c:choose><c:when test="${language == 'ru'}">${roomType.parsedBedsTypeRU}</c:when><c:otherwise>${roomType.parsedBedsType}</c:otherwise></c:choose></p>
-                                    <p style="text-transform: lowercase">(<fmt:message key="room.label.capacity"/>: ${roomType.capacity})</p>
+                                    <p><c:choose><c:when
+                                            test="${language == 'ru'}">${roomType.parsedBedsTypeRU}</c:when><c:otherwise>${roomType.parsedBedsType}</c:otherwise></c:choose></p>
+                                    <p style="text-transform: lowercase">(<fmt:message
+                                            key="room.label.capacity"/>: ${roomType.capacity})</p>
                                 </div>
                             </div>
                             <div class="col-7 px-0">
@@ -94,7 +97,8 @@
                                 <c:forEach begin="1" end="${roomType.amountOfImg}" varStatus="loop">
                                     <div class="carousel-item">
                                         <fmt:parseNumber var="loopNum" value="${loop.count}" integerOnly="true"/>
-                                        <img class="d-block w-100" src="${roomType.imgPaths[loopNum].path}" alt="${loopNum}">
+                                        <img class="d-block w-100" src="${roomType.imgPaths[loopNum].path}"
+                                             alt="${loopNum}">
                                     </div>
                                 </c:forEach>
                             </div>
@@ -144,7 +148,8 @@
                 <c:if test="${not empty id}">
                     <div class="modal-footer mb-0 py-0"
                          style="height: 40px; background-color: mediumslateblue; border-top: solid black;">
-                        <b class="btn float-right mr-0" onclick="document.getElementById('requestSpecificForm').submit();"
+                        <b class="btn float-right mr-0"
+                           onclick="document.getElementById('requestSpecificForm').submit();"
                            style="width: 40%; color: white"><fmt:message key="button.search"/></b>
                     </div>
                 </c:if>

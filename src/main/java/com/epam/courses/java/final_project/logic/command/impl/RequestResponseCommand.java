@@ -77,7 +77,8 @@ public class RequestResponseCommand implements Command {
 
         Optional<User> oUser = UserService.getById(requestsBundle.get(0).getUserId());
         oUser.ifPresent(user -> MailManager.getInstance().sendEmail(
-                user.getEmail(), MailManager.requestResponseMailTemplate(user.getName(), user.getSurname())
+                user.getEmail(), MailManager.requestResponseMailTemplate(user.getName(), user.getSurname(),
+                        req.getSession().getAttribute(ATTRIBUTE_LANG).toString())
         ));
         return new Response(Response.Direction.Redirect, REQUEST_LIST_ACT);
     }

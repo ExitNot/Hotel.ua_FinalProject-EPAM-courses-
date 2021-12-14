@@ -34,7 +34,8 @@ public class PaymentCommand implements Command {
 
             Optional<User> oUser = UserService.getById((long) req.getSession().getAttribute(ATTRIBUTE_ID));
             oUser.ifPresent(user -> MailManager.getInstance().sendEmail(
-                    user.getEmail(), MailManager.paymentMailTemplate(user.getName(), user.getSurname(), from, to)
+                    user.getEmail(), MailManager.paymentMailTemplate(user.getName(), user.getSurname(), from, to,
+                            req.getSession().getAttribute(ATTRIBUTE_LANG).toString())
             ));
         }
         return new Response(Response.Direction.Redirect, MY_RESERVATIONS_ACT);

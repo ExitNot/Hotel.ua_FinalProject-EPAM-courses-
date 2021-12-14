@@ -25,11 +25,11 @@ public class IndexCommand implements Command {
         List<RoomType> roomTypes = RoomTypeService.getAll();
         String lang = null;
         if (req.getParameter(ATTRIBUTE_LANG) != null)
-            lang = req.getParameter(ATTRIBUTE_LANG);
-        else if (req.getSession().getAttribute(ATTRIBUTE_LANG) != null)
+            lang = req.getParameter(PARAM_LANG);
+        if (req.getSession().getAttribute(ATTRIBUTE_ID) != null)
             lang = req.getSession().getAttribute(ATTRIBUTE_LANG).toString();
 
-        for (RoomType i : roomTypes){
+        for (RoomType i : roomTypes) {
             i.setImgPaths(RoomTypeService.getImg(i.getId()));
             i.setLang(lang);
         }

@@ -53,7 +53,8 @@ public class SignInCommand implements Command {
             else
                 req.getSession().setAttribute(ATTRIBUTE_LOGIN_EX, "Please verify your email first");
             MailManager.getInstance().sendEmailVerification(email, user.get().getName(),
-                    user.get().getSurname(), user.get().getVerification());
+                    user.get().getSurname(), user.get().getVerification(),
+                    req.getSession().getAttribute(ATTRIBUTE_LANG).toString());
             return new Response(Response.Direction.Redirect, INDEX_JSP);
         }
 
