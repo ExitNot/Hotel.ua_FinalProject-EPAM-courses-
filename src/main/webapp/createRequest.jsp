@@ -1,7 +1,12 @@
 <%-- Created by Kostiantyn Kolchenko(@ExitNot) --%>
 <%@ taglib prefix="t" tagdir="/WEB-INF/tags" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+
+
+<fmt:setLocale value="${not empty param.language ? param.language : language}" scope="session"/>
+<fmt:setBundle basename="web-text"/>
 
 <c:if test="${empty id}">
     <c:redirect url="createRequest.act"></c:redirect>
@@ -54,30 +59,29 @@
     <div class="container px-0 pt-4 d-flex justify-content-center" style="border: #6610f2">
         <div class="card col-10 px-0">
             <div class="card-header d-flex justify-content-center py-2" style="background-color: mediumslateblue">
-                <h5 class="mt-3">Create reservation request</h5>
+                <h5 class="mt-3"><fmt:message key="request.label.createReservationRequest"/></h5>
             </div>
             <div class="card-body pb-0">
                 <form class="mb-0" action="createRequest.act" method="post">
                     <div class="row mb-2">
                         <div class="col-2">
-                            <label for="date_from">From</label>
+                            <label for="date_from"><fmt:message key="reservations.label.from"/></label>
                             <input class="form-control" type="text" name="dateFrom" id="date_from"/>
                         </div>
                         <div class="col-2">
-                            <label for="date_to">To</label>
+                            <label for="date_to"><fmt:message key="reservations.label.to"/></label>
                             <input class="form-control" type="text" name="dateTo" id="date_to"/>
                         </div>
                         <div class="col-8">
                             <c:choose>
                                 <c:when test="${not empty roomType}">
-                                    Chosen room:
+                                    <fmt:message key="request.label.chosenRoom"/>:
                                     <a href="#">
-                                            ${roomType.roomClass} room with ${roomType.parsedBedsType}
+                                        <fmt:message key="room.class.label.${roomType.roomClass.lcName}"/> <fmt:message key="room.label.room"/>(<c:choose><c:when test="${language == 'ru'}">${roomType.parsedBedsTypeRU}</c:when><c:otherwise>${roomType.parsedBedsType}</c:otherwise></c:choose>)
                                     </a>
-                                    <%--                                <c:remove var="roomType"></c:remove>--%>
                                 </c:when>
                                 <c:otherwise>
-                                    <a class="row text-center mb-2">Amount of rooms and guests</a>
+                                    <a class="row text-center mb-2"><fmt:message key="request.label.amountOfRoomsGuests"/></a>
                                     <div id="rooms_wrapper"></div>
                                 </c:otherwise>
                             </c:choose>
@@ -88,11 +92,11 @@
                         <div class="col">
                             <a href="#" class="btn btn-link w-100" onclick="cloneRoom()" id="add_room_btn"
                                style="color: white">
-                                Add another room
+                                <fmt:message key="request.label.addAnotherRoom"/>
                             </a>
                         </div>
                         <div class="col">
-                            <input type="submit" name="request_btn" value="Make reservation"
+                            <input type="submit" name="request_btn" value="<fmt:message key="nav.label.makeAReservation"/>"
                                    class="btn btn-link w-100" style="color: white"/>
                         </div>
                     </div>
@@ -103,17 +107,17 @@
 
     <div id="room_template">
         <div class="row" id="room">
-            <label for="amountOfAdultsInRoom">adults:</label>
-            <input class="form-control col-3 mr-2" type="number" name="amountOfAdultsIn_room" placeholder="adult"
+            <label for="amountOfAdultsInRoom"><fmt:message key="request.label.adults"/>:</label>
+            <input class="form-control col-3 mr-2" type="number" name="amountOfAdultsIn_room" placeholder="<fmt:message key="request.label.adults"/>"
             min="1" max="5" value="1" onChange="guests_value()" id="amountOfAdultsInRoom"/>
-            <label for="amountOfChildrenInRoom">children:</label>
-            <input class="form-control col-3" type="number" name="amountOfChildrenIn_room" placeholder="child"
+            <label for="amountOfChildrenInRoom"><fmt:message key="request.label.children"/>:</label>
+            <input class="form-control col-3" type="number" name="amountOfChildrenIn_room" placeholder="<fmt:message key="request.label.children"/>"
                    min="0" max="5" value="0" onChange="guests_value()" id="amountOfChildrenInRoom"/>
             <select class="col-2 h-75 mt-2 ml-2 pl-0" name="roomClass">
-                <option value="1">standard</option>
-                <option value="2">upgraded</option>
-                <option value="3">deluxe</option>
-                <option value="4">suite</option>
+                <option value="1"><fmt:message key="room.class.label.standard"/></option>
+                <option value="2"><fmt:message key="room.class.label.upgraded"/></option>
+                <option value="3"><fmt:message key="room.class.label.deluxe"/></option>
+                <option value="4"><fmt:message key="room.class.label.suite"/></option>
             </select>
             <button type="button" class="btn btn-link" id="delete_btn"
                     onclick="removeRoom('room')" style="color: mediumslateblue">

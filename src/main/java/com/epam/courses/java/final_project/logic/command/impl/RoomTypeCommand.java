@@ -23,7 +23,6 @@ public class RoomTypeCommand implements Command {
     @Override
     public Response execute(HttpServletRequest req, HttpServletResponse resp) throws JDBCException {
         long typeId = Long.parseLong(req.getParameter(PARAM_ROOM_TYPE_ID));
-        log.trace("type id: " + typeId);
 
         Optional<RoomType> rt = RoomTypeService.getById(typeId);
 

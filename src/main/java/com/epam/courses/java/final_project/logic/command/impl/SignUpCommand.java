@@ -25,15 +25,23 @@ public class SignUpCommand implements Command {
 
     @Override
     public Response execute(HttpServletRequest req, HttpServletResponse resp) throws JDBCException {
+        String lang = req.getSession().getAttribute(ATTRIBUTE_LANG).toString();
+
         if (UserService.getByEmail(req.getParameter(PARAM_EMAIL)).isPresent()){
-            req.getSession().setAttribute(ATTRIBUTE_SIGN_UP_EX, "User already exist");
+            if (lang.equals("ru"))
+                req.getSession().setAttribute(ATTRIBUTE_SIGN_UP_EX, "\u041F\u043E\u043B\u044C\u0437\u043E\u0432\u0430\u0442\u0435\u043B\u044C \u0443\u0436\u0435 \u0441\u0443\u0449\u0435\u0441\u0442\u0432\u0443\u0435\u0442");
+            else
+                req.getSession().setAttribute(ATTRIBUTE_SIGN_UP_EX, "User already exist");
             return new Response(Response.Direction.Forward, SIGN_UP_JSP);
         }
 
         String verification = String.valueOf(new SecureRandom().nextInt(100000));
         String pwd = req.getParameter(PARAM_PWD);
         if (!pwd.equals(req.getParameter(PARAM_PWD + "Confirmation"))){
-            req.getSession().setAttribute(ATTRIBUTE_SIGN_UP_EX, "Passwords were different");
+            if (lang.equals("ru"))
+                req.getSession().setAttribute(ATTRIBUTE_SIGN_UP_EX, "\u041F\u0430\u0440\u043E\u043B\u0438 \u043D\u0435 \u0441\u043E\u0432\u043F\u0430\u0434\u0430\u044E\u0442");
+            else
+                req.getSession().setAttribute(ATTRIBUTE_SIGN_UP_EX, "Passwords were different");
             return new Response(Response.Direction.Forward, SIGN_UP_JSP);
         }
         pwd = PasswordCryptoPbkdf2.hashPwd(pwd);
@@ -49,7 +57,10 @@ public class SignUpCommand implements Command {
 
         MailManager.getInstance().sendEmailVerification(user.getEmail(), user.getName(),
                 user.getSurname(), user.getVerification());
-        req.getSession().setAttribute("indexNotification", "Please verify your email");
+        if (lang.equals("ru"))
+            req.getSession().setAttribute(ATTRIBUTE_INDEX_NOTIFICATION, "\u041F\u043E\u0436\u0430\u043B\u0443\u0439\u0441\u0442\u0430 \u043F\u043E\u0434\u0442\u0432\u0435\u0440\u0434\u0438\u0442\u0435 \u0441\u0432\u043E\u0439 email");
+        else
+            req.getSession().setAttribute(ATTRIBUTE_INDEX_NOTIFICATION, "Please verify your email");
         return new Response(Response.Direction.Redirect, INDEX_JSP);
     }
 

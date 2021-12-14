@@ -30,13 +30,17 @@ public class EmailVerificationServlet extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         String email = req.getParameterValues("email")[0];
         String verificationCode = req.getParameterValues("code")[0];
+        String lang = req.getSession().getAttribute(ATTRIBUTE_LANG).toString();
 
         try {
             Optional<User> oUser = UserService.getByEmail(email);
             if (oUser.isPresent()){
                 User u = oUser.get();
                 if (u.getVerification() == null){
-                    req.getSession().setAttribute(ATTRIBUTE_INDEX_NOTIFICATION, "Email is already verified");
+                    if (lang.equals("ru"))
+                        req.getSession().setAttribute(ATTRIBUTE_INDEX_NOTIFICATION, "Email \u0443\u0436\u0435 \u043F\u043E\u0434\u0442\u0432\u0435\u0440\u0436\u0434\u0435\u043D");
+                    else
+                        req.getSession().setAttribute(ATTRIBUTE_INDEX_NOTIFICATION, "Email is already verified");
                     resp.sendRedirect(INDEX_ACT);
                     return;
                 }
@@ -46,7 +50,10 @@ public class EmailVerificationServlet extends HttpServlet {
                     req.getSession().setAttribute(ATTRIBUTE_ID, u.getId());
                     req.getSession().setAttribute(ATTRIBUTE_EMAIL, u.getEmail());
                     req.getSession().setAttribute(ATTRIBUTE_ROLE, u.getRole().name());
-                    req.getSession().setAttribute(ATTRIBUTE_INDEX_NOTIFICATION, "We have verified your email");
+                    if (lang.equals("ru"))
+                        req.getSession().setAttribute(ATTRIBUTE_INDEX_NOTIFICATION, "\u0412\u0430\u0448 email \u0442\u0435\u043F\u0435\u0440\u044C \u043F\u043E\u0434\u0442\u0432\u0435\u0440\u0436\u0434\u0435\u043D");
+                    else
+                        req.getSession().setAttribute(ATTRIBUTE_INDEX_NOTIFICATION, "We have verified your email");
                     resp.sendRedirect(INDEX_ACT);
                     return;
                 } else {

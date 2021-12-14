@@ -47,7 +47,7 @@
                 <div class="card">
                     <div class="card-header">
                         <div class="d-flex justify-content-center">
-                            <h5 class="mt-1">${roomType.roomClass} Room</h5>
+                            <h5 class="mt-1"><fmt:message key="room.class.label.${roomType.roomClass.lcName}"/> <fmt:message key="room.label.room"/></h5>
                         </div>
 
                     </div>
@@ -59,7 +59,8 @@
                                 </div>
                                 <div class="row mt-2 d-flex justify-content-center">
                                     <i class="fas fa-bed mr-2"></i>
-                                    Room has ${roomType.parsedBedsType} (capacity: ${roomType.capacity})
+                                    <p><c:choose><c:when test="${language == 'ru'}">${roomType.parsedBedsTypeRU}</c:when><c:otherwise>${roomType.parsedBedsType}</c:otherwise></c:choose></p>
+                                    <p style="text-transform: lowercase">(<fmt:message key="room.label.capacity"/>: ${roomType.capacity})</p>
                                 </div>
                             </div>
                             <div class="col-7 px-0">
@@ -74,7 +75,7 @@
                             <div class="col">
                                 <a href="#" class="btn w-100" data-toggle="modal"
                                    data-target="#requestSpecificRoomModal"
-                                   style="color: white">Book specific available room</a>
+                                   style="color: white"><fmt:message key="roomType.label.bookSpecific"/></a>
                             </div>
                         </div>
 
@@ -120,9 +121,9 @@
                 <div class="modal-body">
                     <c:choose>
                         <c:when test="${empty id}">
-                            <a class="text-center w-100">
-                                You have to login first
-                            </a>
+                            <p class="text-center w-100">
+                                <fmt:message key="roomType.label.youHaveToLogin"/>
+                            </p>
                         </c:when>
                         <c:otherwise>
                             <div class="row">
@@ -144,7 +145,7 @@
                     <div class="modal-footer mb-0 py-0"
                          style="height: 40px; background-color: mediumslateblue; border-top: solid black;">
                         <b class="btn float-right mr-0" onclick="document.getElementById('requestSpecificForm').submit();"
-                           style="width: 40%; color: white">Find</b>
+                           style="width: 40%; color: white"><fmt:message key="button.search"/></b>
                     </div>
                 </c:if>
                 <form class="my-0" id="requestSpecificForm" action="availableRooms.act" method="get">

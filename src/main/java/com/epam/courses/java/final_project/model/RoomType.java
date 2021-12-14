@@ -1,10 +1,16 @@
 package com.epam.courses.java.final_project.model;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import java.util.Arrays;
 import java.util.List;
+import java.util.Locale;
 import java.util.Objects;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
+import static com.epam.courses.java.final_project.util.constant.Constant.LOG_TRACE;
 
 /**
  * The {@code RoomType} class represent corresponding entity from database.
@@ -26,6 +32,8 @@ import java.util.regex.Pattern;
  * @author Kostiantyn Kolchenko
  */
 public class RoomType {
+
+    private static final Logger log = LogManager.getLogger(LOG_TRACE);
 
     private long id;
     private int capacity;
@@ -74,6 +82,7 @@ public class RoomType {
     /**
      * Beds type parser, that was described in class documentation.
      * Parse string of type [1S, 1T] into [1 single bed and 1 twin beds]
+     * if EN localisation
      * */
     public String getParsedBedsType() {
         StringBuilder sb = new StringBuilder();
@@ -101,6 +110,45 @@ public class RoomType {
                 case "T":
                     sb.append("twin");
                     break;
+            }
+            sb.append(bed);
+        }
+        return sb.toString();
+    }
+
+    /**
+     * Beds type parser, that was described in class documentation.
+     * Parse string of type [1S, 1T] into [1 single bed and 1 twin beds]
+     * if RU localisation (separate function because of jsp usage)
+     * */
+    public String getParsedBedsTypeRU() {
+        StringBuilder sb = new StringBuilder();
+        Matcher match = Pattern.compile("\\d[SDT]").matcher(bedsType);
+
+        while (match.find()) {
+            if (sb.length() > 0)
+                sb.append(" \u0438 ");
+            String type = match.group();
+            String bed = " \u043A\u0440\u043E\u0432\u0430\u0442\u044C";
+
+            if (type.charAt(0) != '1') {
+                sb.append(type.charAt(0)).append(" ");
+                bed = " \u043A\u0440\u043E\u0432\u0430\u0442\u0438";
+            }
+            switch (type.substring(1)) {
+                case "S":
+                    sb.append("\u043E\u0434\u043D\u043E\u043C\u0435\u0441\u0442\u043D\u0430\u044F");
+                    break;
+                case "D":
+                    sb.append("\u0434\u0432\u0443\u0441\u043F\u0430\u043B\u044C\u043D\u0430\u044F");
+                    break;
+                case "T":
+                    sb.append("\u0434\u0432\u043E\u0439\u043D\u0430\u044F");
+                    break;
+            }
+            if (type.charAt(0) != '1') {
+                sb.replace(sb.length() - 2, sb.length(), "\u044B\u0435");
+                bed = " \u043A\u0440\u043E\u0432\u0430\u0442\u0438";
             }
             sb.append(bed);
         }
@@ -185,6 +233,10 @@ public class RoomType {
 
         public int getValue() {
             return value;
+        }
+
+        public String getLcName() {  // get lowercase name
+            return name().toLowerCase(Locale.ROOT);
         }
 
         public static RoomClass getRoomClass(int num) {

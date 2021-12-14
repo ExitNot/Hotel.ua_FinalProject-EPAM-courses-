@@ -86,22 +86,22 @@
                     <form action="pwdUpdate.act" method="post" id="pwdUpdate">
                         <div class="form-row">
                             <label class="col">
-                                Old password:
+                                <fmt:message key="edit.label.oldPwd"/>:
                                 <input class="form-control" type="password" name="pwd"
-                                       placeholder="Old password" required><br/>
+                                       placeholder="<fmt:message key="edit.label.oldPwd"/>" required><br/>
                             </label>
                         </div>
                         <div class="form-row">
                             <label class="col">
-                                New password:
+                                <fmt:message key="edit.label.newPwd"/>:
                                 <input class="form-control" type="password" name="newPwd"
-                                       placeholder="New password" pattern="^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$" required><br/>
+                                       placeholder="<fmt:message key="edit.label.newPwd"/>" pattern="^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$" required><br/>
                             </label>
                         </div>
                         <div class="form-row">
                             <label class="col">
-                                Confirm new password:
-                                <input class="form-control" type="password" name="newPwdConfirmation" placeholder="Confirm password" required><br/>
+                                <fmt:message key="edit.label.newPwdConfirmation"/>:
+                                <input class="form-control" type="password" name="newPwdConfirmation" placeholder="<fmt:message key="edit.label.newPwdConfirmation"/>" required><br/>
                             </label>
                         </div>
                     </form>
@@ -121,7 +121,7 @@
         <div class="modal-dialog modal-dialog-centered modal-sm" role="form">
             <div class="modal-content">
                 <div class="modal-header d-flex justify-content-center pb-0">
-                    <h5 class="mt-1" style="color: red">Error</h5>
+                    <h5 class="mt-1" style="color: red"><fmt:message key="label.error"/></h5>
                 </div>
                 <div class="modal-body justify-content-center">
                         ${userUpdateEx}

@@ -37,6 +37,7 @@ public class AvailableRoomsCommand implements Command {
         req.getSession().setAttribute("floor", 0);
         String from = req.getParameter(PARAM_FROM);
         String to = req.getParameter(PARAM_TO);
+        String lang = req.getSession().getAttribute(ATTRIBUTE_LANG).toString();
 
         if (from == null){
             Calendar c = Calendar.getInstance();
@@ -56,23 +57,27 @@ public class AvailableRoomsCommand implements Command {
 
 
         if (Date.valueOf(from).after(Date.valueOf(to))){
-            req.getSession().setAttribute(ATTRIBUTE_ROOMS_LIST_EX, "Incorrect dates");
+            if (lang.equals("ru"))
+                req.getSession().setAttribute(ATTRIBUTE_ROOMS_LIST_EX, "\u0414\u0430\u0442\u044B \u0432\u0432\u0435\u0434\u0435\u043D\u044B \u043D\u0435\u043F\u0440\u0430\u0432\u0438\u043B\u044C\u043D\u043E");
+            else
+                req.getSession().setAttribute(ATTRIBUTE_ROOMS_LIST_EX, "Incorrect dates");
             return new Response(Response.Direction.Forward, AVAILABLE_ROOMS_JSP);
         }
 
         availableRooms = getAvailableRooms(from, to);
 
-//        Filter/Sorting
+//        Filtering
         if (req.getParameter(CommandConstant.PARAM_ROOM_TYPE_ID) != null){
             Optional<RoomType> roomType = RoomTypeService.getById(Long.parseLong(req.getParameter(PARAM_ROOM_TYPE_ID)));
             if (roomType.isPresent()){
                 RoomType rt = roomType.get();
                 req.getSession().setAttribute(ATTRIBUTE_ROOM_TYPE, rt);
+                req.getSession().setAttribute(ATTRIBUTE_ROOM_CLASS, String.valueOf(rt.getRoomClass().getValue()));
                 req.getSession().setAttribute(ATTRIBUTE_CAPACITY, rt.getCapacity());
                 availableRooms = availableRooms.stream()
                         .filter(a -> a.getRoomTypeId() == rt.getId())
                         .collect(Collectors.toList());
-            }  // todo add attributes of filters
+            }
         }
 
         if (req.getParameter(PARAM_CAPACITY) != null && !req.getParameter(PARAM_CAPACITY).equals("0")){

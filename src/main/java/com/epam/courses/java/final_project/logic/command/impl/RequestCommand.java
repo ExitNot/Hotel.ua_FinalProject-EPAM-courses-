@@ -60,7 +60,7 @@ public class RequestCommand implements Command {
             }
 
             log.trace(requestsBundle.get(0).getRoomList());
-            req.getSession().setAttribute("requestBundle", requestsBundle);
+            req.getSession().setAttribute(ATTRIBUTE_REQUEST_BUNDLE, requestsBundle);
         }
 
         return new Response(Response.Direction.Redirect, REQUEST_RESPONSE_JSP);

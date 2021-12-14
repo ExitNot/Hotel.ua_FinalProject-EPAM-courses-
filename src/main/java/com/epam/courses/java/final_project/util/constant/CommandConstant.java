@@ -58,6 +58,7 @@ public class CommandConstant {
     public static final String PARAM_TO = "dateTo";
 
 //    Attributes
+    public static final String ATTRIBUTE_LANG = "language";
     public static final String ATTRIBUTE_ID = "id";
     public static final String ATTRIBUTE_EMAIL = "email";
     public static final String ATTRIBUTE_ROLE = "role";
@@ -67,6 +68,7 @@ public class CommandConstant {
     public static final String ATTRIBUTE_ROOM_TYPES_LIST = "roomTypesList";
     public static final String ATTRIBUTE_REQUEST_LIST = "requestsList";
     public static final String ATTRIBUTE_REQUEST = "request";
+    public static final String ATTRIBUTE_REQUEST_BUNDLE = "requestBundle";
     public static final String ATTRIBUTE_RESERVATIONS_LIST = "userReservationsList";
     public static final String ATTRIBUTE_ROOM_CLASS = "roomClass";
     public static final String ATTRIBUTE_CAPACITY = "capacity";
@@ -79,6 +81,7 @@ public class CommandConstant {
     public static final String ATTRIBUTE_USER_UPDATE_EX = "userUpdateEx";  // exception
     public static final String ATTRIBUTE_SIGN_UP_EX = "signUpEx";  // exception
     public static final String ATTRIBUTE_ROOMS_LIST_EX = "roomsListEx";  // exception
+    public static final String ATTRIBUTE_REQUEST_RESPONSE_EX = "requestResponseEx";  // exception
 
 //    Pages JSP
     public static final String SIGN_UP_JSP = "signUp.jsp";

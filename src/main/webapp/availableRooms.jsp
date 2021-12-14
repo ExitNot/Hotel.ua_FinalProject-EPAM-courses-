@@ -60,7 +60,6 @@
 
     </script>
 
-<%-- todo add remove of filters --%>
     <div class="container px-0 pt-4 d-flex justify-content-center">
         <div class="card col-11 px-0">
             <div class="card-header d-flex justify-content-center py-2">
@@ -83,7 +82,7 @@
                                                id="floor" value="${empty floor ? 0 : floor}"/>
                                     </div>
                                     <div class="col-6 pr-0">
-                                        <label for="floor">Capacity</label>
+                                        <label for="floor"><fmt:message key="room.label.capacity"/></label>
                                         <input class="form-control" type="number" min="0" max="4" name="capacity"
                                                id="capacity" value="${empty capacity ? 0 : capacity}"/>
                                     </div>
@@ -93,24 +92,24 @@
                                 <select class="form-select" name="roomClass" id="roomClass"
                                         style="margin-top: 35px"
                                         aria-label=".form-select-lg example">
-                                    <option value="0" selected>Room class</option>
-                                    <option value="1">Standard</option>
-                                    <option value="2">Upgraded</option>
-                                    <option value="3">Deluxe</option>
-                                    <option value="4">Suite</option>
+                                    <option value="0" ${roomClass == '0' ? 'selected' : '' }><fmt:message key="room.label.roomClass"/></option>
+                                    <option value="1" ${roomClass == '1' ? 'selected' : '' }><fmt:message key="room.class.label.standard"/></option>
+                                    <option value="2" ${roomClass == '2' ? 'selected' : '' }><fmt:message key="room.class.label.upgraded"/></option>
+                                    <option value="3" ${roomClass == '3' ? 'selected' : '' }><fmt:message key="room.class.label.deluxe"/></option>
+                                    <option value="4" ${roomClass == '4' ? 'selected' : '' }><fmt:message key="room.class.label.suite"/></option>
                                 </select>
                             </div>
                         </div>
                     </div>
                     <div class="col-1">
                         <a href="./availableRooms.act" style="color: black"
-                           onclick="<c:remove var="capacity"/><c:remove var="floor"/><c:remove var="roomClass"/>"
-                           data-bs-toggle="tooltip" data-bs-placement="bottom" title="Remove filters">
+                           onclick="<c:remove var="capacity"/><c:remove var="floor"/><c:remove var="roomClass"/><c:remove var="dateTo"/><c:remove var="dateFrom"/>"
+                           data-bs-toggle="tooltip" data-bs-placement="bottom" title="<fmt:message key="tooltip.RemoveFilters"/>">
                             <i class="fas fa-trash-alt fa-lg float-right"></i>
                         </a>
                     </div>
                     <div class="col-2">
-                        <input class="btn mt-3" type="submit" name="searchBtn" value="Search"
+                        <input class="btn mt-3" type="submit" name="searchBtn" value="<fmt:message key="button.search"/>"
                                style="background-color: mediumslateblue; color: white"/>
                     </div>
                 </form>
@@ -118,13 +117,17 @@
             <div class="card-body pb-0">
                 <c:if test="${not empty roomType}">
                     <div class="row text-center">
-                        <a class="w-100">Only ${roomType.roomClass} room with ${roomType.parsedBedsType}</a>
+                        <div class="w-100">
+                            <a><fmt:message key="room.label.only"/> </a>
+                            <a style="text-transform: lowercase"><fmt:message key="room.class.label.${roomType.roomClass.lcName}"/> </a>
+                            <a><fmt:message key="room.label.room"/>(<c:choose><c:when test="${language == 'ru'}">${roomType.parsedBedsTypeRU}</c:when><c:otherwise>${roomType.parsedBedsType}</c:otherwise></c:choose>)</a>
+                        </div>
                     </div>
                     <c:remove var="roomType"/>
                 </c:if>
                 <c:choose>
                     <c:when test="${empty roomsList}">
-                        No such rooms available
+                        <fmt:message key="label.noSuchRoom"/>
                     </c:when>
                     <c:otherwise>
                         <table class="table table-bordered text-center">
@@ -138,13 +141,15 @@
                             </tr>
                             </thead>
                             <tbody>
-
                             <c:forEach var="room" items="${roomsList}">
                                 <tr class="text-center">
                                     <td>${room.roomNumber}</td>
                                     <td>${room.floor}</td>
-                                    <td>${room.roomType.parsedBedsType}</td>
-                                    <td>${room.roomType.roomClass}</td>
+                                    <c:choose>
+                                        <c:when test="${language == 'ru'}"><td>${room.roomType.parsedBedsTypeRU}</td></c:when>
+                                        <c:otherwise><td>${room.roomType.parsedBedsType}</td></c:otherwise>
+                                    </c:choose>
+                                    <td><fmt:message key="room.class.label.${room.roomType.roomClass.lcName}"/></td>
                                     <td>
                                         <a class="link" href="#"
                                            data-toggle="modal" data-target="#requestModal${room.id}">
@@ -164,13 +169,13 @@
                                                     <input type="hidden" name="dateTo" value="${dateTo}">
                                                     <div class="row">
                                                         <div class="col">
-                                                            <label for="amountOfAdultsInRoom">adults:</label>
-                                                            <input class="form-control" type="number" name="amountOfAdultsIn_room" placeholder="adult"
+                                                            <label for="amountOfAdultsInRoom"><fmt:message key="request.label.adults"/>:</label>
+                                                            <input class="form-control" type="number" name="amountOfAdultsIn_room" placeholder="<fmt:message key="request.label.adults"/>"
                                                                    min="1" max="5" value="1" onChange="guests_value()" id="amountOfAdultsInRoom"/>
                                                         </div>
                                                         <div class="col">
-                                                            <label for="amountOfChildrenInRoom">children:</label>
-                                                            <input class="form-control" type="number" name="amountOfChildrenIn_room" placeholder="child"
+                                                            <label for="amountOfChildrenInRoom"><fmt:message key="request.label.children"/>:</label>
+                                                            <input class="form-control" type="number" name="amountOfChildrenIn_room" placeholder="<fmt:message key="request.label.children"/>"
                                                                    min="0" max="5" value="0" onChange="guests_value()" id="amountOfChildrenInRoom"/>
                                                         </div>
                                                     </div>
@@ -195,14 +200,13 @@
     </div>
 
     <a href="#" type="hidden" id="error_modal_btn" data-toggle="modal" data-target="#errorModal"></a>
-    <%--    <a href="#" id="sign_in_btn" class="button" data-toggle="modal" data-target="#signInModal"></a>--%>
 
     <!-- Error modal -->
     <div class="modal fade" id="errorModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="false">
         <div class="modal-dialog modal-dialog-centered modal-sm" role="form">
             <div class="modal-content">
                 <div class="modal-header d-flex justify-content-center pb-0">
-                    <h5 class="mt-1" style="color: red">Error</h5>
+                    <h5 class="mt-1" style="color: red"><fmt:message key="label.error"/></h5>
                 </div>
                 <div class="modal-body justify-content-center">
                         ${roomsListEx}

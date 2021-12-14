@@ -24,6 +24,7 @@ public class UserUpdateCommand implements Command {
     @Override
     public Response execute(HttpServletRequest req, HttpServletResponse resp) throws JDBCException {
         Optional<User> oUser = UserService.getById(Long.parseLong(req.getSession().getAttribute(ATTRIBUTE_ID).toString()));
+        String lang = req.getSession().getAttribute(ATTRIBUTE_LANG).toString();
 
         if (oUser.isPresent()){
             User u = oUser.get();
@@ -31,11 +32,21 @@ public class UserUpdateCommand implements Command {
                 String pwd = req.getParameter(PARAM_PWD);
                 String newPwd = req.getParameter(PARAM_NEW_PWD);
                 if (!PasswordCryptoPbkdf2.validatePwd(req.getParameter(PARAM_PWD), u.getPassword())) {
-                    req.getSession().setAttribute(ATTRIBUTE_USER_UPDATE_EX, "Old password is incorrect!");
+                    if (lang.equals("ru"))
+                        req.getSession().setAttribute(ATTRIBUTE_USER_UPDATE_EX,
+                                "\u041D\u0435\u0432\u0435\u0440\u043D\u044B\u0439 " +
+                                      "\u043F\u0430\u0440\u043E\u043B\u044C(\u043F\u0440\u043E\u0448\u043B\u044B\u0439)");
+                    else
+                        req.getSession().setAttribute(ATTRIBUTE_USER_UPDATE_EX, "Old password is incorrect!");
                     return new Response(Response.Direction.Forward, EDIT_PROFILE_JSP);
                 }
                 if (!newPwd.equals(req.getParameter(PARAM_NEW_PWD + "Confirmation"))) {
-                    req.getSession().setAttribute(ATTRIBUTE_USER_UPDATE_EX, "Passwords were different");
+                    if (lang.equals("ru"))
+                        req.getSession().setAttribute(ATTRIBUTE_USER_UPDATE_EX,
+                                "\u041F\u0430\u0440\u043E\u043B\u0438 \u043D\u0435 " +
+                                      "\u0441\u043E\u0432\u043F\u0430\u0434\u0430\u044E\u0442");
+                    else
+                        req.getSession().setAttribute(ATTRIBUTE_USER_UPDATE_EX, "Passwords were different");
                     return new Response(Response.Direction.Forward, EDIT_PROFILE_JSP);
                 }
                 u.setPassword(PasswordCryptoPbkdf2.hashPwd(newPwd));

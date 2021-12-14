@@ -28,17 +28,24 @@ public class RequestResponseCommand implements Command {
     public Response execute(HttpServletRequest req, HttpServletResponse resp) throws JDBCException {
         List<Request> requestsBundle = (List<Request>) req.getSession().getAttribute("requestBundle");
         List<Long> chosenRooms = new ArrayList<>();
+        String lang = req.getSession().getAttribute(ATTRIBUTE_LANG).toString();
 
         for (Request r : requestsBundle){
             if (req.getParameter("price" + r.getId()).isEmpty()){
-                req.getSession().setAttribute("requestResponseEx", "Price field was empty");
-                return new Response(Response.Direction.Forward, "requestResponse.jsp");
+                if (lang.equals("ru"))
+                    req.getSession().setAttribute(ATTRIBUTE_REQUEST_RESPONSE_EX, "\u0421\u0442\u0440\u043E\u043A\u0430 \u0441\u0442\u043E\u0438\u043C\u043E\u0441\u0442\u044C \u043F\u0443\u0441\u0442\u0430");
+                else
+                    req.getSession().setAttribute(ATTRIBUTE_REQUEST_RESPONSE_EX, "Price field was empty");
+                return new Response(Response.Direction.Forward, REQUEST_RESPONSE_JSP);
             }
             r.setPrice(Double.parseDouble(req.getParameter("price" + r.getId())));
             if (r.getRoomId() == 0){
                 if (req.getParameter("chosenRoomId" + r.getId()) == null || req.getParameter("chosenRoomId" + r.getId()).isEmpty()){
-                    req.getSession().setAttribute("requestResponseEx", "Room was not chosen");
-                    return new Response(Response.Direction.Forward, "requestResponse.jsp");
+                    if (lang.equals("ru"))
+                        req.getSession().setAttribute(ATTRIBUTE_REQUEST_RESPONSE_EX, "\u041A\u043E\u043C\u043D\u0430\u0442\u0430 \u043D\u0435 \u0431\u044B\u043B\u0430 \u0432\u044B\u0431\u0440\u0430\u043D\u0430");
+                    else
+                        req.getSession().setAttribute(ATTRIBUTE_REQUEST_RESPONSE_EX, "Room was not chosen");
+                    return new Response(Response.Direction.Forward, REQUEST_RESPONSE_JSP);
                 }
                 chosenRooms.add(Long.parseLong(req.getParameter("chosenRoomId" + r.getId())));
                 r.setRoomId(Long.parseLong(req.getParameter("chosenRoomId" + r.getId())));
@@ -49,8 +56,11 @@ public class RequestResponseCommand implements Command {
         }
 
         if (chosenRooms.size() > (new HashSet<Long>(chosenRooms)).size()){
-            req.getSession().setAttribute("requestResponseEx", "Same rooms was chosen");
-            return new Response(Response.Direction.Forward, "requestResponse.jsp");
+            if (lang.equals("ru"))
+                req.getSession().setAttribute(ATTRIBUTE_REQUEST_RESPONSE_EX, "\u0411\u044B\u043B\u0438 \u0432\u044B\u0431\u0440\u0430\u043D\u044B \u043E\u0434\u0438\u043D\u0430\u043A\u043E\u0432\u044B\u0435 \u043A\u043E\u043C\u043D\u0430\u0442\u044B");
+            else
+                req.getSession().setAttribute(ATTRIBUTE_REQUEST_RESPONSE_EX, "Same rooms was chosen");
+            return new Response(Response.Direction.Forward, REQUEST_RESPONSE_JSP);
         }
 
         for (Request r : requestsBundle){
@@ -61,7 +71,6 @@ public class RequestResponseCommand implements Command {
                         i.getTo().after(r.getFrom()) && i.getId() != r.getId()){
                     i.setStatus(4);
                     RequestService.update(i);
-//                    todo email that room was booked
                 }
             }
         }

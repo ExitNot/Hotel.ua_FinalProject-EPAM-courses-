@@ -1,7 +1,11 @@
 <%-- Created by Kostiantyn Kolchenko(@ExitNot) --%>
 <%@ taglib prefix="t" tagdir="/WEB-INF/tags" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+
+<fmt:setLocale value="${not empty param.language ? param.language : language}" scope="session"/>
+<fmt:setBundle basename="web-text"/>
 
 <c:if test="${empty id}">
     <c:redirect url="myRequests.act"></c:redirect>
@@ -11,20 +15,20 @@
     <div class="container px-0 pt-4 d-flex justify-content-center">
         <div class="card col-12 px-0">
             <div class="card-header d-flex justify-content-center py-2">
-                <h5 class="mt-3">Requests</h5>
+                <h5 class="mt-3"><fmt:message key="label.requests"/></h5>
             </div>
             <div class="card-body pb-0">
                 <table class="table table-bordered">
                     <thead style="background-color: mediumslateblue; color: white">
                     <tr>
-                        <th scope="col">Room number</th>
-                        <th scope="col">Guests amount</th>
-                        <th scope="col" class="col-2">From</th>
-                        <th scope="col" class="col-2">To</th>
-                        <th scope="col">Room class</th>
-                        <th scope="col">Price</th>
-                        <th scope="col">Status</th>
-                        <th scope="col">Action</th>
+                        <th scope="col"><fmt:message key="room.label.roomNumber"/></th>
+                        <th scope="col"><fmt:message key="request.label.guestsAmount"/></th>
+                        <th scope="col" class="col-2"><fmt:message key="reservations.label.from"/></th>
+                        <th scope="col" class="col-2"><fmt:message key="reservations.label.to"/></th>
+                        <th scope="col"><fmt:message key="room.label.roomClass"/></th>
+                        <th scope="col"><fmt:message key="request.label.price"/></th>
+                        <th scope="col"><fmt:message key="request.label.status"/></th>
+                        <th scope="col"><fmt:message key="label.action"/></th>
                     </tr>
                     </thead>
                     <tbody>
@@ -39,36 +43,41 @@
                                     <c:when test="${not empty request.roomType}">
                                         <a class="link-info" href="#"
                                            onclick="document.getElementById('info_form${request.id}').submit();">
-                                                ${request.roomType.roomClass} with ${request.roomType.parsedBedsType}
+                                            <fmt:message key="room.class.label.${request.roomType.roomClass.lcName}"/>(<c:choose><c:when test="${language == 'ru'}">${request.roomType.parsedBedsTypeRU}</c:when><c:otherwise>${request.roomType.parsedBedsType}</c:otherwise></c:choose>)
                                         </a>
                                     </c:when>
                                     <c:otherwise>
-                                        <a class="link-info" href="#">
-                                                ${request.rc}
+                                        <a class="link-info">
+                                            <fmt:message key="room.class.label.${request.rc.lcName}"/>
                                         </a>
                                     </c:otherwise>
                                 </c:choose>
 
                             </td>
                             <td>${request.price}</td>
-                            <td>${request.statusName}</td>
                             <td>
-                                <c:if test="${request.statusName == 'Waiting for accept'}">
+                                <c:if test="${request.status.value != '4'}">
+                                    <a><fmt:message key="request.status.label.waitingFor"/> </a>
+                                </c:if>
+                                <a style="text-transform: lowercase"><fmt:message key="request.status.label.${request.statusName}"/></a>
+                            </td>
+                            <td>
+                                <c:if test="${request.status.value == '2'}">
                                     <a class="link-error" href="#"
                                        onclick="document.getElementById('accept_form${request.id}').submit();">
-                                        Accept
+                                        <fmt:message key="request.action.label.accept"/>
                                     </a>
                                 </c:if>
-                                <c:if test="${request.statusName != 'Payment'}">
+                                <c:if test="${request.status.value != '3'}">
                                     <a class="link-error" href="#"
                                        onclick="document.getElementById('cancel_form${request.id}').submit();">
-                                        Delete
+                                        <fmt:message key="request.action.label.delete"/>
                                     </a>
                                 </c:if>
-                                <c:if test="${request.statusName == 'Payment'}">
+                                <c:if test="${request.status.value == '3'}">
                                     <a class="link-error" href="#"
                                        data-toggle="modal" data-target="#paymentModal${request.id}">
-                                        Pay
+                                        <fmt:message key="request.action.label.pay"/>
                                     </a>
                                 </c:if>
                             </td>
@@ -92,7 +101,7 @@
                                     <div class="modal-body text-center py-5">
                                         <form class="px-3 mb-0" action="payment.act" method="post" id="paymentForm">
                                             <input type="hidden" name="requestId" value="${request.id}">
-                                            <input class="btn" type="submit" value="Pay"
+                                            <input class="btn" type="submit" value="<fmt:message key="request.action.label.pay"/>"
                                                    style="background-color: mediumslateblue; color: white"/>
                                         </form>
                                     </div>

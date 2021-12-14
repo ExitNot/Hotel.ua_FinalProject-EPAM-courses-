@@ -1,7 +1,11 @@
 <%-- Created by Kostiantyn Kolchenko(@ExitNot) --%>
 <%@ taglib prefix="t" tagdir="/WEB-INF/tags" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+
+<fmt:setLocale value="${not empty param.language ? param.language : language}" scope="session"/>
+<fmt:setBundle basename="web-text"/>
 
 <c:if test="${empty id}">
     <c:redirect url="myRequests.act"></c:redirect>
@@ -36,11 +40,11 @@
                                     <c:remove var="waitingForResponse"/>
                                 </c:otherwise>
                             </c:choose>
-                            <a class="col-sm-2 ml-2">Requests waiting for response</a>
+                            <a class="col-sm-2 ml-2"><fmt:message key="request.checkbox.waitingForResp"/></a>
                         </label>
                     </div>
                     <div class="col-3 text-right">
-                        <input class="btn" type="submit" name="searchBtn" value="Search"
+                        <input class="btn" type="submit" name="searchBtn" value="<fmt:message key="button.search"/>"
                                style="background-color: mediumslateblue; color: white"/>
                     </div>
                 </form>
@@ -49,15 +53,15 @@
                 <table class="table table-bordered text-center">
                     <thead style="background-color: mediumslateblue; color: white">
                     <tr>
-                        <th scope="col">User</th>
-                        <th scope="col" class="col-1">Room number</th>
-                        <th scope="col">From</th>
-                        <th scope="col">To</th>
-                        <th scope="col">Room class</th>
-                        <th scope="col">Price</th>
-                        <th scope="col">Status</th>
-                        <th scope="col">Response</th>
-                        <th scope="col">Cancel</th>
+                        <th scope="col"><fmt:message key="request.label.user"/></th>
+                        <th scope="col" class="col-1"><fmt:message key="room.label.roomNumber"/></th>
+                        <th scope="col"><fmt:message key="reservations.label.from"/></th>
+                        <th scope="col"><fmt:message key="reservations.label.to"/></th>
+                        <th scope="col"><fmt:message key="room.label.roomClass"/></th>
+                        <th scope="col"><fmt:message key="request.label.price"/></th>
+                        <th scope="col"><fmt:message key="request.label.status"/></th>
+                        <th scope="col"><fmt:message key="label.action"/></th>
+                        <th scope="col"><fmt:message key="label.cancel"/></th>
                     </tr>
                     </thead>
                     <tbody>
@@ -72,32 +76,39 @@
                                         <c:when test="${not empty request.roomType}">
                                             <a class="link-info" href="#"
                                                onclick="document.getElementById('info_form${request.id}').submit();">
-                                                    ${request.roomType.roomClass} with ${request.roomType.parsedBedsType}
+                                                <fmt:message key="room.class.label.${request.roomType.roomClass.lcName}"/>(<c:choose><c:when test="${language == 'ru'}">${request.roomType.parsedBedsTypeRU}</c:when><c:otherwise>${request.roomType.parsedBedsType}</c:otherwise></c:choose>)
                                             </a>
                                         </c:when>
                                         <c:otherwise>
-                                            <a>
-                                                    ${request.rc}
+                                            <a class="link-info">
+                                                <fmt:message key="room.class.label.${request.rc.lcName}"/>
                                             </a>
                                         </c:otherwise>
                                     </c:choose>
                                 </td>
                                 <td>${request.price}</td>
-                                <td>${request.statusName}</td>
+                                <td>
+                                    <c:if test="${request.status.value != '4'}">
+                                        <a><fmt:message key="request.status.label.waitingFor"/> </a>
+                                    </c:if>
+                                    <a style="text-transform: lowercase"><fmt:message key="request.status.label.${request.statusName}"/></a>
+                                </td>
                                 <td>
                                     <form action="request.act" id="requestForm${request.id}">
                                         <input type="hidden" name="requestId" value="${request.id}">
                                         <input type="hidden" name="requestRcVal"
                                                value="${empty request.rc ? request.roomType.roomClass.value : request.rc.value}"/>
                                         <c:choose>
-                                            <c:when test="${request.statusName == 'Waiting for manager response'}">
+                                            <c:when test="${request.status.value == '1'}">
                                                 <a href="#" class="btn-link border-0"
                                                    onclick="document.getElementById('requestForm${request.id}').submit()">
-                                                    Response
+                                                    <fmt:message key="request.label.response"/>
                                                 </a>
                                             </c:when>
                                             <c:otherwise>
-                                                <a class="btn-link border-0">Response</a>
+                                                <a class="btn-link border-0">
+                                                    <fmt:message key="request.label.response"/>
+                                                </a>
                                             </c:otherwise>
                                         </c:choose>
                                     </form>
@@ -105,7 +116,7 @@
                                 <td>
                                     <a class="link" href="#" style="color: red"
                                        onclick="document.getElementById('cancel_form${request.id}').submit();">
-                                        Cancel
+                                        <fmt:message key="request.action.label.cancel"/>
                                     </a>
                                 </td>
                         </tr>
