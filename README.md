@@ -19,6 +19,8 @@ and sending back a request to confirm the booking.
 
 After successful booking the system creates a bill that has to be paid up, otherwise, it would be canceled in 2 days.
 
+All the photos was used only for studying purpose. (taken from https://www.bluebay.gr)
+
 ## Technologies
 
 ------------------------
